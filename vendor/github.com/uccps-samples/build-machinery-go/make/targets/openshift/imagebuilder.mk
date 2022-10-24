@@ -11,12 +11,12 @@ _imagebuilder_installed_version = $(shell $(IMAGEBUILDER) --version)
 endif
 
 # NOTE: We would like to
-#     go get github.com/openshift/imagebuilder/cmd/imagebuilder@v$(IMAGEBUILDER_VERSION)
+#     go get github.com/uccps-samples/imagebuilder/cmd/imagebuilder@v$(IMAGEBUILDER_VERSION)
 # ...but `go get` is too unreliable. So instead we use this to make the
 # "you don't have imagebuilder" error useful.
 ensure-imagebuilder:
 ifeq "" "$(IMAGEBUILDER)"
-	$(error imagebuilder not found! Get it with: `go get github.com/openshift/imagebuilder/cmd/imagebuilder@v$(IMAGEBUILDER_VERSION)`)
+	$(error imagebuilder not found! Get it with: `go get github.com/uccps-samples/imagebuilder/cmd/imagebuilder@v$(IMAGEBUILDER_VERSION)`)
 else
 	$(info Using existing imagebuilder from $(IMAGEBUILDER))
 	@[[ "$(_imagebuilder_installed_version)" == $(IMAGEBUILDER_VERSION) ]] || \

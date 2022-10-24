@@ -13,9 +13,9 @@ include ./default.mk
 # or you can list it live by using `make help`
 
 # Codegen module needs setting these required variables
-CODEGEN_OUTPUT_PACKAGE :=github.com/openshift/cluster-openshift-apiserver-operator/pkg/generated
-CODEGEN_API_PACKAGE :=github.com/openshift/cluster-openshift-apiserver-operator/pkg/apis
-CODEGEN_GROUPS_VERSION :=openshiftapiserver:v1alpha1
+CODEGEN_OUTPUT_PACKAGE :=github.com/uccps-samples/cluster-openshift-apiserver-operator/pkg/generated
+CODEGEN_API_PACKAGE :=github.com/uccps-samples/cluster-openshift-apiserver-operator/pkg/apis
+CODEGEN_GROUPS_VERSION :=uccpapiserver:v1alpha1
 # You can list all codegen related variables by:
 #   $ make -n --print-data-base | grep ^CODEGEN
 

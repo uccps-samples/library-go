@@ -208,15 +208,6 @@ github.com/opencontainers/go-digest
 ## explicit
 github.com/opencontainers/image-spec/specs-go
 github.com/opencontainers/image-spec/specs-go/v1
-# github.com/openshift/build-machinery-go v0.0.0-20211213093930-7e33a7eb4ce3
-## explicit; go 1.13
-github.com/openshift/build-machinery-go/make
-github.com/openshift/build-machinery-go/make/lib
-github.com/openshift/build-machinery-go/make/targets
-github.com/openshift/build-machinery-go/make/targets/golang
-github.com/openshift/build-machinery-go/make/targets/openshift
-github.com/openshift/build-machinery-go/make/targets/openshift/operator
-github.com/openshift/build-machinery-go/scripts
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
@@ -327,9 +318,16 @@ github.com/uccps-samples/api/uccpcontrolplane/v1
 github.com/uccps-samples/api/unidling/v1alpha1
 github.com/uccps-samples/api/user
 github.com/uccps-samples/api/user/v1
-# github.com/uccps-samples/build-machinery-go v0.0.0-20221024062755-08f96e041880
+# github.com/uccps-samples/build-machinery-go v0.0.0-20221024073655-3930cec85ae1
 ## explicit; go 1.13
 github.com/uccps-samples/build-machinery-go
+github.com/uccps-samples/build-machinery-go/make
+github.com/uccps-samples/build-machinery-go/make/lib
+github.com/uccps-samples/build-machinery-go/make/targets
+github.com/uccps-samples/build-machinery-go/make/targets/golang
+github.com/uccps-samples/build-machinery-go/make/targets/openshift
+github.com/uccps-samples/build-machinery-go/make/targets/openshift/operator
+github.com/uccps-samples/build-machinery-go/scripts
 # github.com/uccps-samples/client-go v0.0.0-20221024054841-3fd8d9add308
 ## explicit; go 1.16
 github.com/uccps-samples/client-go/apps/clientset/versioned/scheme
