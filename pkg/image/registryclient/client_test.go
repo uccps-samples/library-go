@@ -27,7 +27,7 @@ import (
 	registryclient "github.com/docker/distribution/registry/client"
 	"github.com/docker/distribution/registry/client/auth"
 	"github.com/opencontainers/go-digest"
-	imagereference "github.com/openshift/library-go/pkg/image/reference"
+	imagereference "github.com/uccps-samples/library-go/pkg/image/reference"
 )
 
 type mockRetriever struct {

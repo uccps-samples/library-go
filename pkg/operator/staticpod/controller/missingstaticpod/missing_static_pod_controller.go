@@ -15,11 +15,11 @@ import (
 	corelisterv1 "k8s.io/client-go/listers/core/v1"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/staticpod/internal"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/internal"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 type missingStaticPodController struct {

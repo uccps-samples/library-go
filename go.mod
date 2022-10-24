@@ -1,4 +1,4 @@
-module github.com/openshift/library-go
+module github.com/uccps-samples/library-go
 
 go 1.17
 
@@ -16,9 +16,6 @@ require (
 	github.com/imdario/mergo v0.3.7
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
 	github.com/opencontainers/go-digest v1.0.0-rc1
-	github.com/openshift/api v0.0.0-20211209135129-c58d9f695577
-	github.com/openshift/build-machinery-go v0.0.0-20211213093930-7e33a7eb4ce3
-	github.com/openshift/client-go v0.0.0-20211209144617-7385dd6338e3
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.3.0
 	github.com/prometheus/client_golang v1.11.0
@@ -27,6 +24,9 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
+	github.com/uccps-samples/api v0.0.0-20221024022605-15eb4edddfaa
+	github.com/uccps-samples/build-machinery-go v0.0.0-20221024062755-08f96e041880
+	github.com/uccps-samples/client-go v0.0.0-20221024054841-3fd8d9add308
 	go.etcd.io/etcd/client/v3 v3.5.0
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
 	golang.org/x/sys v0.0.0-20210831042530-f4d43177bf5e
@@ -85,6 +85,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
+	github.com/openshift/build-machinery-go v0.0.0-20211213093930-7e33a7eb4ce3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.28.0 // indirect

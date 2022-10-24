@@ -13,14 +13,14 @@ import (
 	corev1 "k8s.io/client-go/informers/core/v1"
 	corev1listers "k8s.io/client-go/listers/core/v1"
 
-	configv1 "github.com/openshift/api/config/v1"
-	opv1 "github.com/openshift/api/operator/v1"
-	configinformers "github.com/openshift/client-go/config/informers/externalversions"
-	"github.com/openshift/library-go/pkg/operator/csi/csiconfigobservercontroller"
-	dc "github.com/openshift/library-go/pkg/operator/deploymentcontroller"
-	"github.com/openshift/library-go/pkg/operator/loglevel"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcehash"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	opv1 "github.com/uccps-samples/api/operator/v1"
+	configinformers "github.com/uccps-samples/client-go/config/informers/externalversions"
+	"github.com/uccps-samples/library-go/pkg/operator/csi/csiconfigobservercontroller"
+	dc "github.com/uccps-samples/library-go/pkg/operator/deploymentcontroller"
+	"github.com/uccps-samples/library-go/pkg/operator/loglevel"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcehash"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
@@ -38,7 +38,7 @@ const (
 // WithObservedProxyDeploymentHook creates a deployment hook that injects into the deployment's containers the observed proxy config.
 func WithObservedProxyDeploymentHook() dc.DeploymentHookFunc {
 	return func(opSpec *opv1.OperatorSpec, deployment *appsv1.Deployment) error {
-		containerNamesString := deployment.Annotations["config.openshift.io/inject-proxy"]
+		containerNamesString := deployment.Annotations["config.uccp.io/inject-proxy"]
 		err := v1helpers.InjectObservedProxyIntoContainers(
 			&deployment.Spec.Template.Spec,
 			strings.Split(containerNamesString, ","),
@@ -69,7 +69,7 @@ func WithCABundleDeploymentHook(
 
 		// Inject the CA bundle into the requested containers. This annotation is congruent to the
 		// one used by CVO and the proxy hook) to inject proxy information.
-		containerNamesString := deployment.Annotations["config.openshift.io/inject-proxy-cabundle"]
+		containerNamesString := deployment.Annotations["config.uccp.io/inject-proxy-cabundle"]
 		err = v1helpers.InjectTrustedCAIntoContainers(
 			&deployment.Spec.Template.Spec,
 			configMapName,
@@ -236,10 +236,10 @@ func addObjectHash(deployment *appsv1.Deployment, inputHashes map[string]string)
 		deployment.Spec.Template.Annotations = map[string]string{}
 	}
 	for k, v := range inputHashes {
-		annotationKey := fmt.Sprintf("operator.openshift.io/dep-%s", k)
+		annotationKey := fmt.Sprintf("operator.uccp.io/dep-%s", k)
 		if len(annotationKey) > 63 {
 			hash := sha256.Sum256([]byte(k))
-			annotationKey = fmt.Sprintf("operator.openshift.io/dep-%x", hash)
+			annotationKey = fmt.Sprintf("operator.uccp.io/dep-%x", hash)
 			annotationKey = annotationKey[:63]
 		}
 		deployment.Annotations[annotationKey] = v

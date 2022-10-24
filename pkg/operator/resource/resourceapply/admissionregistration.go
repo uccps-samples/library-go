@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcemerge"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcemerge"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"

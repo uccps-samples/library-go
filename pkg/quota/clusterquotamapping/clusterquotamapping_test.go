@@ -17,9 +17,9 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 	clientgotesting "k8s.io/client-go/testing"
 
-	quotav1 "github.com/openshift/api/quota/v1"
-	quotaclient "github.com/openshift/client-go/quota/clientset/versioned/fake"
-	quotainformer "github.com/openshift/client-go/quota/informers/externalversions"
+	quotav1 "github.com/uccps-samples/api/quota/v1"
+	quotaclient "github.com/uccps-samples/client-go/quota/clientset/versioned/fake"
+	quotainformer "github.com/uccps-samples/client-go/quota/informers/externalversions"
 )
 
 var (

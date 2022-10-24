@@ -22,7 +22,7 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 func Test_csrApproverController_sync(t *testing.T) {

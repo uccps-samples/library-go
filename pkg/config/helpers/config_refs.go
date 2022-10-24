@@ -3,7 +3,7 @@ package helpers
 import (
 	"strings"
 
-	configv1 "github.com/openshift/api/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
 )
 
 func GetHTTPServingInfoFileReferences(config *configv1.HTTPServingInfo) []*string {

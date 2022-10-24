@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/wait"

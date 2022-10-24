@@ -6,9 +6,9 @@ import (
 )
 
 const (
-	SingleTenantPluginName  = "redhat/openshift-ovs-subnet"
-	MultiTenantPluginName   = "redhat/openshift-ovs-multitenant"
-	NetworkPolicyPluginName = "redhat/openshift-ovs-networkpolicy"
+	SingleTenantPluginName  = "redhat/uccp-ovs-subnet"
+	MultiTenantPluginName   = "redhat/uccp-ovs-multitenant"
+	NetworkPolicyPluginName = "redhat/uccp-ovs-networkpolicy"
 )
 
 var localHosts []string = []string{"127.0.0.1", "::1", "localhost"}

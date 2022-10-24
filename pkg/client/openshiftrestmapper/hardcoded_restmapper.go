@@ -63,12 +63,12 @@ var defaultRESTMappings = []meta.RESTMapping{
 		Resource:         schema.GroupVersionResource{Group: "apps", Version: "v1", Resource: "statefulsets"},
 	},
 	// This is created so that cluster-bootstrap can always map securitycontextconstraints since the CRD doesn't have
-	// discovery. Discovery is delegated to the openshift-apiserver which doesn't not exist early in the bootstrapping
+	// discovery. Discovery is delegated to the uccp-apiserver which doesn't not exist early in the bootstrapping
 	// phase.  This leads to SCC related failures that we don't need to have.
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "security.openshift.io", Version: "v1", Kind: "SecurityContextConstraints"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "security.uccp.io", Version: "v1", Kind: "SecurityContextConstraints"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "security.openshift.io", Version: "v1", Resource: "securitycontextconstraints"},
+		Resource:         schema.GroupVersionResource{Group: "security.uccp.io", Version: "v1", Resource: "securitycontextconstraints"},
 	},
 	// This is created so that cluster-bootstrap can always map customresourcedefinitions, RBAC, machine resources so that CRDs and
 	// permissions are always created quickly.  We observed discovery not including these on AWS OVN installations and
@@ -99,61 +99,61 @@ var defaultRESTMappings = []meta.RESTMapping{
 		Resource:         schema.GroupVersionResource{Group: "rbac.authorization.k8s.io", Version: "v1", Resource: "rolebindings"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "machine.openshift.io", Version: "v1beta1", Kind: "Machine"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "machine.uccp.io", Version: "v1beta1", Kind: "Machine"},
 		Scope:            meta.RESTScopeNamespace,
-		Resource:         schema.GroupVersionResource{Group: "machine.openshift.io", Version: "v1beta1", Resource: "machines"},
+		Resource:         schema.GroupVersionResource{Group: "machine.uccp.io", Version: "v1beta1", Resource: "machines"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "machine.openshift.io", Version: "v1beta1", Kind: "MachineSet"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "machine.uccp.io", Version: "v1beta1", Kind: "MachineSet"},
 		Scope:            meta.RESTScopeNamespace,
-		Resource:         schema.GroupVersionResource{Group: "machine.openshift.io", Version: "v1beta1", Resource: "machinesets"},
+		Resource:         schema.GroupVersionResource{Group: "machine.uccp.io", Version: "v1beta1", Resource: "machinesets"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "machineconfiguration.openshift.io", Version: "v1", Kind: "MachineConfig"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "machineconfiguration.uccp.io", Version: "v1", Kind: "MachineConfig"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "machineconfiguration.openshift.io", Version: "v1", Resource: "machineconfigs"},
+		Resource:         schema.GroupVersionResource{Group: "machineconfiguration.uccp.io", Version: "v1", Resource: "machineconfigs"},
 	},
 	// This is here so cluster-bootstrap can always create the config instances that are used to drive our operators to avoid the
 	// excessive bootstrap wait that prevents installer from completing on AWS OVN
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "config.openshift.io", Version: "v1", Kind: "DNS"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "config.uccp.io", Version: "v1", Kind: "DNS"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "config.openshift.io", Version: "v1", Resource: "dnses"},
+		Resource:         schema.GroupVersionResource{Group: "config.uccp.io", Version: "v1", Resource: "dnses"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "config.openshift.io", Version: "v1", Kind: "Infrastructure"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "config.uccp.io", Version: "v1", Kind: "Infrastructure"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "config.openshift.io", Version: "v1", Resource: "infrastructures"},
+		Resource:         schema.GroupVersionResource{Group: "config.uccp.io", Version: "v1", Resource: "infrastructures"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "config.openshift.io", Version: "v1", Kind: "Network"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "config.uccp.io", Version: "v1", Kind: "Network"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "config.openshift.io", Version: "v1", Resource: "networks"},
+		Resource:         schema.GroupVersionResource{Group: "config.uccp.io", Version: "v1", Resource: "networks"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "config.openshift.io", Version: "v1", Kind: "Ingress"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "config.uccp.io", Version: "v1", Kind: "Ingress"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "config.openshift.io", Version: "v1", Resource: "ingresses"},
+		Resource:         schema.GroupVersionResource{Group: "config.uccp.io", Version: "v1", Resource: "ingresses"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "config.openshift.io", Version: "v1", Kind: "Proxy"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "config.uccp.io", Version: "v1", Kind: "Proxy"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "config.openshift.io", Version: "v1", Resource: "proxies"},
+		Resource:         schema.GroupVersionResource{Group: "config.uccp.io", Version: "v1", Resource: "proxies"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "config.openshift.io", Version: "v1", Kind: "Scheduler"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "config.uccp.io", Version: "v1", Kind: "Scheduler"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "config.openshift.io", Version: "v1", Resource: "schedulers"},
+		Resource:         schema.GroupVersionResource{Group: "config.uccp.io", Version: "v1", Resource: "schedulers"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "config.openshift.io", Version: "v1", Kind: "ClusterVersion"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "config.uccp.io", Version: "v1", Kind: "ClusterVersion"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "config.openshift.io", Version: "v1", Resource: "clusterversions"},
+		Resource:         schema.GroupVersionResource{Group: "config.uccp.io", Version: "v1", Resource: "clusterversions"},
 	},
 	{
-		GroupVersionKind: schema.GroupVersionKind{Group: "operator.openshift.io", Version: "v1", Kind: "CloudCredential"},
+		GroupVersionKind: schema.GroupVersionKind{Group: "operator.uccp.io", Version: "v1", Kind: "CloudCredential"},
 		Scope:            meta.RESTScopeRoot,
-		Resource:         schema.GroupVersionResource{Group: "operator.openshift.io", Version: "v1", Resource: "cloudcredentials"},
+		Resource:         schema.GroupVersionResource{Group: "operator.uccp.io", Version: "v1", Resource: "cloudcredentials"},
 	},
 	{
 		GroupVersionKind: schema.GroupVersionKind{Group: "monitoring.coreos.com", Version: "v1", Kind: "ServiceMonitor"},

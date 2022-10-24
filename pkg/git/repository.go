@@ -210,7 +210,7 @@ func (r *repository) GetRootDir(location string) (string, error) {
 
 var (
 	remoteURLExtract  = regexp.MustCompile("^remote\\.(.*)\\.url (.*?)$")
-	remoteOriginNames = []string{"origin", "upstream", "github", "openshift", "heroku"}
+	remoteOriginNames = []string{"origin", "upstream", "github", "uccps-samples", "heroku"}
 )
 
 // GetOriginURL returns the origin branch URL for the git repository

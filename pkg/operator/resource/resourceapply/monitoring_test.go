@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/ghodss/yaml"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
 	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/util/diff"
 
@@ -17,7 +17,7 @@ import (
 	dynamicfake "k8s.io/client-go/dynamic/fake"
 	clienttesting "k8s.io/client-go/testing"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 const (
@@ -25,7 +25,7 @@ const (
 kind: ServiceMonitor
 metadata:
   name: cluster-kube-apiserver
-  namespace: openshift-kube-apiserver
+  namespace: uccp-kube-apiserver
 spec:
   endpoints:
     - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -39,21 +39,21 @@ spec:
       scheme: https
       tlsConfig:
         caFile: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
-        serverName: apiserver.openshift-kube-apiserver.svc
+        serverName: apiserver.uccp-kube-apiserver.svc
   jobLabel: component
   namespaceSelector:
     matchNames:
-      - openshift-kube-apiserver
+      - uccp-kube-apiserver
   selector:
     matchLabels:
       custom: custom-label
-      app: openshift-kube-apiserver
+      app: uccp-kube-apiserver
 `
 	fakeIncompleteServiceMonitor = `apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: cluster-kube-apiserver
-  namespace: openshift-kube-apiserver
+  namespace: uccp-kube-apiserver
 spec:
   endpoints:
     - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -71,7 +71,7 @@ spec:
       - wrong-name
   selector:
     matchLabels:
-      app: openshift-kube-apiserver
+      app: uccp-kube-apiserver
 `
 )
 

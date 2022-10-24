@@ -25,7 +25,7 @@ rules:
 - level: None
   users: ["system:apiserver"]
   resources:
-    - group: "apiserver.openshift.io"
+    - group: "apiserver.uccp.io"
       resources: ["apirequestcounts", "apirequestcounts/*"]
   namespaces: [""]
 - level: None

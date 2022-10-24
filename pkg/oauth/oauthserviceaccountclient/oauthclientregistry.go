@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/openshift/library-go/pkg/authorization/scopemetadata"
+	"github.com/uccps-samples/library-go/pkg/authorization/scopemetadata"
 
 	clientv1 "k8s.io/api/core/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -22,20 +22,20 @@ import (
 	kcoreclient "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/tools/record"
 
-	oauthv1 "github.com/openshift/api/oauth/v1"
-	routev1 "github.com/openshift/api/route/v1"
-	routev1client "github.com/openshift/client-go/route/clientset/versioned/typed/route/v1"
+	oauthv1 "github.com/uccps-samples/api/oauth/v1"
+	routev1 "github.com/uccps-samples/api/route/v1"
+	routev1client "github.com/uccps-samples/client-go/route/clientset/versioned/typed/route/v1"
 )
 
 const (
-	OAuthWantChallengesAnnotationPrefix = "serviceaccounts.openshift.io/oauth-want-challenges"
+	OAuthWantChallengesAnnotationPrefix = "serviceaccounts.uccp.io/oauth-want-challenges"
 
 	// Prefix used for statically specifying redirect URIs for a service account via annotations
 	// The value can be partially supplied with the dynamic prefix to override the resource's defaults
-	OAuthRedirectModelAnnotationURIPrefix = "serviceaccounts.openshift.io/oauth-redirecturi."
+	OAuthRedirectModelAnnotationURIPrefix = "serviceaccounts.uccp.io/oauth-redirecturi."
 
 	// Prefix used for dynamically specifying redirect URIs using resources for a service account via annotations
-	OAuthRedirectModelAnnotationReferencePrefix = "serviceaccounts.openshift.io/oauth-redirectreference."
+	OAuthRedirectModelAnnotationReferencePrefix = "serviceaccounts.uccp.io/oauth-redirectreference."
 
 	routeKind = "Route"
 	// TODO add ingress support
@@ -49,7 +49,7 @@ var (
 	}
 
 	emptyGroupKind       = schema.GroupKind{} // Used with static redirect URIs
-	routeGroupKind       = schema.GroupKind{Group: "route.openshift.io", Kind: routeKind}
+	routeGroupKind       = schema.GroupKind{Group: "route.uccp.io", Kind: routeKind}
 	legacyRouteGroupKind = schema.GroupKind{Group: "", Kind: routeKind} // to support redirect reference with old group
 
 	scheme       = runtime.NewScheme()

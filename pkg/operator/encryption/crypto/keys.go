@@ -3,7 +3,7 @@ package crypto
 import (
 	"crypto/rand"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
 )
 
 var (

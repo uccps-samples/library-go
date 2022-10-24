@@ -6,10 +6,10 @@ import (
 
 	"k8s.io/klog/v2"
 
-	configv1 "github.com/openshift/api/config/v1"
-	"github.com/openshift/library-go/pkg/crypto"
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	"github.com/uccps-samples/library-go/pkg/crypto"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -48,7 +48,7 @@ func innerTLSSecurityProfileObservations(genericListers configobserver.Listers, 
 
 	apiServer, err := listers.APIServerLister().Get("cluster")
 	if errors.IsNotFound(err) {
-		klog.Warningf("apiserver.config.openshift.io/cluster: not found")
+		klog.Warningf("apiserver.config.uccp.io/cluster: not found")
 		apiServer = &configv1.APIServer{}
 	} else if err != nil {
 		return existingConfig, append(errs, err)

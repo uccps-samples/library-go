@@ -8,7 +8,7 @@ import (
 	genericapiserveroptions "k8s.io/apiserver/pkg/server/options"
 	utilflag "k8s.io/component-base/cli/flag"
 
-	configv1 "github.com/openshift/api/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
 )
 
 func ToServingOptions(servingInfo configv1.HTTPServingInfo) (*genericapiserveroptions.SecureServingOptionsWithLoopback, error) {

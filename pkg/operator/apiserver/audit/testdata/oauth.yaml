@@ -25,20 +25,20 @@ rules:
 - level: None
   users: ["system:apiserver"]
   resources:
-    - group: "apiserver.openshift.io"
+    - group: "apiserver.uccp.io"
       resources: ["apirequestcounts", "apirequestcounts/*"]
   namespaces: [""]
 # exclude resources where the body is security-sensitive
 - level: Metadata
   resources:
-  - group: "route.openshift.io"
+  - group: "route.uccp.io"
     resources: ["routes"]
   - resources: ["secrets"]
   userGroups:
   - system:authenticated:oauth
 - level: Metadata
   resources:
-  - group: "oauth.openshift.io"
+  - group: "oauth.uccp.io"
     resources: ["oauthclients"]
   userGroups:
   - system:authenticated:oauth

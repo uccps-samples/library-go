@@ -16,8 +16,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/diff"
 	restclient "k8s.io/client-go/rest"
 
-	"github.com/openshift/library-go/pkg/oauth/oauthdiscovery"
-	"github.com/openshift/library-go/pkg/oauth/tokenrequest/challengehandlers"
+	"github.com/uccps-samples/library-go/pkg/oauth/oauthdiscovery"
+	"github.com/uccps-samples/library-go/pkg/oauth/tokenrequest/challengehandlers"
 )
 
 type testPasswordPrompter struct{}

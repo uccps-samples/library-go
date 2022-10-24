@@ -10,8 +10,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	test "github.com/openshift/library-go/test/library"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	test "github.com/uccps-samples/library-go/test/library"
 )
 
 func watchForMigrationControllerProgressingConditionAsync(t testing.TB, getOperatorCondFn GetOperatorConditionsFuncType, migrationStartedCh chan time.Time) {

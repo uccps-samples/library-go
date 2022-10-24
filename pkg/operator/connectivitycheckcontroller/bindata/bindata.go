@@ -58,12 +58,12 @@ var _pkgOperatorConnectivitycheckcontrollerManifestsControlplaneOperatorOpenshif
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    api-approved.openshift.io: https://github.com/openshift/api/pull/639
-    include.release.openshift.io/self-managed-high-availability: "true"
-    include.release.openshift.io/single-node-developer: "true"
-  name: podnetworkconnectivitychecks.controlplane.operator.openshift.io
+    api-approved.uccp.io: https://github.com/uccps-samples/api/pull/639
+    include.release.uccp.io/self-managed-high-availability: "true"
+    include.release.uccp.io/single-node-developer: "true"
+  name: podnetworkconnectivitychecks.controlplane.operator.uccp.io
 spec:
-  group: controlplane.operator.openshift.io
+  group: controlplane.operator.uccp.io
   names:
     kind: PodNetworkConnectivityCheck
     listKind: PodNetworkConnectivityCheckList

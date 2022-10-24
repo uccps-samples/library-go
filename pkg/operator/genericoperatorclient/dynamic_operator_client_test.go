@@ -7,7 +7,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/utils/diff"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 )
 
 func TestSetOperatorSpecFromUnstructured(t *testing.T) {

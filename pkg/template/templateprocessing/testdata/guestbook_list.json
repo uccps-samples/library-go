@@ -1,18 +1,18 @@
 {
     "kind": "Template",
-    "apiVersion": "template.openshift.io/v1",
+    "apiVersion": "template.uccp.io/v1",
     "metadata": {
         "name": "guestbook-example",
         "creationTimestamp": null,
         "annotations": {
-            "openshift.io/display-name": "Guestbook Example",
+            "uccp.io/display-name": "Guestbook Example",
             "description": "Example shows how to build a simple multi-tier application using Kubernetes and Docker"
         }
     },
     "message": "Your admin credentials are adminQ3H:dwNJiJwW",
     "objects": [
         {
-            "apiVersion": "route.openshift.io/v1",
+            "apiVersion": "route.uccp.io/v1",
             "kind": "Route",
             "metadata": {
                 "creationTimestamp": null,

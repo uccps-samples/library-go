@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
 	"k8s.io/apimachinery/pkg/api/equality"
 )
 
@@ -402,9 +402,9 @@ func TestFallbackToPreviousRevision(t *testing.T) {
 					}
 					expectedPod.UID = actualPod.UID
 					expectedPod.Annotations = map[string]string{}
-					expectedPod.Annotations["startup-monitor.static-pods.openshift.io/fallback-for-revision"] = "8"
-					expectedPod.Annotations["startup-monitor.static-pods.openshift.io/fallback-reason"] = "SomeReason"
-					expectedPod.Annotations["startup-monitor.static-pods.openshift.io/fallback-message"] = "Some message for the user"
+					expectedPod.Annotations["startup-monitor.static-pods.uccp.io/fallback-for-revision"] = "8"
+					expectedPod.Annotations["startup-monitor.static-pods.uccp.io/fallback-reason"] = "SomeReason"
+					expectedPod.Annotations["startup-monitor.static-pods.uccp.io/fallback-message"] = "Some message for the user"
 
 					if !equality.Semantic.DeepEqual(actualPod, expectedPod) {
 						return fmt.Errorf("unexpected pod was written")
@@ -474,9 +474,9 @@ func TestFallbackToPreviousRevision(t *testing.T) {
 					}
 					expectedPod.UID = actualPod.UID
 					expectedPod.Annotations = map[string]string{}
-					expectedPod.Annotations["startup-monitor.static-pods.openshift.io/fallback-for-revision"] = "8"
-					expectedPod.Annotations["startup-monitor.static-pods.openshift.io/fallback-reason"] = "SomeReason"
-					expectedPod.Annotations["startup-monitor.static-pods.openshift.io/fallback-message"] = "Some message for the user"
+					expectedPod.Annotations["startup-monitor.static-pods.uccp.io/fallback-for-revision"] = "8"
+					expectedPod.Annotations["startup-monitor.static-pods.uccp.io/fallback-reason"] = "SomeReason"
+					expectedPod.Annotations["startup-monitor.static-pods.uccp.io/fallback-message"] = "Some message for the user"
 					if !equality.Semantic.DeepEqual(actualPod, expectedPod) {
 						return fmt.Errorf("unexpected WriteFileFn pod was written")
 					}

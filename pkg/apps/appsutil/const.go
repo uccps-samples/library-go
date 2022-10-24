@@ -48,8 +48,8 @@ const (
 
 	// DeploymentStatusReasonAnnotation represents the reason for deployment being in a given state
 	// Used for specifying the reason for cancellation or failure of a deployment
-	DeploymentIgnorePodAnnotation = "deploy.openshift.io/deployer-pod.ignore"
-	DeploymentReplicasAnnotation  = "openshift.io/deployment.replicas"
+	DeploymentIgnorePodAnnotation = "deploy.uccp.io/deployer-pod.ignore"
+	DeploymentReplicasAnnotation  = "uccp.io/deployment.replicas"
 
 	DeploymentFailedUnrelatedDeploymentExists = "unrelated pod with the same name as this deployment is already running"
 	DeploymentFailedUnableToCreateDeployerPod = "unable to create deployer pod"

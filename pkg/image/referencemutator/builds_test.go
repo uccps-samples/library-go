@@ -7,7 +7,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 
-	buildv1 "github.com/openshift/api/build/v1"
+	buildv1 "github.com/uccps-samples/api/build/v1"
 )
 
 func imageRef(name string) *corev1.ObjectReference {

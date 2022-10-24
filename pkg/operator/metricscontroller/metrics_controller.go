@@ -15,9 +15,9 @@ import (
 
 	"k8s.io/client-go/transport"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // MetricsSyncFunc is used to set the controller synchronization function for metrics controller.
@@ -84,7 +84,7 @@ func newInClusterPrometheusClient(serviceCAPath string) (prometheusv1.API, idleC
 	}
 
 	client, err := prometheusapi.NewClient(prometheusapi.Config{
-		Address: "https://" + net.JoinHostPort("thanos-querier.openshift-monitoring.svc", "9091"),
+		Address: "https://" + net.JoinHostPort("thanos-querier.uccp-monitoring.svc", "9091"),
 		RoundTripper: transport.NewBearerAuthRoundTripper(
 			string(saToken),
 			httpTransport,

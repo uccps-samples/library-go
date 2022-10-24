@@ -14,16 +14,16 @@ import (
 	apiserverconfigv1 "k8s.io/apiserver/pkg/apis/config/v1"
 	clientgotesting "k8s.io/client-go/testing"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
-	encryptionSecretKeyDataForTest           = "encryption.apiserver.operator.openshift.io-key"
-	encryptionSecretMigratedTimestampForTest = "encryption.apiserver.operator.openshift.io/migrated-timestamp"
-	encryptionSecretMigratedResourcesForTest = "encryption.apiserver.operator.openshift.io/migrated-resources"
+	encryptionSecretKeyDataForTest           = "encryption.apiserver.operator.uccp.io-key"
+	encryptionSecretMigratedTimestampForTest = "encryption.apiserver.operator.uccp.io/migrated-timestamp"
+	encryptionSecretMigratedResourcesForTest = "encryption.apiserver.operator.uccp.io/migrated-resources"
 )
 
 func CreateEncryptionKeySecretNoData(targetNS string, grs []schema.GroupResource, keyID uint64) *corev1.Secret {
@@ -34,18 +34,18 @@ func CreateEncryptionKeySecretNoDataWithMode(targetNS string, grs []schema.Group
 	s := &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      fmt.Sprintf("encryption-key-%s-%d", targetNS, keyID),
-			Namespace: "openshift-config-managed",
+			Namespace: "uccp-config-managed",
 			Annotations: map[string]string{
 				state.KubernetesDescriptionKey: state.KubernetesDescriptionScaryValue,
 
-				"encryption.apiserver.operator.openshift.io/mode":            mode,
-				"encryption.apiserver.operator.openshift.io/internal-reason": "",
-				"encryption.apiserver.operator.openshift.io/external-reason": "",
+				"encryption.apiserver.operator.uccp.io/mode":            mode,
+				"encryption.apiserver.operator.uccp.io/internal-reason": "",
+				"encryption.apiserver.operator.uccp.io/external-reason": "",
 			},
 			Labels: map[string]string{
-				"encryption.apiserver.operator.openshift.io/component": targetNS,
+				"encryption.apiserver.operator.uccp.io/component": targetNS,
 			},
-			Finalizers: []string{"encryption.apiserver.operator.openshift.io/deletion-protection"},
+			Finalizers: []string{"encryption.apiserver.operator.uccp.io/deletion-protection"},
 		},
 		Data: map[string][]byte{},
 		Type: corev1.SecretTypeOpaque,

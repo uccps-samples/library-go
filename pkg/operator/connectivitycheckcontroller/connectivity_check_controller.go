@@ -4,14 +4,14 @@ import (
 	"context"
 	"encoding/json"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/api/operatorcontrolplane/v1alpha1"
-	configinformers "github.com/openshift/client-go/config/informers/externalversions"
-	configv1listers "github.com/openshift/client-go/config/listers/config/v1"
-	operatorcontrolplaneclient "github.com/openshift/client-go/operatorcontrolplane/clientset/versioned"
-	"github.com/openshift/library-go/pkg/operator/connectivitycheckcontroller/bindata"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/api/operatorcontrolplane/v1alpha1"
+	configinformers "github.com/uccps-samples/client-go/config/informers/externalversions"
+	configv1listers "github.com/uccps-samples/client-go/config/listers/config/v1"
+	operatorcontrolplaneclient "github.com/uccps-samples/client-go/operatorcontrolplane/clientset/versioned"
+	"github.com/uccps-samples/library-go/pkg/operator/connectivitycheckcontroller/bindata"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	apiextensionsinformers "k8s.io/apiextensions-apiserver/pkg/client/informers/externalversions"
 	"k8s.io/apimachinery/pkg/api/equality"
@@ -20,10 +20,10 @@ import (
 	kyaml "k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcehelper"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcehelper"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 type ConnectivityCheckController interface {
@@ -94,7 +94,7 @@ type unsupportedConfigOverrides struct {
 	} `json:"operator"`
 }
 
-const podnetworkconnectivitychecksCRDName = "podnetworkconnectivitychecks.controlplane.operator.openshift.io"
+const podnetworkconnectivitychecksCRDName = "podnetworkconnectivitychecks.controlplane.operator.uccp.io"
 
 func (c *connectivityCheckController) Sync(ctx context.Context, syncContext factory.SyncContext) error {
 	operatorSpec, _, _, err := c.operatorClient.GetOperatorState()

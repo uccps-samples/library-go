@@ -3,8 +3,8 @@ package controllers
 import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	"github.com/openshift/library-go/pkg/operator/management"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/operator/management"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // preconditionsFulfilled a function that indicates whether all prerequisites are met and we can Sync.

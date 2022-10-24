@@ -18,10 +18,10 @@ import (
 	apiregistrationv1 "k8s.io/kube-aggregator/pkg/apis/apiregistration/v1"
 	kubeaggregatorfake "k8s.io/kube-aggregator/pkg/client/clientset_generated/clientset/fake"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 func TestAvailableStatus(t *testing.T) {
@@ -48,7 +48,7 @@ func TestAvailableStatus(t *testing.T) {
 				if action.GetVerb() != "create" {
 					return false, nil, nil
 				}
-				if action.(kubetesting.CreateAction).GetObject().(*apiregistrationv1.APIService).Name == "v1.build.openshift.io" {
+				if action.(kubetesting.CreateAction).GetObject().(*apiregistrationv1.APIService).Name == "v1.build.uccp.io" {
 					return true, nil, fmt.Errorf("TEST ERROR: fail to create apiservice")
 				}
 				return false, nil, nil
@@ -61,11 +61,11 @@ func TestAvailableStatus(t *testing.T) {
 			expectedMessages: []string{"TEST ERROR: fail to get apiservice"},
 
 			existingAPIServices: []runtime.Object{
-				runtime.Object(newAPIService("build.openshift.io", "v1")),
-				runtime.Object(newAPIService("apps.openshift.io", "v1")),
+				runtime.Object(newAPIService("build.uccp.io", "v1")),
+				runtime.Object(newAPIService("apps.uccp.io", "v1")),
 			},
 			apiServiceReactor: func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
-				if action.GetVerb() == "get" && action.(kubetesting.GetAction).GetName() == "v1.build.openshift.io" {
+				if action.GetVerb() == "get" && action.(kubetesting.GetAction).GetName() == "v1.build.uccp.io" {
 					return true, nil, fmt.Errorf("TEST ERROR: fail to get apiservice")
 				}
 				return false, nil, nil
@@ -75,18 +75,18 @@ func TestAvailableStatus(t *testing.T) {
 			name:             "APIServiceNotAvailable",
 			expectedStatus:   operatorv1.ConditionFalse,
 			expectedReasons:  []string{"Error"},
-			expectedMessages: []string{"apiservices.apiregistration.k8s.io/v1.build.openshift.io: not available: TEST MESSAGE"},
+			expectedMessages: []string{"apiservices.apiregistration.k8s.io/v1.build.uccp.io: not available: TEST MESSAGE"},
 
 			existingAPIServices: []runtime.Object{
-				runtime.Object(newAPIService("build.openshift.io", "v1")),
-				runtime.Object(newAPIService("apps.openshift.io", "v1")),
+				runtime.Object(newAPIService("build.uccp.io", "v1")),
+				runtime.Object(newAPIService("apps.uccp.io", "v1")),
 			},
 			apiServiceReactor: func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
-				if action.GetVerb() == "get" && action.(kubetesting.GetAction).GetName() == "v1.build.openshift.io" {
+				if action.GetVerb() == "get" && action.(kubetesting.GetAction).GetName() == "v1.build.uccp.io" {
 					return true, &apiregistrationv1.APIService{
-						ObjectMeta: metav1.ObjectMeta{Name: "v1.build.openshift.io", Annotations: map[string]string{"service.alpha.openshift.io/inject-cabundle": "true"}},
+						ObjectMeta: metav1.ObjectMeta{Name: "v1.build.uccp.io", Annotations: map[string]string{"service.alpha.uccp.io/inject-cabundle": "true"}},
 						Spec: apiregistrationv1.APIServiceSpec{
-							Group:                "build.openshift.io",
+							Group:                "build.uccp.io",
 							Version:              "v1",
 							Service:              &apiregistrationv1.ServiceReference{Namespace: "target-namespace", Name: "api"},
 							GroupPriorityMinimum: 9900,
@@ -107,13 +107,13 @@ func TestAvailableStatus(t *testing.T) {
 			expectedStatus:  operatorv1.ConditionFalse,
 			expectedReasons: []string{"Error"},
 			expectedMessages: []string{
-				"apiservices.apiregistration.k8s.io/v1.apps.openshift.io: not available: TEST MESSAGE",
-				"apiservices.apiregistration.k8s.io/v1.build.openshift.io: not available: TEST MESSAGE",
+				"apiservices.apiregistration.k8s.io/v1.apps.uccp.io: not available: TEST MESSAGE",
+				"apiservices.apiregistration.k8s.io/v1.build.uccp.io: not available: TEST MESSAGE",
 			},
 
 			existingAPIServices: []runtime.Object{
-				runtime.Object(newAPIService("build.openshift.io", "v1")),
-				runtime.Object(newAPIService("apps.openshift.io", "v1")),
+				runtime.Object(newAPIService("build.uccp.io", "v1")),
+				runtime.Object(newAPIService("apps.uccp.io", "v1")),
 			},
 			apiServiceReactor: func(action kubetesting.Action) (handled bool, ret runtime.Object, err error) {
 				if action.GetVerb() != "get" {
@@ -121,11 +121,11 @@ func TestAvailableStatus(t *testing.T) {
 				}
 
 				switch action.(kubetesting.GetAction).GetName() {
-				case "v1.build.openshift.io":
+				case "v1.build.uccp.io":
 					fallthrough
-				case "v1.apps.openshift.io":
+				case "v1.apps.uccp.io":
 					return true, &apiregistrationv1.APIService{
-						ObjectMeta: metav1.ObjectMeta{Name: action.(kubetesting.GetAction).GetName(), Annotations: map[string]string{"service.alpha.openshift.io/inject-cabundle": "true"}},
+						ObjectMeta: metav1.ObjectMeta{Name: action.(kubetesting.GetAction).GetName(), Annotations: map[string]string{"service.alpha.uccp.io/inject-cabundle": "true"}},
 						Spec: apiregistrationv1.APIServiceSpec{
 							Group:                action.GetResource().Group,
 							Version:              action.GetResource().Version,
@@ -179,12 +179,12 @@ func TestAvailableStatus(t *testing.T) {
 				getAPIServicesToManageFn: func() ([]*apiregistrationv1.APIService, error) {
 					return []*apiregistrationv1.APIService{
 						{
-							ObjectMeta: metav1.ObjectMeta{Name: "v1.apps.openshift.io"},
-							Spec:       apiregistrationv1.APIServiceSpec{Group: "apps.openshift.io", Version: "v1", Service: &apiregistrationv1.ServiceReference{}},
+							ObjectMeta: metav1.ObjectMeta{Name: "v1.apps.uccp.io"},
+							Spec:       apiregistrationv1.APIServiceSpec{Group: "apps.uccp.io", Version: "v1", Service: &apiregistrationv1.ServiceReference{}},
 						},
 						{
-							ObjectMeta: metav1.ObjectMeta{Name: "v1.build.openshift.io"},
-							Spec:       apiregistrationv1.APIServiceSpec{Group: "build.openshift.io", Version: "v1", Service: &apiregistrationv1.ServiceReference{}},
+							ObjectMeta: metav1.ObjectMeta{Name: "v1.build.uccp.io"},
+							Spec:       apiregistrationv1.APIServiceSpec{Group: "build.uccp.io", Version: "v1", Service: &apiregistrationv1.ServiceReference{}},
 						},
 					}, nil
 				},
@@ -226,7 +226,7 @@ func TestAvailableStatus(t *testing.T) {
 
 func newAPIService(group, version string) *apiregistrationv1.APIService {
 	return &apiregistrationv1.APIService{
-		ObjectMeta: metav1.ObjectMeta{Name: version + "." + group, Annotations: map[string]string{"service.alpha.openshift.io/inject-cabundle": "true"}},
+		ObjectMeta: metav1.ObjectMeta{Name: version + "." + group, Annotations: map[string]string{"service.alpha.uccp.io/inject-cabundle": "true"}},
 		Spec:       apiregistrationv1.APIServiceSpec{Group: group, Version: version, Service: &apiregistrationv1.ServiceReference{Namespace: "target-namespace", Name: "api"}, GroupPriorityMinimum: 9900, VersionPriority: 15},
 		Status:     apiregistrationv1.APIServiceStatus{Conditions: []apiregistrationv1.APIServiceCondition{{Type: apiregistrationv1.Available, Status: apiregistrationv1.ConditionTrue}}},
 	}

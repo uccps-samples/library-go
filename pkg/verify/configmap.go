@@ -13,12 +13,12 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/manifest"
-	"github.com/openshift/library-go/pkg/verify/store"
-	"github.com/openshift/library-go/pkg/verify/store/configmap"
-	"github.com/openshift/library-go/pkg/verify/store/parallel"
-	"github.com/openshift/library-go/pkg/verify/store/sigstore"
-	"github.com/openshift/library-go/pkg/verify/util"
+	"github.com/uccps-samples/library-go/pkg/manifest"
+	"github.com/uccps-samples/library-go/pkg/verify/store"
+	"github.com/uccps-samples/library-go/pkg/verify/store/configmap"
+	"github.com/uccps-samples/library-go/pkg/verify/store/parallel"
+	"github.com/uccps-samples/library-go/pkg/verify/store/sigstore"
+	"github.com/uccps-samples/library-go/pkg/verify/util"
 )
 
 const (
@@ -26,7 +26,7 @@ const (
 	// release payload to indicate that this config map controls signing for the payload.
 	// Only the first config map within the payload should be used, regardless of whether
 	// it has data. See NewFromConfigMapData for more.
-	ReleaseAnnotationConfigMapVerifier = "release.openshift.io/verification-config-map"
+	ReleaseAnnotationConfigMapVerifier = "release.uccp.io/verification-config-map"
 
 	// verifierPublicKeyPrefix is the unique portion of the key used within a config map
 	// identifying data field containing one or more GPG public keys in ASCII form that
@@ -96,7 +96,7 @@ func NewFromManifests(manifests []manifest.Manifest, clientBuilder sigstore.HTTP
 }
 
 // newFromConfigMapData expects to receive the data field of the first config map in the release
-// image payload with the annotation "release.openshift.io/verification-config-map". Only the
+// image payload with the annotation "release.uccp.io/verification-config-map". Only the
 // first payload item in lexographic order will be considered - all others are ignored. The
 // verifier returned by this method
 //

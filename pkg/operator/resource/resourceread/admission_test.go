@@ -13,14 +13,14 @@ metadata:
   labels:
     app: csi-snapshot-webhook
   annotations:
-    service.beta.openshift.io/inject-cabundle: "true"
-    include.release.openshift.io/self-managed-high-availability: "true"
+    service.beta.uccp.io/inject-cabundle: "true"
+    include.release.uccp.io/self-managed-high-availability: "true"
 webhooks:
   - name: volumesnapshotclasses.snapshot.storage.k8s.io
     clientConfig:
       service:
         name: csi-snapshot-webhook
-        namespace: openshift-cluster-storage-operator
+        namespace: uccp-cluster-storage-operator
         path: /volumesnapshot
     rules:
       - operations: [ "CREATE", "UPDATE" ]
@@ -51,16 +51,16 @@ webhooks:
   clientConfig:
     service:
       name: machine-api-operator-webhook
-      namespace: openshift-machine-api
-      path: /mutate-machine-openshift-io-v1beta1-machine
+      namespace: uccp-machine-api
+      path: /mutate-machine-uccp-io-v1beta1-machine
       port: 443
   failurePolicy: Ignore
   matchPolicy: Equivalent
-  name: default.machine.machine.openshift.io
+  name: default.machine.machine.uccp.io
   reinvocationPolicy: Never
   rules:
   - apiGroups:
-    - machine.openshift.io
+    - machine.uccp.io
     apiVersions:
     - v1beta1
     operations:
@@ -75,18 +75,18 @@ webhooks:
   clientConfig:
     service:
       name: machine-api-operator-webhook
-      namespace: openshift-machine-api
-      path: /mutate-machine-openshift-io-v1beta1-machineset
+      namespace: uccp-machine-api
+      path: /mutate-machine-uccp-io-v1beta1-machineset
       port: 443
   failurePolicy: Ignore
   matchPolicy: Equivalent
-  name: default.machineset.machine.openshift.io
+  name: default.machineset.machine.uccp.io
   namespaceSelector: {}
   objectSelector: {}
   reinvocationPolicy: Never
   rules:
   - apiGroups:
-    - machine.openshift.io
+    - machine.uccp.io
     apiVersions:
     - v1beta1
     operations:

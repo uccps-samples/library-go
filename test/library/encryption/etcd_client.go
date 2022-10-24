@@ -41,7 +41,7 @@ func (e *etcdWrapper) Get(ctx context.Context, key string, opts ...clientv3.OpOp
 
 func (e *etcdWrapper) newEtcdClientInternal() (EtcdClient, func(), error) {
 	ctx, cancel := context.WithCancel(context.Background())
-	cmd := exec.CommandContext(ctx, "oc", "port-forward", "service/etcd", ":2379", "-n", "openshift-etcd")
+	cmd := exec.CommandContext(ctx, "oc", "port-forward", "service/etcd", ":2379", "-n", "uccp-etcd")
 
 	done := func() {
 		cancel()
@@ -80,11 +80,11 @@ func (e *etcdWrapper) newEtcdClientInternal() (EtcdClient, func(), error) {
 	}
 
 	coreV1 := e.kubeClient.CoreV1()
-	etcdConfigMap, err := coreV1.ConfigMaps("openshift-config").Get(ctx, "etcd-ca-bundle", metav1.GetOptions{})
+	etcdConfigMap, err := coreV1.ConfigMaps("uccp-config").Get(ctx, "etcd-ca-bundle", metav1.GetOptions{})
 	if err != nil {
 		return nil, nil, err
 	}
-	etcdSecret, err := coreV1.Secrets("openshift-config").Get(ctx, "etcd-client", metav1.GetOptions{})
+	etcdSecret, err := coreV1.Secrets("uccp-config").Get(ctx, "etcd-client", metav1.GetOptions{})
 	if err != nil {
 		return nil, nil, err
 	}

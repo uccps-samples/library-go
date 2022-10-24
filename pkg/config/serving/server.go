@@ -12,8 +12,8 @@ import (
 	genericapiserveroptions "k8s.io/apiserver/pkg/server/options"
 	"k8s.io/klog/v2"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1alpha1 "github.com/openshift/api/operator/v1alpha1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1alpha1 "github.com/uccps-samples/api/operator/v1alpha1"
 )
 
 func ToServerConfig(ctx context.Context, servingInfo configv1.HTTPServingInfo, authenticationConfig operatorv1alpha1.DelegatedAuthentication, authorizationConfig operatorv1alpha1.DelegatedAuthorization,

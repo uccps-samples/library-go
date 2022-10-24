@@ -10,8 +10,8 @@ import (
 	policyclientv1 "k8s.io/client-go/kubernetes/typed/policy/v1"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcemerge"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcemerge"
 )
 
 func ApplyPodDisruptionBudget(ctx context.Context, client policyclientv1.PodDisruptionBudgetsGetter, recorder events.Recorder, required *policyv1.PodDisruptionBudget) (*policyv1.PodDisruptionBudget, bool, error) {

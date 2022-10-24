@@ -14,10 +14,10 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 
-	"github.com/openshift/library-go/pkg/config/client"
-	"github.com/openshift/library-go/pkg/controller/fileobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/installer"
+	"github.com/uccps-samples/library-go/pkg/config/client"
+	"github.com/uccps-samples/library-go/pkg/controller/fileobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/installer"
 )
 
 type CertSyncControllerOptions struct {

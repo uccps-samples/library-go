@@ -10,7 +10,7 @@ const (
 	// ManagedCertificateTypeLabelName marks config map or secret as object that contains managed certificates.
 	// This groups all objects that store certs and allow easy query to get them all.
 	// The value of this label should be set to "true".
-	ManagedCertificateTypeLabelName = "auth.openshift.io/managed-certificate-type"
+	ManagedCertificateTypeLabelName = "auth.uccp.io/managed-certificate-type"
 )
 
 type CertificateType string

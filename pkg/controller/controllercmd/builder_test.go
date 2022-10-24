@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	configv1 "github.com/openshift/api/config/v1"
-	"github.com/openshift/library-go/pkg/operator/events/eventstesting"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/events/eventstesting"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

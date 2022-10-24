@@ -15,7 +15,7 @@ import (
 	ktesting "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 func TestControllerEventCount(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -384,7 +384,7 @@ func endpoints(configs ...func(endpoints *v1.ConfigMap)) *v1.ConfigMap {
 	endpoints := &v1.ConfigMap{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "etcd-endpoints",
-			Namespace: "openshift-etcd",
+			Namespace: "uccp-etcd",
 		},
 		Data: map[string]string{},
 	}
@@ -399,7 +399,7 @@ func withBootstrap(ip string) func(*v1.ConfigMap) {
 		if endpoints.Annotations == nil {
 			endpoints.Annotations = map[string]string{}
 		}
-		endpoints.Annotations["alpha.installer.openshift.io/etcd-bootstrap"] = ip
+		endpoints.Annotations["alpha.installer.uccp.io/etcd-bootstrap"] = ip
 	}
 }
 
@@ -421,9 +421,9 @@ func endpointsOld(configs ...func(endpoints *v1.Endpoints)) *v1.Endpoints {
 	endpoints := &v1.Endpoints{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "host-etcd-2",
-			Namespace: "openshift-etcd",
+			Namespace: "uccp-etcd",
 			Annotations: map[string]string{
-				"alpha.installer.openshift.io/dns-suffix": "foo.bar",
+				"alpha.installer.uccp.io/dns-suffix": "foo.bar",
 			},
 		},
 		Subsets: []v1.EndpointSubset{{Addresses: []v1.EndpointAddress{}}},

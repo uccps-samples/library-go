@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/ghodss/yaml"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -14,7 +14,7 @@ import (
 	dynamicfake "k8s.io/client-go/dynamic/fake"
 	clienttesting "k8s.io/client-go/testing"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 const (

@@ -27,13 +27,13 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 
-	"github.com/openshift/library-go/pkg/config/client"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/resource/retry"
-	"github.com/openshift/library-go/pkg/operator/staticpod"
-	"github.com/openshift/library-go/pkg/operator/staticpod/internal"
-	"github.com/openshift/library-go/pkg/operator/staticpod/internal/flock"
+	"github.com/uccps-samples/library-go/pkg/config/client"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/retry"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/internal"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/internal/flock"
 )
 
 type InstallOptions struct {
@@ -561,7 +561,7 @@ func (o *InstallOptions) installerPodNeedUUID() bool {
 	// Switching this to 1.23 because there was a fix backported late to 1.22: https://github.com/kubernetes/kubernetes/pull/106394
 	// Once we prove this out in 1.23 after the kube bump, we can consider relaxing the constraint to 1.22.Z, but TRT
 	// suspects that this is failing installs due to
-	//  hyperkube[1371]: I1202 08:50:47.935427    1371 status_manager.go:611] "Pod was deleted and then recreated, skipping status update" pod="openshift-kube-scheduler/openshift-kube-scheduler-ip-10-0-129-204.us-east-2.compute.internal" oldPodUID=f11e314508a00e4ea9bf37d76b82b162 podUID=cce59ead72804895d31dba4208b395aa
+	//  hyperkube[1371]: I1202 08:50:47.935427    1371 status_manager.go:611] "Pod was deleted and then recreated, skipping status update" pod="uccp-kube-scheduler/uccp-kube-scheduler-ip-10-0-129-204.us-east-2.compute.internal" oldPodUID=f11e314508a00e4ea9bf37d76b82b162 podUID=cce59ead72804895d31dba4208b395aa
 	// in kubelet logs
 	return kubeletVersion.LT(semver.MustParse("1.23.0"))
 }

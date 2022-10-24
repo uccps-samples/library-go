@@ -3,7 +3,7 @@ package dockerv1client
 import (
 	"time"
 
-	"github.com/openshift/api/image/docker10"
+	"github.com/uccps-samples/api/image/docker10"
 )
 
 // TODO: Move these to openshift/api

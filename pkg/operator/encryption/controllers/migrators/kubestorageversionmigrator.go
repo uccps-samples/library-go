@@ -16,7 +16,7 @@ import (
 	migrationv1alpha1informer "sigs.k8s.io/kube-storage-version-migrator/pkg/clients/informer/migration/v1alpha1"
 )
 
-const writeKeyAnnotationKey = "encryption.apiserver.operator.openshift.io/write-key"
+const writeKeyAnnotationKey = "encryption.apiserver.operator.uccp.io/write-key"
 
 func NewKubeStorageVersionMigrator(client kubemigratorclient.Interface, informer migrationv1alpha1informer.Interface, discoveryClient discovery.ServerResourcesInterface) *KubeStorageVersionMigrator {
 	return &KubeStorageVersionMigrator{

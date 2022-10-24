@@ -22,14 +22,14 @@ import (
 	policylisterv1 "k8s.io/client-go/listers/policy/v1"
 	"k8s.io/klog/v2"
 
-	configv1 "github.com/openshift/api/config/v1"
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions/config/v1"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/guard/bindata"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions/config/v1"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/guard/bindata"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // GuardController is a controller that watches amount of static pods on master nodes and
@@ -319,7 +319,7 @@ func IsSNOCheckFnc(infraInformer configv1informers.InfrastructureInformer) func(
 		}
 		infraData, err := infraInformer.Lister().Get("cluster")
 		if err != nil {
-			return false, true, fmt.Errorf("Unable to list infrastructures.config.openshift.io/cluster object, unable to determine topology mode")
+			return false, true, fmt.Errorf("Unable to list infrastructures.config.uccp.io/cluster object, unable to determine topology mode")
 		}
 		if infraData.Status.ControlPlaneTopology == "" {
 			return false, true, fmt.Errorf("ControlPlaneTopology was not set, unable to determine topology mode")

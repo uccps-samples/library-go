@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	networkv1 "github.com/openshift/api/network/v1"
+	networkv1 "github.com/uccps-samples/api/network/v1"
 )
 
 type PodNetworkAction string

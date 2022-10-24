@@ -27,7 +27,7 @@ import (
 	"github.com/docker/distribution/registry/client/transport"
 	"github.com/opencontainers/go-digest"
 
-	imagereference "github.com/openshift/library-go/pkg/image/reference"
+	imagereference "github.com/uccps-samples/library-go/pkg/image/reference"
 )
 
 // CredentialStoreFactory is any entity capable of creating a CredentialStore based on an image

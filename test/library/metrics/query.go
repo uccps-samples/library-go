@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	routeclient "github.com/openshift/client-go/route/clientset/versioned"
+	routeclient "github.com/uccps-samples/client-go/route/clientset/versioned"
 	prometheusapi "github.com/prometheus/client_golang/api"
 	prometheusv1 "github.com/prometheus/client_golang/api/prometheus/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -22,24 +22,24 @@ import (
 // NewPrometheusClient returns Prometheus API or error
 // Note: with thanos-querier you must pass an entire Alert as a query. Partial queries return an error, so have to pass the entire alert.
 // Example query for an Alert:
-// `ALERTS{alertname="PodDisruptionBudgetAtLimit",alertstate="pending",namespace="pdbnamespace",poddisruptionbudget="pdbname",prometheus="openshift-monitoring/k8s",service="kube-state-metrics",severity="warning"}==1`
+// `ALERTS{alertname="PodDisruptionBudgetAtLimit",alertstate="pending",namespace="pdbnamespace",poddisruptionbudget="pdbname",prometheus="uccp-monitoring/k8s",service="kube-state-metrics",severity="warning"}==1`
 // Example query:
 // `scheduler_scheduling_duration_seconds_sum`
 func NewPrometheusClient(ctx context.Context, kclient kubernetes.Interface, rc routeclient.Interface) (prometheusv1.API, error) {
-	_, err := kclient.CoreV1().Services("openshift-monitoring").Get(ctx, "prometheus-k8s", metav1.GetOptions{})
+	_, err := kclient.CoreV1().Services("uccp-monitoring").Get(ctx, "prometheus-k8s", metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 
-	route, err := rc.RouteV1().Routes("openshift-monitoring").Get(ctx, "thanos-querier", metav1.GetOptions{})
+	route, err := rc.RouteV1().Routes("uccp-monitoring").Get(ctx, "thanos-querier", metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 	host := route.Status.Ingress[0].Host
 	var bearerToken string
-	secrets, err := kclient.CoreV1().Secrets("openshift-monitoring").List(ctx, metav1.ListOptions{})
+	secrets, err := kclient.CoreV1().Secrets("uccp-monitoring").List(ctx, metav1.ListOptions{})
 	if err != nil {
-		return nil, fmt.Errorf("could not list secrets in openshift-monitoring namespace")
+		return nil, fmt.Errorf("could not list secrets in uccp-monitoring namespace")
 	}
 	for _, s := range secrets.Items {
 		if s.Type != corev1.SecretTypeServiceAccountToken ||
@@ -58,7 +58,7 @@ func NewPrometheusClient(ctx context.Context, kclient kubernetes.Interface, rc r
 
 func createClient(ctx context.Context, kclient kubernetes.Interface, host, bearerToken string) (prometheusv1.API, error) {
 	// retrieve router CA
-	routerCAConfigMap, err := kclient.CoreV1().ConfigMaps("openshift-config-managed").Get(ctx, "default-ingress-cert", metav1.GetOptions{})
+	routerCAConfigMap, err := kclient.CoreV1().ConfigMaps("uccp-config-managed").Get(ctx, "default-ingress-cert", metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}

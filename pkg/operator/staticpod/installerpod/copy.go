@@ -8,7 +8,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/operator/resource/retry"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/retry"
 )
 
 // getSecretWithRetry will attempt to get the secret from the API server and retry on any connection errors until

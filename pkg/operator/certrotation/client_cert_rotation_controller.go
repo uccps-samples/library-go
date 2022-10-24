@@ -5,26 +5,26 @@ import (
 	"fmt"
 	"time"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 	"k8s.io/apimachinery/pkg/util/wait"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/condition"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/condition"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
 	// CertificateNotBeforeAnnotation contains the certificate expiration date in RFC3339 format.
-	CertificateNotBeforeAnnotation = "auth.openshift.io/certificate-not-before"
+	CertificateNotBeforeAnnotation = "auth.uccp.io/certificate-not-before"
 	// CertificateNotAfterAnnotation contains the certificate expiration date in RFC3339 format.
-	CertificateNotAfterAnnotation = "auth.openshift.io/certificate-not-after"
+	CertificateNotAfterAnnotation = "auth.uccp.io/certificate-not-after"
 	// CertificateIssuer contains the common name of the certificate that signed another certificate.
-	CertificateIssuer = "auth.openshift.io/certificate-issuer"
+	CertificateIssuer = "auth.uccp.io/certificate-issuer"
 	// CertificateHostnames contains the hostnames used by a signer.
-	CertificateHostnames = "auth.openshift.io/certificate-hostnames"
+	CertificateHostnames = "auth.uccp.io/certificate-hostnames"
 	// RunOnceContextKey is a context value key that can be used to call the controller Sync() and make it only run the syncWorker once and report error.
-	RunOnceContextKey = "cert-rotation-controller.openshift.io/run-once"
+	RunOnceContextKey = "cert-rotation-controller.uccp.io/run-once"
 )
 
 // CertRotationController does:

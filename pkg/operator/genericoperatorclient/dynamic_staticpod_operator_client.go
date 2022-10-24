@@ -8,8 +8,8 @@ import (
 
 	"k8s.io/apimachinery/pkg/runtime"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"

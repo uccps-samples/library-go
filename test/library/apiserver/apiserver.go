@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/openshift/library-go/test/library"
+	"github.com/uccps-samples/library-go/test/library"
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 

@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"time"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 )
 
 // Inertia returns the inertial duration for the given condition.

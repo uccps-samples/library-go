@@ -10,15 +10,15 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 
 	"github.com/google/go-cmp/cmp"
-	configv1 "github.com/openshift/api/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
 
-	opv1 "github.com/openshift/api/operator/v1"
-	fakeconfig "github.com/openshift/client-go/config/clientset/versioned/fake"
-	configinformers "github.com/openshift/client-go/config/informers/externalversions"
+	opv1 "github.com/uccps-samples/api/operator/v1"
+	fakeconfig "github.com/uccps-samples/client-go/config/clientset/versioned/fake"
+	configinformers "github.com/uccps-samples/client-go/config/informers/externalversions"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (

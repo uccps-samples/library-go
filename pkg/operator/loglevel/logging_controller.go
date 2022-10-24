@@ -3,11 +3,11 @@ package loglevel
 import (
 	"context"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/management"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/management"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 	"k8s.io/apimachinery/pkg/api/errors"
 )
 

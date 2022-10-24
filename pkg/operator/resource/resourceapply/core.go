@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcemerge"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcemerge"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -274,7 +274,7 @@ func ApplyConfigMapImproved(ctx context.Context, client coreclientv1.ConfigMapsG
 
 	resourcemerge.EnsureObjectMeta(modified, &existingCopy.ObjectMeta, required.ObjectMeta)
 
-	caBundleInjected := required.Labels["config.openshift.io/inject-trusted-cabundle"] == "true"
+	caBundleInjected := required.Labels["config.uccp.io/inject-trusted-cabundle"] == "true"
 	_, newCABundleRequired := required.Data["ca-bundle.crt"]
 
 	var modifiedKeys []string

@@ -16,10 +16,10 @@ import (
 	"k8s.io/client-go/util/cert"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/certs"
-	"github.com/openshift/library-go/pkg/crypto"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/certs"
+	"github.com/uccps-samples/library-go/pkg/crypto"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
 )
 
 // CABundleConfigMap maintains a CA bundle config map, by adding new CA certs coming from RotatedSigningCASecret, and by removing expired old ones.

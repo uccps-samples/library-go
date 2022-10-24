@@ -3,7 +3,7 @@ package quotautil
 import (
 	corev1 "k8s.io/api/core/v1"
 
-	quotav1 "github.com/openshift/api/quota/v1"
+	quotav1 "github.com/uccps-samples/api/quota/v1"
 )
 
 func GetResourceQuotasStatusByNamespace(namespaceStatuses quotav1.ResourceQuotasStatusByNamespace, namespace string) (corev1.ResourceQuotaStatus, bool) {

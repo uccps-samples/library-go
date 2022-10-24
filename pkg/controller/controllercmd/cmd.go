@@ -20,13 +20,13 @@ import (
 	"k8s.io/component-base/logs"
 	"k8s.io/klog/v2"
 
-	operatorv1alpha1 "github.com/openshift/api/operator/v1alpha1"
+	operatorv1alpha1 "github.com/uccps-samples/api/operator/v1alpha1"
 
-	"github.com/openshift/library-go/pkg/config/configdefaults"
-	"github.com/openshift/library-go/pkg/controller/fileobserver"
-	"github.com/openshift/library-go/pkg/crypto"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/serviceability"
+	"github.com/uccps-samples/library-go/pkg/config/configdefaults"
+	"github.com/uccps-samples/library-go/pkg/controller/fileobserver"
+	"github.com/uccps-samples/library-go/pkg/crypto"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/serviceability"
 
 	// load all the prometheus client-go metrics
 	_ "k8s.io/component-base/metrics/prometheus/clientgo"

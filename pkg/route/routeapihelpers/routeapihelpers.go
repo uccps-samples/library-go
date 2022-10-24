@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/url"
 
-	routev1 "github.com/openshift/api/route/v1"
+	routev1 "github.com/uccps-samples/api/route/v1"
 	corev1 "k8s.io/api/core/v1"
 	kvalidation "k8s.io/apimachinery/pkg/util/validation"
 	field "k8s.io/apimachinery/pkg/util/validation/field"

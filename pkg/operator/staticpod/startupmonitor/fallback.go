@@ -14,9 +14,9 @@ import (
 	"k8s.io/client-go/util/retry"
 	"k8s.io/klog/v2"
 
-	operatorv1client "github.com/openshift/client-go/operator/clientset/versioned/typed/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/staticpod/startupmonitor/annotations"
+	operatorv1client "github.com/uccps-samples/client-go/operator/clientset/versioned/typed/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/startupmonitor/annotations"
 )
 
 // fallback implements falling back to the previous version in case the current version

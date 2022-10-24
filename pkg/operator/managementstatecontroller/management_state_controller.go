@@ -7,14 +7,14 @@ import (
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/condition"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/management"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/condition"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/management"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // ManagementStateController watches changes of `managementState` field and react in case that field is set to an unsupported value.

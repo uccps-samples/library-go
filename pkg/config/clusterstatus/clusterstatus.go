@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	configv1 "github.com/openshift/api/config/v1"
-	openshiftcorev1 "github.com/openshift/client-go/config/clientset/versioned/typed/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	openshiftcorev1 "github.com/uccps-samples/client-go/config/clientset/versioned/typed/config/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"k8s.io/client-go/rest"

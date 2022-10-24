@@ -6,7 +6,7 @@ import (
 
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
 )
 
 type ControllerManager interface {

@@ -17,20 +17,20 @@ import (
 	"k8s.io/client-go/util/retry"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/verify/store"
-	"github.com/openshift/library-go/pkg/verify/util"
+	"github.com/uccps-samples/library-go/pkg/verify/store"
+	"github.com/uccps-samples/library-go/pkg/verify/util"
 )
 
 const (
 	// NamespaceLabelConfigMap is the Namespace label applied to a configmap
 	// containing signatures.
-	NamespaceLabelConfigMap = "openshift-config-managed"
+	NamespaceLabelConfigMap = "uccp-config-managed"
 
 	// ReleaseLabelConfigMap is a label applied to a configmap inside the
-	// openshift-config-managed namespace that indicates it contains signatures
+	// uccp-config-managed namespace that indicates it contains signatures
 	// for release image digests. Any binaryData key that starts with the digest
 	// is added to the list of signatures checked.
-	ReleaseLabelConfigMap = "release.openshift.io/verification-signatures"
+	ReleaseLabelConfigMap = "release.uccp.io/verification-signatures"
 )
 
 // Store abstracts retrieving signatures from config maps on a cluster.

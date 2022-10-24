@@ -8,7 +8,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 
-	quotav1 "github.com/openshift/api/quota/v1"
+	quotav1 "github.com/uccps-samples/api/quota/v1"
 )
 
 type ClusterQuotaMapper interface {

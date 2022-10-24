@@ -8,8 +8,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 
 	certificates "k8s.io/api/certificates/v1"
 	corev1 "k8s.io/api/core/v1"

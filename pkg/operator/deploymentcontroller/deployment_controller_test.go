@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	opv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/management"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
+	opv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/management"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -17,12 +17,12 @@ import (
 
 	"testing"
 
-	configv1 "github.com/openshift/api/config/v1"
-	fakeconfig "github.com/openshift/client-go/config/clientset/versioned/fake"
-	configinformers "github.com/openshift/client-go/config/informers/externalversions"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	fakeconfig "github.com/uccps-samples/client-go/config/clientset/versioned/fake"
+	configinformers "github.com/uccps-samples/client-go/config/informers/externalversions"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -37,10 +37,10 @@ const (
 	defaultClusterID = "ID1234"
 	controllerName   = "TestDeploymentController"
 	operandName      = "dummy-controller"
-	operandNamespace = "openshift-dummy-test-deployment"
-	// From github.com/openshift/library-go/pkg/operator/resource/resourceapply/apps.go
-	specHashAnnotation = "operator.openshift.io/spec-hash"
-	finalizerName      = "test.operator.openshift.io/" + controllerName
+	operandNamespace = "uccp-dummy-test-deployment"
+	// From github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply/apps.go
+	specHashAnnotation = "operator.uccp.io/spec-hash"
+	finalizerName      = "test.operator.uccp.io/" + controllerName
 )
 
 var (
@@ -98,7 +98,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: dummy-deployment
-  namespace: openshift-dummy-test-deployment
+  namespace: uccp-dummy-test-deployment
 spec:
   selector:
     matchLabels:
@@ -133,7 +133,7 @@ spec:
         - name: csi-provisioner
           image: ${PROVISIONER_IMAGE}
           args:
-            - --provisioner=test.csi.openshift.io
+            - --provisioner=test.csi.uccp.io
             - --csi-address=$(ADDRESS)
             - --feature-gates=Topology=true
             - --http-endpoint=localhost:8202

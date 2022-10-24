@@ -70,7 +70,7 @@ func (n resourceGraphNode) DOTAttributes() []dot.Attribute {
 		color = `"#fffdb8"` // yellow
 	case n.Resource.Coordinates().Resource == "pods":
 		color = `"#ffbfb8"` // red
-	case n.Resource.Coordinates().Group == "config.openshift.io":
+	case n.Resource.Coordinates().Group == "config.uccp.io":
 		color = `"#c7bfff"` // purple
 	}
 	resource := n.Resource.Coordinates().Resource

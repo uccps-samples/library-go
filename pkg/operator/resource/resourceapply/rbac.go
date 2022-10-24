@@ -11,8 +11,8 @@ import (
 	rbacclientv1 "k8s.io/client-go/kubernetes/typed/rbac/v1"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcemerge"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcemerge"
 )
 
 // ApplyClusterRole merges objectmeta, requires rules, aggregation rules are not allowed for now.

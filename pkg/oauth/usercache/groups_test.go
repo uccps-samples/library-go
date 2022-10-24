@@ -3,7 +3,7 @@ package usercache
 import (
 	"testing"
 
-	userv1 "github.com/openshift/api/user/v1"
+	userv1 "github.com/uccps-samples/api/user/v1"
 	"github.com/stretchr/testify/require"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
