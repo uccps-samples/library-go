@@ -28,19 +28,19 @@ import (
 	"k8s.io/client-go/util/retry"
 	"sigs.k8s.io/yaml"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
-	configv1clientfake "github.com/openshift/client-go/config/clientset/versioned/fake"
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	configv1clientfake "github.com/uccps-samples/client-go/config/clientset/versioned/fake"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions"
 
-	"github.com/openshift/library-go/pkg/operator/encryption"
-	"github.com/openshift/library-go/pkg/operator/encryption/controllers"
-	"github.com/openshift/library-go/pkg/operator/encryption/controllers/migrators"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/genericoperatorclient"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
-	"github.com/openshift/library-go/test/library"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/controllers"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/controllers/migrators"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/genericoperatorclient"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/test/library"
 )
 
 func TestEncryptionIntegration(tt *testing.T) {
@@ -64,7 +64,7 @@ func TestEncryptionIntegration(tt *testing.T) {
 	// kube clients
 	kubeClient, err := kubernetes.NewForConfig(kubeConfig)
 	require.NoError(t, err)
-	kubeInformers := v1helpers.NewKubeInformersForNamespaces(kubeClient, "openshift-config-managed")
+	kubeInformers := v1helpers.NewKubeInformersForNamespaces(kubeClient, "uccp-config-managed")
 	apiextensionsClient, err := v1beta1.NewForConfig(kubeConfig)
 	require.NoError(t, err)
 
@@ -88,7 +88,7 @@ func TestEncryptionIntegration(tt *testing.T) {
 	err = wait.PollImmediate(time.Second, wait.ForeverTestTimeout, func() (bool, error) {
 		_, err := dynamicClient.Resource(operatorGVR).Create(ctx, &unstructured.Unstructured{
 			Object: map[string]interface{}{
-				"apiVersion": "operator.openshift.io/v1",
+				"apiVersion": "operator.uccp.io/v1",
 				"kind":       "EncryptionTest",
 				"metadata": map[string]interface{}{
 					"name": "cluster",
@@ -117,8 +117,8 @@ func TestEncryptionIntegration(tt *testing.T) {
 	migrator := migrators.NewInProcessMigrator(dynamicClient, kubeClient.DiscoveryClient)
 	provider := newProvider([]schema.GroupResource{
 		// some random low-cardinality GVRs:
-		{Group: "operator.openshift.io", Resource: "kubeapiservers"},
-		{Group: "operator.openshift.io", Resource: "kubeschedulers"},
+		{Group: "operator.uccp.io", Resource: "kubeapiservers"},
+		{Group: "operator.uccp.io", Resource: "kubeschedulers"},
 	})
 
 	controllers := encryption.NewControllers(
@@ -206,7 +206,7 @@ func TestEncryptionIntegration(tt *testing.T) {
 	waitForMigration := func(key string) {
 		t.Helper()
 		err := wait.PollImmediate(time.Millisecond*100, wait.ForeverTestTimeout, func() (bool, error) {
-			s, err := kubeClient.CoreV1().Secrets("openshift-config-managed").Get(ctx, fmt.Sprintf("encryption-key-%s-%s", component, key), metav1.GetOptions{})
+			s, err := kubeClient.CoreV1().Secrets("uccp-config-managed").Get(ctx, fmt.Sprintf("encryption-key-%s-%s", component, key), metav1.GetOptions{})
 			require.NoError(t, err)
 
 			ks, err := secrets.ToKeyState(s)
@@ -228,7 +228,7 @@ func TestEncryptionIntegration(tt *testing.T) {
 	waitForKeys := func(n int) {
 		t.Helper()
 		err := wait.PollImmediate(time.Second, wait.ForeverTestTimeout, func() (bool, error) {
-			l, err := kubeClient.CoreV1().Secrets("openshift-config-managed").List(ctx, metav1.ListOptions{LabelSelector: keySecretsLabel})
+			l, err := kubeClient.CoreV1().Secrets("uccp-config-managed").List(ctx, metav1.ListOptions{LabelSelector: keySecretsLabel})
 			if err != nil {
 				return false, err
 			}
@@ -242,8 +242,8 @@ func TestEncryptionIntegration(tt *testing.T) {
 	}
 	waitForKeys(1)
 	waitForConfigs(
-		"kubeapiservers.operator.openshift.io=identity,aescbc:1;kubeschedulers.operator.openshift.io=identity,aescbc:1",
-		"kubeapiservers.operator.openshift.io=aescbc:1,identity;kubeschedulers.operator.openshift.io=aescbc:1,identity",
+		"kubeapiservers.operator.uccp.io=identity,aescbc:1;kubeschedulers.operator.uccp.io=identity,aescbc:1",
+		"kubeapiservers.operator.uccp.io=aescbc:1,identity;kubeschedulers.operator.uccp.io=aescbc:1,identity",
 	)
 	waitForMigration("1")
 	requireConditionStatus("Encrypted", operatorv1.ConditionTrue)
@@ -253,8 +253,8 @@ func TestEncryptionIntegration(tt *testing.T) {
 	require.NoError(t, err)
 	waitForKeys(2)
 	waitForConfigs(
-		"kubeapiservers.operator.openshift.io=aescbc:1,identity,aesgcm:2;kubeschedulers.operator.openshift.io=aescbc:1,identity,aesgcm:2",
-		"kubeapiservers.operator.openshift.io=identity,aescbc:1,aesgcm:2;kubeschedulers.operator.openshift.io=identity,aescbc:1,aesgcm:2",
+		"kubeapiservers.operator.uccp.io=aescbc:1,identity,aesgcm:2;kubeschedulers.operator.uccp.io=aescbc:1,identity,aesgcm:2",
+		"kubeapiservers.operator.uccp.io=identity,aescbc:1,aesgcm:2;kubeschedulers.operator.uccp.io=identity,aescbc:1,aesgcm:2",
 	)
 	requireConditionStatus("Encrypted", operatorv1.ConditionFalse)
 
@@ -270,9 +270,9 @@ func TestEncryptionIntegration(tt *testing.T) {
 	require.NoError(t, err)
 	waitForKeys(3)
 	waitForConfigs(
-		"kubeapiservers.operator.openshift.io=identity,aescbc:3,aescbc:1,aesgcm:2;kubeschedulers.operator.openshift.io=identity,aescbc:3,aescbc:1,aesgcm:2",
-		"kubeapiservers.operator.openshift.io=aescbc:3,aescbc:1,identity,aesgcm:2;kubeschedulers.operator.openshift.io=aescbc:3,aescbc:1,identity,aesgcm:2",
-		"kubeapiservers.operator.openshift.io=aescbc:3,identity,aesgcm:2;kubeschedulers.operator.openshift.io=aescbc:3,identity,aesgcm:2",
+		"kubeapiservers.operator.uccp.io=identity,aescbc:3,aescbc:1,aesgcm:2;kubeschedulers.operator.uccp.io=identity,aescbc:3,aescbc:1,aesgcm:2",
+		"kubeapiservers.operator.uccp.io=aescbc:3,aescbc:1,identity,aesgcm:2;kubeschedulers.operator.uccp.io=aescbc:3,aescbc:1,identity,aesgcm:2",
+		"kubeapiservers.operator.uccp.io=aescbc:3,identity,aesgcm:2;kubeschedulers.operator.uccp.io=aescbc:3,identity,aesgcm:2",
 	)
 	waitForConditionStatus("Encrypted", operatorv1.ConditionTrue)
 
@@ -293,38 +293,38 @@ func TestEncryptionIntegration(tt *testing.T) {
 	setExternalReason("a")
 	waitForKeys(4)
 	waitForConfigs(
-		"kubeapiservers.operator.openshift.io=aescbc:3,aescbc:4,identity,aesgcm:2;kubeschedulers.operator.openshift.io=aescbc:3,aescbc:4,identity,aesgcm:2",
-		"kubeapiservers.operator.openshift.io=aescbc:4,aescbc:3,identity,aesgcm:2;kubeschedulers.operator.openshift.io=aescbc:4,aescbc:3,identity,aesgcm:2",
-		"kubeapiservers.operator.openshift.io=aescbc:4,aescbc:3,identity;kubeschedulers.operator.openshift.io=aescbc:4,aescbc:3,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:3,aescbc:4,identity,aesgcm:2;kubeschedulers.operator.uccp.io=aescbc:3,aescbc:4,identity,aesgcm:2",
+		"kubeapiservers.operator.uccp.io=aescbc:4,aescbc:3,identity,aesgcm:2;kubeschedulers.operator.uccp.io=aescbc:4,aescbc:3,identity,aesgcm:2",
+		"kubeapiservers.operator.uccp.io=aescbc:4,aescbc:3,identity;kubeschedulers.operator.uccp.io=aescbc:4,aescbc:3,identity",
 	)
 
 	t.Logf("Setting another external reason")
 	setExternalReason("b")
 	waitForKeys(5)
 	waitForConfigs(
-		"kubeapiservers.operator.openshift.io=aescbc:4,aescbc:5,aescbc:3,identity;kubeschedulers.operator.openshift.io=aescbc:4,aescbc:5,aescbc:3,identity",
-		"kubeapiservers.operator.openshift.io=aescbc:5,aescbc:4,aescbc:3,identity;kubeschedulers.operator.openshift.io=aescbc:5,aescbc:4,aescbc:3,identity",
-		"kubeapiservers.operator.openshift.io=aescbc:5,aescbc:4,identity;kubeschedulers.operator.openshift.io=aescbc:5,aescbc:4,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:4,aescbc:5,aescbc:3,identity;kubeschedulers.operator.uccp.io=aescbc:4,aescbc:5,aescbc:3,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:5,aescbc:4,aescbc:3,identity;kubeschedulers.operator.uccp.io=aescbc:5,aescbc:4,aescbc:3,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:5,aescbc:4,identity;kubeschedulers.operator.uccp.io=aescbc:5,aescbc:4,identity",
 	)
 
 	t.Logf("Expire the last key")
-	_, err = kubeClient.CoreV1().Secrets("openshift-config-managed").Patch(ctx, fmt.Sprintf("encryption-key-%s-5", component), types.MergePatchType, []byte(`{"metadata":{"annotations":{"encryption.apiserver.operator.openshift.io/migrated-timestamp":"2010-10-17T14:14:52+02:00"}}}`), metav1.PatchOptions{})
+	_, err = kubeClient.CoreV1().Secrets("uccp-config-managed").Patch(ctx, fmt.Sprintf("encryption-key-%s-5", component), types.MergePatchType, []byte(`{"metadata":{"annotations":{"encryption.apiserver.operator.uccp.io/migrated-timestamp":"2010-10-17T14:14:52+02:00"}}}`), metav1.PatchOptions{})
 	require.NoError(t, err)
 	waitForKeys(6)
 	waitForConfigs(
-		"kubeapiservers.operator.openshift.io=aescbc:5,aescbc:6,aescbc:4,identity;kubeschedulers.operator.openshift.io=aescbc:5,aescbc:6,aescbc:4,identity",
-		"kubeapiservers.operator.openshift.io=aescbc:6,aescbc:5,aescbc:4,identity;kubeschedulers.operator.openshift.io=aescbc:6,aescbc:5,aescbc:4,identity",
-		"kubeapiservers.operator.openshift.io=aescbc:6,aescbc:5,identity;kubeschedulers.operator.openshift.io=aescbc:6,aescbc:5,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:5,aescbc:6,aescbc:4,identity;kubeschedulers.operator.uccp.io=aescbc:5,aescbc:6,aescbc:4,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:6,aescbc:5,aescbc:4,identity;kubeschedulers.operator.uccp.io=aescbc:6,aescbc:5,aescbc:4,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:6,aescbc:5,identity;kubeschedulers.operator.uccp.io=aescbc:6,aescbc:5,identity",
 	)
 	waitForConditionStatus("Encrypted", operatorv1.ConditionTrue)
 
 	t.Logf("Delete the last key")
-	_, err = kubeClient.CoreV1().Secrets("openshift-config-managed").Patch(ctx, fmt.Sprintf("encryption-key-%s-6", component), types.JSONPatchType, []byte(`[{"op":"remove","path":"/metadata/finalizers"}]`), metav1.PatchOptions{})
+	_, err = kubeClient.CoreV1().Secrets("uccp-config-managed").Patch(ctx, fmt.Sprintf("encryption-key-%s-6", component), types.JSONPatchType, []byte(`[{"op":"remove","path":"/metadata/finalizers"}]`), metav1.PatchOptions{})
 	require.NoError(t, err)
-	err = kubeClient.CoreV1().Secrets("openshift-config-managed").Delete(ctx, fmt.Sprintf("encryption-key-%s-6", component), metav1.DeleteOptions{})
+	err = kubeClient.CoreV1().Secrets("uccp-config-managed").Delete(ctx, fmt.Sprintf("encryption-key-%s-6", component), metav1.DeleteOptions{})
 	require.NoError(t, err)
 	err = wait.PollImmediate(time.Second, wait.ForeverTestTimeout, func() (bool, error) {
-		_, err := kubeClient.CoreV1().Secrets("openshift-config-managed").Get(ctx, fmt.Sprintf("encryption-key-%s-7", component), metav1.GetOptions{})
+		_, err := kubeClient.CoreV1().Secrets("uccp-config-managed").Get(ctx, fmt.Sprintf("encryption-key-%s-7", component), metav1.GetOptions{})
 		if errors.IsNotFound(err) {
 			return false, nil
 		}
@@ -332,38 +332,38 @@ func TestEncryptionIntegration(tt *testing.T) {
 	})
 	require.NoError(t, err)
 	// here we see potentially also the following if the key controller is slower than the state controller:
-	//   kubeapiservers.operator.openshift.io=aescbc:6,aescbc:5,identity;kubeschedulers.operator.openshift.io=aescbc:6,aescbc:5,identity
+	//   kubeapiservers.operator.uccp.io=aescbc:6,aescbc:5,identity;kubeschedulers.operator.uccp.io=aescbc:6,aescbc:5,identity
 	// but eventually we get the following:
 	waitForConfigEventually(
 		// 6 as preserved, unbacked config key, 7 as newly created key, and 5 as fully migrated key
-		"kubeapiservers.operator.openshift.io=aescbc:6,aescbc:7,aescbc:5,aescbc:4,identity;kubeschedulers.operator.openshift.io=aescbc:6,aescbc:7,aescbc:5,aescbc:4,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:6,aescbc:7,aescbc:5,aescbc:4,identity;kubeschedulers.operator.uccp.io=aescbc:6,aescbc:7,aescbc:5,aescbc:4,identity",
 	)
 	waitForConfigs(
 		// 7 is promoted
-		"kubeapiservers.operator.openshift.io=aescbc:7,aescbc:6,aescbc:5,aescbc:4,identity;kubeschedulers.operator.openshift.io=aescbc:7,aescbc:6,aescbc:5,aescbc:4,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:7,aescbc:6,aescbc:5,aescbc:4,identity;kubeschedulers.operator.uccp.io=aescbc:7,aescbc:6,aescbc:5,aescbc:4,identity",
 		// 7 is migrated, plus one more backed key, which is 5 (6 is deleted)
-		"kubeapiservers.operator.openshift.io=aescbc:7,aescbc:6,aescbc:5,identity;kubeschedulers.operator.openshift.io=aescbc:7,aescbc:6,aescbc:5,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:7,aescbc:6,aescbc:5,identity;kubeschedulers.operator.uccp.io=aescbc:7,aescbc:6,aescbc:5,identity",
 	)
 	waitForConditionStatus("Encrypted", operatorv1.ConditionTrue)
 
-	t.Logf("Delete the openshift-config-managed config")
-	_, err = kubeClient.CoreV1().Secrets("openshift-config-managed").Patch(ctx, fmt.Sprintf("encryption-config-%s", component), types.JSONPatchType, []byte(`[{"op":"remove","path":"/metadata/finalizers"}]`), metav1.PatchOptions{})
+	t.Logf("Delete the uccp-config-managed config")
+	_, err = kubeClient.CoreV1().Secrets("uccp-config-managed").Patch(ctx, fmt.Sprintf("encryption-config-%s", component), types.JSONPatchType, []byte(`[{"op":"remove","path":"/metadata/finalizers"}]`), metav1.PatchOptions{})
 	require.NoError(t, err)
-	err = kubeClient.CoreV1().Secrets("openshift-config-managed").Delete(ctx, fmt.Sprintf("encryption-config-%s", component), metav1.DeleteOptions{})
+	err = kubeClient.CoreV1().Secrets("uccp-config-managed").Delete(ctx, fmt.Sprintf("encryption-config-%s", component), metav1.DeleteOptions{})
 	require.NoError(t, err)
 	waitForConfigs(
 		// one migrated read-key (7) and one more backed key (5), and everything in between (6)
-		"kubeapiservers.operator.openshift.io=aescbc:7,aescbc:6,aescbc:5,identity;kubeschedulers.operator.openshift.io=aescbc:7,aescbc:6,aescbc:5,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:7,aescbc:6,aescbc:5,identity;kubeschedulers.operator.uccp.io=aescbc:7,aescbc:6,aescbc:5,identity",
 	)
 	waitForConditionStatus("Encrypted", operatorv1.ConditionTrue)
 
-	t.Logf("Delete the openshift-config-managed config")
+	t.Logf("Delete the uccp-config-managed config")
 	deployer.DeleteOperandConfig()
 	waitForConfigs(
 		// 7 is migrated and hence only one needed, but we rotate through identity
-		"kubeapiservers.operator.openshift.io=identity,aescbc:7;kubeschedulers.operator.openshift.io=identity,aescbc:7",
+		"kubeapiservers.operator.uccp.io=identity,aescbc:7;kubeschedulers.operator.uccp.io=identity,aescbc:7",
 		// 7 is migrated, plus one backed key (5). 6 is deleted, and therefore is not preserved (would be if the operand config was not deleted)
-		"kubeapiservers.operator.openshift.io=aescbc:7,aescbc:5,identity;kubeschedulers.operator.openshift.io=aescbc:7,aescbc:5,identity",
+		"kubeapiservers.operator.uccp.io=aescbc:7,aescbc:5,identity;kubeschedulers.operator.uccp.io=aescbc:7,aescbc:5,identity",
 	)
 	waitForConditionStatus("Encrypted", operatorv1.ConditionTrue)
 }
@@ -372,9 +372,9 @@ const encryptionTestOperatorCRD = `
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: encryptiontests.operator.openshift.io
+  name: encryptiontests.operator.uccp.io
 spec:
-  group: operator.openshift.io
+  group: operator.uccp.io
   names:
     kind: EncryptionTest
     listKind: EncryptionTestList
@@ -417,7 +417,7 @@ func NewInstantDeployer(t T, stopCh <-chan struct{}, secretsClient corev1client.
 		configManagedSecretsClient: secretInterceptor{
 			t:               t,
 			output:          make(chan *corev1.Secret),
-			SecretInterface: secretsClient.Secrets("openshift-config-managed"),
+			SecretInterface: secretsClient.Secrets("uccp-config-managed"),
 			secretName:      secretName,
 		},
 	}
@@ -497,7 +497,7 @@ func (d *lockStepDeployer) Deploy() error {
 }
 
 func (d *lockStepDeployer) Secrets(namespace string) corev1client.SecretInterface {
-	if namespace == "openshift-config-managed" {
+	if namespace == "uccp-config-managed" {
 		return &d.configManagedSecretsClient
 	}
 	return d.secretsClient.Secrets(namespace)

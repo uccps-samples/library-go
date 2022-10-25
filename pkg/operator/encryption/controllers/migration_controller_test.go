@@ -20,16 +20,16 @@ import (
 	clientgotesting "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/cache"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	configv1clientfake "github.com/openshift/client-go/config/clientset/versioned/fake"
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	encryptiondeployer "github.com/openshift/library-go/pkg/operator/encryption/deployer"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	encryptiontesting "github.com/openshift/library-go/pkg/operator/encryption/testing"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1clientfake "github.com/uccps-samples/client-go/config/clientset/versioned/fake"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	encryptiondeployer "github.com/uccps-samples/library-go/pkg/operator/encryption/deployer"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	encryptiontesting "github.com/uccps-samples/library-go/pkg/operator/encryption/testing"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 func TestMigrationController(t *testing.T) {
@@ -80,7 +80,7 @@ func TestMigrationController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
 			},
 		},
 
@@ -149,8 +149,8 @@ func TestMigrationController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"list:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"list:secrets:uccp-config-managed",
 			},
 			expectedMigratorCalls: []string{
 				"ensure:configmaps:1",
@@ -242,11 +242,11 @@ func TestMigrationController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"list:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"list:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
 				"create:events:operator",
 			},
 			expectedMigratorCalls: []string{
@@ -339,15 +339,15 @@ func TestMigrationController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"list:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"list:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
 				"create:events:operator",
-				"get:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
+				"get:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
 				"create:events:operator",
 			},
 			expectedMigratorCalls: []string{
@@ -439,8 +439,8 @@ func TestMigrationController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"list:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"list:secrets:uccp-config-managed",
 			},
 			expectedMigratorCalls: []string{
 				"ensure:configmaps:1",
@@ -535,8 +535,8 @@ func TestMigrationController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"list:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"list:secrets:uccp-config-managed",
 			},
 			expectedMigratorCalls: []string{
 				"ensure:configmaps:1",
@@ -605,9 +605,9 @@ func TestMigrationController(t *testing.T) {
 			}
 			fakeKubeClient := fake.NewSimpleClientset(allResources...)
 			eventRecorder := events.NewRecorder(fakeKubeClient.CoreV1().Events("operator"), "test-encryptionKeyController", &corev1.ObjectReference{})
-			// we pass "openshift-config-managed" and $targetNamespace ns because the controller creates an informer for secrets in that namespace.
+			// we pass "uccp-config-managed" and $targetNamespace ns because the controller creates an informer for secrets in that namespace.
 			// note that the informer factory is not used in the test - it's only needed to create the controller
-			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "openshift-config-managed", scenario.targetNamespace)
+			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "uccp-config-managed", scenario.targetNamespace)
 			fakeSecretClient := fakeKubeClient.CoreV1()
 
 			fakeConfigClient := configv1clientfake.NewSimpleClientset()

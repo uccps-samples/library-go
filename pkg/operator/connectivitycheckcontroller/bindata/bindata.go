@@ -58,12 +58,12 @@ var _pkgOperatorConnectivitycheckcontrollerManifestsControlplaneOperatorOpenshif
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    api-approved.openshift.io: https://github.com/openshift/api/pull/639
-    include.release.openshift.io/self-managed-high-availability: "true"
-    include.release.openshift.io/single-node-developer: "true"
-  name: podnetworkconnectivitychecks.controlplane.operator.openshift.io
+    api-approved.uccp.io: https://github.com/uccps-samples/api/pull/639
+    include.release.uccp.io/self-managed-high-availability: "true"
+    include.release.uccp.io/single-node-developer: "true"
+  name: podnetworkconnectivitychecks.controlplane.operator.uccp.io
 spec:
-  group: controlplane.operator.openshift.io
+  group: controlplane.operator.uccp.io
   names:
     kind: PodNetworkConnectivityCheck
     listKind: PodNetworkConnectivityCheckList
@@ -293,7 +293,7 @@ func pkgOperatorConnectivitycheckcontrollerManifestsControlplaneOperatorOpenshif
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "pkg/operator/connectivitycheckcontroller/manifests/controlplane.operator.openshift.io_podnetworkconnectivitychecks.yaml", size: 0, mode: os.FileMode(0), modTime: time.Unix(0, 0)}
+	info := bindataFileInfo{name: "pkg/operator/connectivitycheckcontroller/manifests/controlplane.operator.uccp.io_podnetworkconnectivitychecks.yaml", size: 0, mode: os.FileMode(0), modTime: time.Unix(0, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -398,7 +398,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 		"operator": {nil, map[string]*bintree{
 			"connectivitycheckcontroller": {nil, map[string]*bintree{
 				"manifests": {nil, map[string]*bintree{
-					"controlplane.operator.openshift.io_podnetworkconnectivitychecks.yaml": {pkgOperatorConnectivitycheckcontrollerManifestsControlplaneOperatorOpenshiftIo_podnetworkconnectivitychecksYaml, map[string]*bintree{}},
+					"controlplane.operator.uccp.io_podnetworkconnectivitychecks.yaml": {pkgOperatorConnectivitycheckcontrollerManifestsControlplaneOperatorOpenshiftIo_podnetworkconnectivitychecksYaml, map[string]*bintree{}},
 				}},
 			}},
 		}},

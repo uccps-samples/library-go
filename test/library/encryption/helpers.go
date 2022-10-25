@@ -20,10 +20,10 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/util/retry"
 
-	configv1 "github.com/openshift/api/config/v1"
-	configv1client "github.com/openshift/client-go/config/clientset/versioned/typed/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	configv1client "github.com/uccps-samples/client-go/config/clientset/versioned/typed/config/v1"
 
-	"github.com/openshift/library-go/test/library"
+	"github.com/uccps-samples/library-go/test/library"
 )
 
 var (
@@ -243,12 +243,12 @@ func GetLastKeyMeta(t testing.TB, kubeClient kubernetes.Interface, namespace, la
 	}
 
 	migrated := &migratedGroupResources{}
-	if v, ok := lastKey.Annotations["encryption.apiserver.operator.openshift.io/migrated-resources"]; ok && len(v) > 0 {
+	if v, ok := lastKey.Annotations["encryption.apiserver.operator.uccp.io/migrated-resources"]; ok && len(v) > 0 {
 		if err := json.Unmarshal([]byte(v), migrated); err != nil {
 			return EncryptionKeyMeta{}, err
 		}
 	}
-	mode := lastKey.Annotations["encryption.apiserver.operator.openshift.io/mode"]
+	mode := lastKey.Annotations["encryption.apiserver.operator.uccp.io/mode"]
 
 	return EncryptionKeyMeta{Name: lastKey.Name, Migrated: migrated.Resources, Mode: mode}, nil
 }
@@ -302,7 +302,7 @@ func determineNextEncryptionKeyName(prevKeyName, labelSelector string) (string, 
 
 	ret := strings.Split(labelSelector, "=")
 	if len(ret) != 2 {
-		return "", fmt.Errorf("unable to read the component name from the label selector, wrong format of the selector, expected \"...openshift.io/component=name\", got %s", labelSelector)
+		return "", fmt.Errorf("unable to read the component name from the label selector, wrong format of the selector, expected \"...uccp.io/component=name\", got %s", labelSelector)
 	}
 
 	// no encryption key - the first one will look like the following

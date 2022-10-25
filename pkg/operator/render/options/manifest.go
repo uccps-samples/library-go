@@ -21,7 +21,7 @@ type ManifestOptions struct {
 // NewManifestOptions return default values for ManifestOptions.
 func NewManifestOptions(componentName, image string) *ManifestOptions {
 	return &ManifestOptions{
-		Namespace:             fmt.Sprintf("openshift-%s", componentName),
+		Namespace:             fmt.Sprintf("uccp-%s", componentName),
 		Image:                 image,
 		ImagePullPolicy:       "IfNotPresent",
 		ConfigHostPath:        "/etc/kubernetes/bootstrap-configs",

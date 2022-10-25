@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/crypto/openpgp"
 
-	"github.com/openshift/library-go/pkg/verify/store/sigstore"
+	"github.com/uccps-samples/library-go/pkg/verify/store/sigstore"
 )
 
 type VerifierAccessor interface {

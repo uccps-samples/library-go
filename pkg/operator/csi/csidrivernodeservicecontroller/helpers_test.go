@@ -11,7 +11,7 @@ import (
 
 	"github.com/ghodss/yaml"
 	"github.com/google/go-cmp/cmp"
-	"github.com/openshift/library-go/pkg/operator/csi/csiconfigobservercontroller"
+	"github.com/uccps-samples/library-go/pkg/operator/csi/csiconfigobservercontroller"
 )
 
 const (
@@ -162,7 +162,7 @@ func withInvalidObservedHTTPProxy(proxy string, path []string) driverModifier {
 
 func withDaemonSetHTTPProxyAnnotation(containerName string) daemonSetModifier {
 	return func(instance *appsv1.DaemonSet) *appsv1.DaemonSet {
-		instance.Annotations = map[string]string{"config.openshift.io/inject-proxy": containerName}
+		instance.Annotations = map[string]string{"config.uccp.io/inject-proxy": containerName}
 		return instance
 	}
 }

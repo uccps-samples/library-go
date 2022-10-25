@@ -12,11 +12,11 @@ import (
 	corev1listers "k8s.io/client-go/listers/core/v1"
 	"k8s.io/client-go/tools/cache"
 
-	configv1 "github.com/openshift/api/config/v1"
-	configlistersv1 "github.com/openshift/client-go/config/listers/config/v1"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	encryptiontesting "github.com/openshift/library-go/pkg/operator/encryption/testing"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	configlistersv1 "github.com/uccps-samples/client-go/config/listers/config/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	encryptiontesting "github.com/uccps-samples/library-go/pkg/operator/encryption/testing"
 )
 
 func TestEncryptionEnabledPrecondition(t *testing.T) {
@@ -67,7 +67,7 @@ func TestEncryptionEnabledPrecondition(t *testing.T) {
 			existingSecret: &corev1.Secret{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      fmt.Sprintf("%s-%s", encryptionconfig.EncryptionConfSecretName, component),
-					Namespace: "openshift-config-managed",
+					Namespace: "uccp-config-managed",
 				},
 			},
 			expectedPreconditionsToBeReady: true,
@@ -85,7 +85,7 @@ func TestEncryptionEnabledPrecondition(t *testing.T) {
 			if scenario.existingSecret != nil {
 				secretsIndexer.Add(scenario.existingSecret)
 			}
-			namespacedSecretLister := corev1listers.NewSecretLister(secretsIndexer).Secrets("openshift-config-managed")
+			namespacedSecretLister := corev1listers.NewSecretLister(secretsIndexer).Secrets("uccp-config-managed")
 
 			// act
 			target := &preconditionChecker{component: component, encryptionSecretSelector: encryptionSecretSelector, secretLister: namespacedSecretLister, apiServerConfigLister: apiServerConfigLister}

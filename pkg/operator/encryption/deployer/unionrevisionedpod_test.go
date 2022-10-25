@@ -10,10 +10,10 @@ import (
 	apiserverconfigv1 "k8s.io/apiserver/pkg/apis/config/v1"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/deployer"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
-	encryptiontesting "github.com/openshift/library-go/pkg/operator/encryption/testing"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/deployer"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
+	encryptiontesting "github.com/uccps-samples/library-go/pkg/operator/encryption/testing"
 )
 
 func TestUnionRevisionLabelPodDeployer(t *testing.T) {

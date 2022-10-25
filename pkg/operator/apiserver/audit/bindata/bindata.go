@@ -61,12 +61,12 @@ func (fi bindataFileInfo) Sys() interface{} {
 var _pkgOperatorApiserverAuditManifestsAllrequestbodiesRulesYaml = []byte(`# exclude resources where the body is security-sensitive
 - level: Metadata
   resources:
-  - group: "route.openshift.io"
+  - group: "route.uccp.io"
     resources: ["routes"]
   - resources: ["secrets"]
 - level: Metadata
   resources:
-  - group: "oauth.openshift.io"
+  - group: "oauth.uccp.io"
     resources: ["oauthclients"]
 # catch-all rule to log all other requests with request and response payloads
 - level: RequestResponse`)
@@ -127,9 +127,9 @@ var _pkgOperatorApiserverAuditManifestsDefaultRulesYaml = []byte(`# Log the full
 - level: RequestResponse
   verbs: ["create", "update", "patch", "delete"]
   resources:
-  - group: "user.openshift.io"
+  - group: "user.uccp.io"
     resources: ["identities"]
-  - group: "oauth.openshift.io"
+  - group: "oauth.uccp.io"
     resources: ["oauthaccesstokens", "oauthauthorizetokens"]
 # A catch-all rule to log all other requests at the Metadata level.
 - level: Metadata
@@ -174,12 +174,12 @@ func pkgOperatorApiserverAuditManifestsNoneRulesYaml() (*asset, error) {
 var _pkgOperatorApiserverAuditManifestsWriterequestbodiesRulesYaml = []byte(`# exclude resources where the body is security-sensitive
 - level: Metadata
   resources:
-  - group: "route.openshift.io"
+  - group: "route.uccp.io"
     resources: ["routes"]
   - resources: ["secrets"]
 - level: Metadata
   resources:
-  - group: "oauth.openshift.io"
+  - group: "oauth.uccp.io"
     resources: ["oauthclients"]
 # log request and response payloads for all write requests
 - level: RequestResponse

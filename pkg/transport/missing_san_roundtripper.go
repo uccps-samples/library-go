@@ -3,7 +3,7 @@ package transport
 import (
 	"net/http"
 
-	"github.com/openshift/library-go/pkg/crypto"
+	"github.com/uccps-samples/library-go/pkg/crypto"
 )
 
 type roundTripperFunc func(req *http.Request) (*http.Response, error)

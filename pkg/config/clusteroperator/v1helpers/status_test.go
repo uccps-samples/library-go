@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	configv1 "github.com/openshift/api/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
 )
 
 func TestGetStatusConditionDiff(t *testing.T) {

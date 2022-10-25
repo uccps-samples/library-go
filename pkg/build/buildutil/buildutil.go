@@ -3,7 +3,7 @@ package buildutil
 import (
 	corev1 "k8s.io/api/core/v1"
 
-	buildv1 "github.com/openshift/api/build/v1"
+	buildv1 "github.com/uccps-samples/api/build/v1"
 )
 
 // GetInputReference returns the From ObjectReference associated with the

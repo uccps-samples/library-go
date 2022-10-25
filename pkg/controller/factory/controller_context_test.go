@@ -15,7 +15,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/openshift/library-go/pkg/operator/events/eventstesting"
+	"github.com/uccps-samples/library-go/pkg/operator/events/eventstesting"
 )
 
 type threadSafeStringSet struct {

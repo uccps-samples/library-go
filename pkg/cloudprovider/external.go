@@ -3,7 +3,7 @@ package cloudprovider
 import (
 	"fmt"
 
-	configv1 "github.com/openshift/api/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 

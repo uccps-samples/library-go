@@ -23,11 +23,11 @@ func NewSecret(namespace, name string) Resource {
 }
 
 func NewOperator(name string) Resource {
-	return NewResource(NewCoordinates("config.openshift.io", "clusteroperators", "", name))
+	return NewResource(NewCoordinates("config.uccp.io", "clusteroperators", "", name))
 }
 
 func NewConfig(resource string) Resource {
-	return NewResource(NewCoordinates("config.openshift.io", resource, "", "cluster"))
+	return NewResource(NewCoordinates("config.uccp.io", resource, "", "cluster"))
 }
 
 type Resource interface {

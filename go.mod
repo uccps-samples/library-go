@@ -1,4 +1,4 @@
-module github.com/openshift/library-go
+module github.com/uccps-samples/library-go
 
 go 1.16
 
@@ -24,9 +24,6 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
 	github.com/opencontainers/go-digest v1.0.0-rc1
 	github.com/opencontainers/image-spec v1.0.1 // indirect
-	github.com/openshift/api v0.0.0-20210831091943-07e756545ac1
-	github.com/openshift/build-machinery-go v0.0.0-20210806203541-4ea9b6da3a37
-	github.com/openshift/client-go v0.0.0-20210831095141-e19a065e79f7
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.3.0
 	github.com/prometheus/client_golang v1.11.0
@@ -36,6 +33,9 @@ require (
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
+	github.com/uccps-samples/api v0.0.0-20221025085120-91bb4873437a
+	github.com/uccps-samples/build-machinery-go v0.0.0-20221024073655-3930cec85ae1
+	github.com/uccps-samples/client-go v0.0.0-20221025085836-81245c36050d
 	github.com/xlab/handysort v0.0.0-20150421192137-fb3537ed64a1 // indirect
 	go.etcd.io/etcd/client/v3 v3.5.0
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83

@@ -3,8 +3,8 @@ package configdefaults
 import (
 	"time"
 
-	configv1 "github.com/openshift/api/config/v1"
-	"github.com/openshift/library-go/pkg/crypto"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	"github.com/uccps-samples/library-go/pkg/crypto"
 )
 
 func DefaultString(target *string, defaultVal string) {

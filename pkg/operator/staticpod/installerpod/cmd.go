@@ -21,12 +21,12 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 
-	"github.com/openshift/library-go/pkg/config/client"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/resource/retry"
-	"github.com/openshift/library-go/pkg/operator/staticpod"
-	"github.com/openshift/library-go/pkg/operator/staticpod/internal/flock"
+	"github.com/uccps-samples/library-go/pkg/config/client"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/retry"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/internal/flock"
 )
 
 type InstallOptions struct {

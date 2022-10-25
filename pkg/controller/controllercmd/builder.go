@@ -9,15 +9,15 @@ import (
 	"sync"
 	"time"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1alpha1 "github.com/openshift/api/operator/v1alpha1"
-	"github.com/openshift/library-go/pkg/authorization/hardcodedauthorizer"
-	"github.com/openshift/library-go/pkg/config/client"
-	"github.com/openshift/library-go/pkg/config/configdefaults"
-	leaderelectionconverter "github.com/openshift/library-go/pkg/config/leaderelection"
-	"github.com/openshift/library-go/pkg/config/serving"
-	"github.com/openshift/library-go/pkg/controller/fileobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1alpha1 "github.com/uccps-samples/api/operator/v1alpha1"
+	"github.com/uccps-samples/library-go/pkg/authorization/hardcodedauthorizer"
+	"github.com/uccps-samples/library-go/pkg/config/client"
+	"github.com/uccps-samples/library-go/pkg/config/configdefaults"
+	leaderelectionconverter "github.com/uccps-samples/library-go/pkg/config/leaderelection"
+	"github.com/uccps-samples/library-go/pkg/config/serving"
+	"github.com/uccps-samples/library-go/pkg/controller/fileobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
@@ -357,7 +357,7 @@ func (b *ControllerBuilder) getComponentNamespace() (string, error) {
 	}
 	nsBytes, err := ioutil.ReadFile("/var/run/secrets/kubernetes.io/serviceaccount/namespace")
 	if err != nil {
-		return "openshift-config-managed", err
+		return "uccp-config-managed", err
 	}
 	return string(nsBytes), nil
 }

@@ -14,9 +14,9 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/klog/v2"
 
-	operatorclientv1 "github.com/openshift/client-go/operator/clientset/versioned/typed/operator/v1"
-	"github.com/openshift/library-go/pkg/config/client"
-	"github.com/openshift/library-go/pkg/operator/staticpod/internal/flock"
+	operatorclientv1 "github.com/uccps-samples/client-go/operator/clientset/versioned/typed/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/config/client"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/internal/flock"
 )
 
 // ReadinessChecker is a contract between the startup monitor and operators.

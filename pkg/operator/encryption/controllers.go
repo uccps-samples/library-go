@@ -7,19 +7,19 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	corev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/controllers/migrators"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/resourcesynccontroller"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/controllers/migrators"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/resourcesynccontroller"
 
-	configv1client "github.com/openshift/client-go/config/clientset/versioned/typed/config/v1"
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions/config/v1"
+	configv1client "github.com/uccps-samples/client-go/config/clientset/versioned/typed/config/v1"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions/config/v1"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/controllers"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/controllers"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
 )
 
 type runner interface {
@@ -55,7 +55,7 @@ func NewControllers(
 	if resourceSyncer != nil {
 		if err := resourceSyncer.SyncSecretConditionally(
 			resourcesynccontroller.ResourceLocation{Namespace: component, Name: encryptionconfig.EncryptionConfSecretName},
-			resourcesynccontroller.ResourceLocation{Namespace: "openshift-config-managed", Name: fmt.Sprintf("%s-%s", encryptionconfig.EncryptionConfSecretName, component)},
+			resourcesynccontroller.ResourceLocation{Namespace: "uccp-config-managed", Name: fmt.Sprintf("%s-%s", encryptionconfig.EncryptionConfSecretName, component)},
 			encryptionEnabledChecker.PreconditionFulfilled,
 		); err != nil {
 			return nil, err

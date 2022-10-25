@@ -6,8 +6,8 @@ import (
 	"path"
 	"strings"
 
-	configv1 "github.com/openshift/api/config/v1"
-	assets "github.com/openshift/library-go/pkg/operator/apiserver/audit/bindata"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	assets "github.com/uccps-samples/library-go/pkg/operator/apiserver/audit/bindata"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/serializer"

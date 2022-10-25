@@ -8,16 +8,16 @@ import (
 
 	"k8s.io/client-go/kubernetes/fake"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 func TestApplyDirectly(t *testing.T) {
 	requiredObj, gvk, err := genericCodec.Decode([]byte(`apiVersion: v1
 kind: Namespace
 metadata:
-  name: openshift-apiserver
+  name: uccp-apiserver
   labels:
-    openshift.io/run-level: "1"
+    uccp.io/run-level: "1"
 `), nil, nil)
 	t.Log(spew.Sdump(requiredObj))
 	t.Log(spew.Sdump(gvk))
@@ -34,7 +34,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: sample-claim
   labels:
-    openshift.io/run-level: "1"
+    uccp.io/run-level: "1"
 `), nil
 	}
 	recorder := events.NewInMemoryRecorder("")

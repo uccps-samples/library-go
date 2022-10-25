@@ -16,13 +16,13 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 
-	opv1 "github.com/openshift/api/operator/v1"
+	opv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
@@ -30,7 +30,7 @@ const (
 	operandNamespace           = "test-csi-driver-namespace"
 	controllerName             = "TestController"
 	credentialsRequestKind     = "CredentialsRequest"
-	credentialRequestNamespace = "openshift-cloud-credential-operator"
+	credentialRequestNamespace = "uccp-cloud-credential-operator"
 )
 
 var (
@@ -135,7 +135,7 @@ func isConditionSet(condition string, status opv1.ConditionStatus, conditions []
 }
 
 func makeFakeManifest(operandName, crNamespace, operandNamespace string) []byte {
-	value := `apiVersion: cloudcredential.openshift.io/v1
+	value := `apiVersion: cloudcredential.uccp.io/v1
 kind: CredentialsRequest
 metadata:
   name: %s

@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
@@ -149,7 +149,7 @@ func TestStartupMonitorPodConditionController(t *testing.T) {
 
 			// act
 			target := &startupMonitorPodConditionController{
-				podLister:      corev1listers.NewPodLister(indexer).Pods("openshift-kube-apiserver"),
+				podLister:      corev1listers.NewPodLister(indexer).Pods("uccp-kube-apiserver"),
 				operatorClient: fakeOperatorClient,
 				targetName:     "kube-apiserver",
 				startupMonitorEnabledFn: func() (bool, error) {
@@ -180,7 +180,7 @@ func newPod(phase corev1.PodPhase, name string) *corev1.Pod {
 		TypeMeta: metav1.TypeMeta{Kind: "Pod"},
 		ObjectMeta: metav1.ObjectMeta{
 			Name:        name,
-			Namespace:   "openshift-kube-apiserver",
+			Namespace:   "uccp-kube-apiserver",
 			Annotations: map[string]string{},
 			Labels:      map[string]string{}},
 		Spec: corev1.PodSpec{},

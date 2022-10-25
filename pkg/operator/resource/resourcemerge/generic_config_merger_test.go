@@ -7,7 +7,7 @@ import (
 
 	"k8s.io/apimachinery/pkg/util/diff"
 
-	controlplanev1 "github.com/openshift/api/kubecontrolplane/v1"
+	controlplanev1 "github.com/uccps-samples/api/kubecontrolplane/v1"
 )
 
 func TestMergeConfig(t *testing.T) {
@@ -302,7 +302,7 @@ func TestIsRequiredConfigPresent(t *testing.T) {
 		     }
 		   ]
 		 },
-		 "admission": {"pluginConfig": { "network.openshift.io/RestrictedEndpointsAdmission": {}}},
+		 "admission": {"pluginConfig": { "network.uccp.io/RestrictedEndpointsAdmission": {}}},
 		 "storageConfig": {
 		   "urls": null
 		 }
@@ -321,7 +321,7 @@ func TestIsRequiredConfigPresent(t *testing.T) {
 		     }
 		   ]
 		 },
-        "admission": {"pluginConfig": { "network.openshift.io/RestrictedEndpointsAdmission": {}}},
+        "admission": {"pluginConfig": { "network.uccp.io/RestrictedEndpointsAdmission": {}}},
 		 "storageConfig": {
 		   "urls": []
 		 }
@@ -340,7 +340,7 @@ func TestIsRequiredConfigPresent(t *testing.T) {
       }
     ]
   },
-  "admission": {"pluginConfig": { "network.openshift.io/RestrictedEndpointsAdmission": {}}},
+  "admission": {"pluginConfig": { "network.uccp.io/RestrictedEndpointsAdmission": {}}},
   "storageConfig": {
     "urls": ""
   }
@@ -359,7 +359,7 @@ func TestIsRequiredConfigPresent(t *testing.T) {
 		     }
 		   ]
 		 },
-         "admission": {"pluginConfig": { "network.openshift.io/RestrictedEndpointsAdmission": {}}},
+         "admission": {"pluginConfig": { "network.uccp.io/RestrictedEndpointsAdmission": {}}},
 		 "storageConfig": {
 		   "urls": [ "val" ]
 		 }
@@ -373,7 +373,7 @@ func TestIsRequiredConfigPresent(t *testing.T) {
 			actual := IsRequiredConfigPresent([]byte(test.config), [][]string{
 				{"servingInfo", "namedCertificates"},
 				{"storageConfig", "urls"},
-				{"admission", "pluginConfig", "network.openshift.io/RestrictedEndpointsAdmission"},
+				{"admission", "pluginConfig", "network.uccp.io/RestrictedEndpointsAdmission"},
 			})
 			switch {
 			case actual == nil && len(test.expectedError) == 0:

@@ -4,16 +4,16 @@ import (
 	"context"
 	"time"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorsv1 "github.com/openshift/api/operator/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
-	configinformers "github.com/openshift/client-go/config/informers/externalversions"
-	configv1listers "github.com/openshift/client-go/config/listers/config/v1"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/apiserver/audit"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorsv1 "github.com/uccps-samples/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	configinformers "github.com/uccps-samples/client-go/config/informers/externalversions"
+	configv1listers "github.com/uccps-samples/client-go/config/listers/config/v1"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/apiserver/audit"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	auditv1 "k8s.io/apiserver/pkg/apis/audit/v1"
@@ -29,7 +29,7 @@ type auditPolicyController struct {
 	targetNamespace, targetConfigMapName string
 }
 
-// NewAuditPolicyController create a controller that watches the config.openshift.io/v1 APIServer object
+// NewAuditPolicyController create a controller that watches the config.uccp.io/v1 APIServer object
 // and reconciles a ConfigMap in the target namespace with the audit.k8s.io/v1 policy.yaml file.
 func NewAuditPolicyController(
 	targetNamespace string,

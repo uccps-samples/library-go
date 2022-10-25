@@ -1,6 +1,6 @@
 package dockerv1client
 
-import "github.com/openshift/api/image/docker10"
+import "github.com/uccps-samples/api/image/docker10"
 
 // Convert_DockerV1CompatibilityImage_to_DockerImageConfig takes a Docker registry digest
 // (schema 2.1) and converts it to the external API version of Image.

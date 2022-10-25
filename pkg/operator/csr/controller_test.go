@@ -15,7 +15,7 @@ import (
 	kubefake "k8s.io/client-go/kubernetes/fake"
 	clienttesting "k8s.io/client-go/testing"
 
-	"github.com/openshift/library-go/pkg/operator/csr/csrtestinghelpers"
+	"github.com/uccps-samples/library-go/pkg/operator/csr/csrtestinghelpers"
 )
 
 const (

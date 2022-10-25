@@ -5,15 +5,15 @@ import (
 
 	"k8s.io/client-go/tools/cache"
 
-	configinformers "github.com/openshift/client-go/config/informers/externalversions"
-	configlistersv1 "github.com/openshift/client-go/config/listers/config/v1"
+	configinformers "github.com/uccps-samples/client-go/config/informers/externalversions"
+	configlistersv1 "github.com/uccps-samples/client-go/config/listers/config/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/configobserver/proxy"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resourcesynccontroller"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver/proxy"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resourcesynccontroller"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // ProxyConfigPath returns the path for the observed proxy config. This is a
@@ -43,7 +43,7 @@ func (l Listers) PreRunHasSynced() []cache.InformerSynced {
 }
 
 // CISConfigObserverController watches information that's relevant to CSI driver operators.
-// For now it only observes proxy information, (through the proxy.config.openshift.io/cluster
+// For now it only observes proxy information, (through the proxy.config.uccp.io/cluster
 // object), but more will be added.
 type CSIConfigObserverController struct {
 	factory.Controller

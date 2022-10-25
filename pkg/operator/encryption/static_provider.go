@@ -3,7 +3,7 @@ package encryption
 import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/controllers"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/controllers"
 )
 
 // StaticEncryptionProvider always run the encryption controllers and returns a static list of resources to encrypt

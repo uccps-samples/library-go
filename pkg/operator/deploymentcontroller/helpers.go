@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	opv1 "github.com/openshift/api/operator/v1"
+	opv1 "github.com/uccps-samples/api/operator/v1"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	corev1listers "k8s.io/client-go/listers/core/v1"

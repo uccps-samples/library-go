@@ -3,7 +3,7 @@ package startupmonitor
 import (
 	"time"
 
-	operatorclientv1 "github.com/openshift/client-go/operator/clientset/versioned/typed/operator/v1"
+	operatorclientv1 "github.com/uccps-samples/client-go/operator/clientset/versioned/typed/operator/v1"
 )
 
 // withProbeInterval probeInterval specifies a time interval at which health of the target will be assessed.

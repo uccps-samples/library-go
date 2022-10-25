@@ -18,11 +18,11 @@ import (
 	"github.com/ghodss/yaml"
 	"github.com/google/go-cmp/cmp"
 
-	configv1 "github.com/openshift/api/config/v1"
-	fakeconfig "github.com/openshift/client-go/config/clientset/versioned/fake"
-	configinformers "github.com/openshift/client-go/config/informers/externalversions"
-	"github.com/openshift/library-go/pkg/operator/csi/csiconfigobservercontroller"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	fakeconfig "github.com/uccps-samples/client-go/config/clientset/versioned/fake"
+	configinformers "github.com/uccps-samples/client-go/config/informers/externalversions"
+	"github.com/uccps-samples/library-go/pkg/operator/csi/csiconfigobservercontroller"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
 )
 
 const (
@@ -462,7 +462,7 @@ func withInvalidObservedHTTPProxy(proxy string, path []string) driverModifier {
 
 func withDeploymentHTTPProxyAnnotation(containerName string) deploymentModifier {
 	return func(instance *appsv1.Deployment) *appsv1.Deployment {
-		instance.Annotations = map[string]string{"config.openshift.io/inject-proxy": containerName}
+		instance.Annotations = map[string]string{"config.uccp.io/inject-proxy": containerName}
 		return instance
 	}
 }

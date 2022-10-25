@@ -9,10 +9,10 @@ import (
 
 	"github.com/blang/semver"
 
-	"github.com/openshift/api/image/docker10"
-	imagev1 "github.com/openshift/api/image/v1"
-	digestinternal "github.com/openshift/library-go/pkg/image/internal/digest"
-	imagereference "github.com/openshift/library-go/pkg/image/reference"
+	"github.com/uccps-samples/api/image/docker10"
+	imagev1 "github.com/uccps-samples/api/image/v1"
+	digestinternal "github.com/uccps-samples/library-go/pkg/image/internal/digest"
+	imagereference "github.com/uccps-samples/library-go/pkg/image/reference"
 )
 
 const (
@@ -264,7 +264,7 @@ func LatestTaggedImage(stream *imagev1.ImageStream, tag string) *imagev1.TagEven
 
 // ImageWithMetadata mutates the given image. It parses raw DockerImageManifest data stored in the image and
 // fills its DockerImageMetadata and other fields.
-// Copied from github.com/openshift/image-registry/pkg/origin-common/util/util.go
+// Copied from github.com/uccps-samples/image-registry/pkg/origin-common/util/util.go
 func ImageWithMetadata(image *imagev1.Image) error {
 	// Check if the metadata are already filled in for this image.
 	meta, hasMetadata := image.DockerImageMetadata.Object.(*docker10.DockerImage)

@@ -20,17 +20,17 @@ import (
 	"k8s.io/klog/v2"
 	"k8s.io/utils/pointer"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	configv1client "github.com/openshift/client-go/config/clientset/versioned/typed/config/v1"
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	configv1client "github.com/uccps-samples/client-go/config/clientset/versioned/typed/config/v1"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions/config/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/encryption/crypto"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
-	"github.com/openshift/library-go/pkg/operator/events"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/crypto"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // encryptionSecretMigrationInterval determines how much time must pass after a key has been observed as
@@ -40,11 +40,11 @@ const encryptionSecretMigrationInterval = time.Hour * 24 * 7 // one week
 
 // keyController creates new keys if necessary. It
 // * watches
-//   - secrets in openshift-config-managed
+//   - secrets in uccp-config-managed
 //   - pods in target namespace
 //   - secrets in target namespace
 // * computes a new, desired encryption config from encryption-config-<revision>
-//   and the existing keys in openshift-config-managed.
+//   and the existing keys in uccp-config-managed.
 // * derives from the desired encryption config whether a new key is needed due to
 //   - encryption is being enabled via the API or
 //   - a new to-be-encrypted resource shows up or
@@ -54,7 +54,7 @@ const encryptionSecretMigrationInterval = time.Hour * 24 * 7 // one week
 //   It then creates it.
 //
 // Note: the "based on time" reason for a new key is based on the annotation
-//       encryption.apiserver.operator.openshift.io/migrated-timestamp instead of
+//       encryption.apiserver.operator.uccp.io/migrated-timestamp instead of
 //       the key secret's creationTimestamp because the clock is supposed to
 //       start when a migration has been finished, not when it begins.
 type keyController struct {
@@ -108,7 +108,7 @@ func NewKeyController(
 		WithInformers(
 			apiServerInformer.Informer(),
 			operatorClient.Informer(),
-			kubeInformersForNamespaces.InformersFor("openshift-config-managed").Core().V1().Secrets().Informer(),
+			kubeInformersForNamespaces.InformersFor("uccp-config-managed").Core().V1().Secrets().Informer(),
 			deployer,
 		).ToController(c.name, eventRecorder.WithComponentSuffix("encryption-key-controller"))
 }
@@ -204,7 +204,7 @@ func (c *keyController) checkAndCreateKeys(syncContext factory.SyncContext, encr
 	if err != nil {
 		return fmt.Errorf("failed to create key: %v", err)
 	}
-	_, createErr := c.secretClient.Secrets("openshift-config-managed").Create(context.TODO(), keySecret, metav1.CreateOptions{})
+	_, createErr := c.secretClient.Secrets("uccp-config-managed").Create(context.TODO(), keySecret, metav1.CreateOptions{})
 	if errors.IsAlreadyExists(createErr) {
 		return c.validateExistingSecret(keySecret, newKeyID)
 	}
@@ -219,7 +219,7 @@ func (c *keyController) checkAndCreateKeys(syncContext factory.SyncContext, encr
 }
 
 func (c *keyController) validateExistingSecret(keySecret *corev1.Secret, keyID uint64) error {
-	actualKeySecret, err := c.secretClient.Secrets("openshift-config-managed").Get(context.TODO(), keySecret.Name, metav1.GetOptions{})
+	actualKeySecret, err := c.secretClient.Secrets("uccp-config-managed").Get(context.TODO(), keySecret.Name, metav1.GetOptions{})
 	if err != nil {
 		return err
 	}

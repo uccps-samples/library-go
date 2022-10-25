@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/openshift/library-go/pkg/verify/store"
+	"github.com/uccps-samples/library-go/pkg/verify/store"
 )
 
 // Store provides access to signatures stored in sub-stores.

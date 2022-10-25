@@ -11,22 +11,22 @@ import (
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/util/workqueue"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions/config/v1"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions/config/v1"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const stateWorkKey = "key"
 
 // stateController is responsible for creating a single secret in
-// openshift-config-managed with the name destName.  This single secret
+// uccp-config-managed with the name destName.  This single secret
 // contains the complete EncryptionConfiguration that is consumed by the API
 // server that is performing the encryption.  Thus this secret represents
 // the current state of all resources in encryptedGRs.  Every encryption key
@@ -75,7 +75,7 @@ func NewStateController(
 
 	return factory.New().ResyncEvery(time.Minute).WithSync(c.sync).WithInformers(
 		operatorClient.Informer(),
-		kubeInformersForNamespaces.InformersFor("openshift-config-managed").Core().V1().Secrets().Informer(),
+		kubeInformersForNamespaces.InformersFor("uccp-config-managed").Core().V1().Secrets().Informer(),
 		apiServerConfigInformer.Informer(), // do not remove, used by the precondition checker
 		deployer,
 	).ToController(c.name, eventRecorder.WithComponentSuffix("encryption-state-controller"))
@@ -149,7 +149,7 @@ func (c *stateController) generateAndApplyCurrentEncryptionConfigSecret(ctx cont
 }
 
 func (c *stateController) applyEncryptionConfigSecret(ctx context.Context, encryptionConfig *apiserverconfigv1.EncryptionConfiguration, recorder events.Recorder) (bool, error) {
-	s, err := encryptionconfig.ToSecret("openshift-config-managed", fmt.Sprintf("%s-%s", encryptionconfig.EncryptionConfSecretName, c.component), encryptionConfig)
+	s, err := encryptionconfig.ToSecret("uccp-config-managed", fmt.Sprintf("%s-%s", encryptionconfig.EncryptionConfSecretName, c.component), encryptionConfig)
 	if err != nil {
 		return false, err
 	}

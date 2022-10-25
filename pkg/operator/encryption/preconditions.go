@@ -3,10 +3,10 @@ package encryption
 import (
 	"fmt"
 
-	configv1listers "github.com/openshift/client-go/config/listers/config/v1"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1listers "github.com/uccps-samples/client-go/config/listers/config/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/labels"
 	corev1listers "k8s.io/client-go/listers/core/v1"
@@ -30,7 +30,7 @@ func newEncryptionEnabledPrecondition(apiServerConfigLister configv1listers.APIS
 	return &preconditionChecker{
 		component:                component,
 		encryptionSecretSelector: encryptionSecretSelector,
-		secretLister:             kubeInformersForNamespaces.SecretLister().Secrets("openshift-config-managed"),
+		secretLister:             kubeInformersForNamespaces.SecretLister().Secrets("uccp-config-managed"),
 		apiServerConfigLister:    apiServerConfigLister,
 	}, nil
 }

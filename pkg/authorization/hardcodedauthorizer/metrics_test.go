@@ -20,16 +20,16 @@ func TestAuthorizer(t *testing.T) {
 			name:       "metrics",
 			authorizer: NewHardCodedMetricsAuthorizer(),
 			shouldPass: []authorizer.Attributes{
-				authorizer.AttributesRecord{User: &user.DefaultInfo{Name: "system:serviceaccount:openshift-monitoring:prometheus-k8s"}, Verb: "get", Path: "/metrics"},
+				authorizer.AttributesRecord{User: &user.DefaultInfo{Name: "system:serviceaccount:uccp-monitoring:prometheus-k8s"}, Verb: "get", Path: "/metrics"},
 			},
 			shouldNoOpinion: []authorizer.Attributes{
 				// wrong user
 				authorizer.AttributesRecord{User: &user.DefaultInfo{Name: "other"}, Verb: "get", Path: "/metrics"},
 				// wrong verb
-				authorizer.AttributesRecord{User: &user.DefaultInfo{Name: "system:serviceaccount:openshift-monitoring:prometheus-k8s"}, Verb: "update", Path: "/metrics"},
+				authorizer.AttributesRecord{User: &user.DefaultInfo{Name: "system:serviceaccount:uccp-monitoring:prometheus-k8s"}, Verb: "update", Path: "/metrics"},
 
 				// wrong path
-				authorizer.AttributesRecord{User: &user.DefaultInfo{Name: "system:serviceaccount:openshift-monitoring:prometheus-k8s"}, Verb: "get", Path: "/api"},
+				authorizer.AttributesRecord{User: &user.DefaultInfo{Name: "system:serviceaccount:uccp-monitoring:prometheus-k8s"}, Verb: "get", Path: "/api"},
 			},
 		},
 	}

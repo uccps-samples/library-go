@@ -10,7 +10,7 @@ import (
 	v1 "k8s.io/apiserver/pkg/apis/config/v1"
 	"k8s.io/utils/diff"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
 )
 
 func TestRoundtrip(t *testing.T) {
@@ -36,7 +36,7 @@ func TestRoundtrip(t *testing.T) {
 					Resources: []schema.GroupResource{
 						{Resource: "secrets"},
 						{Resource: "configmaps"},
-						{Group: "networking.openshift.io", Resource: "routes"},
+						{Group: "networking.uccp.io", Resource: "routes"},
 					},
 				},
 				InternalReason: "internal",
@@ -70,7 +70,7 @@ func TestRoundtrip(t *testing.T) {
 					Resources: []schema.GroupResource{
 						{Resource: "secrets"},
 						{Resource: "configmaps"},
-						{Group: "networking.openshift.io", Resource: "routes"},
+						{Group: "networking.uccp.io", Resource: "routes"},
 					},
 				},
 				InternalReason: "internal",

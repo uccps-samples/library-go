@@ -5,8 +5,8 @@ import (
 	"sort"
 	"testing"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 	corev1listers "k8s.io/client-go/listers/core/v1"
 
 	corev1 "k8s.io/api/core/v1"
@@ -43,9 +43,9 @@ func TestStaticPodFallbackConditionController(t *testing.T) {
 			initialObjects: []runtime.Object{
 				func() *corev1.Pod {
 					pod := newPod(corev1.PodRunning, corev1.ConditionTrue, "3", "kas")
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-for-revision"] = "3"
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-reason"] = "SomeReason"
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-message"] = "SomeMsg"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-for-revision"] = "3"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-reason"] = "SomeReason"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-message"] = "SomeMsg"
 					return pod
 				}(),
 			},
@@ -64,16 +64,16 @@ func TestStaticPodFallbackConditionController(t *testing.T) {
 			initialObjects: []runtime.Object{
 				func() *corev1.Pod {
 					pod := newPod(corev1.PodRunning, corev1.ConditionTrue, "3", "kas")
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-for-revision"] = "3"
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-reason"] = "SomeReason"
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-message"] = "SomeMsg"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-for-revision"] = "3"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-reason"] = "SomeReason"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-message"] = "SomeMsg"
 					return pod
 				}(),
 				func() *corev1.Pod {
 					pod := newPod(corev1.PodRunning, corev1.ConditionTrue, "3", "kas-1")
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-for-revision"] = "3"
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-reason"] = "DifferentReason"
-					pod.Annotations["startup-monitor.static-pods.openshift.io/fallback-message"] = "DifferentMsg"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-for-revision"] = "3"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-reason"] = "DifferentReason"
+					pod.Annotations["startup-monitor.static-pods.uccp.io/fallback-message"] = "DifferentMsg"
 					return pod
 				}(),
 			},
@@ -107,7 +107,7 @@ func TestStaticPodFallbackConditionController(t *testing.T) {
 
 			// act
 			target := &staticPodFallbackConditionController{
-				podLister:        orderedPodNamespaceLister{corev1listers.NewPodLister(indexer).Pods("openshift-kube-apiserver")},
+				podLister:        orderedPodNamespaceLister{corev1listers.NewPodLister(indexer).Pods("uccp-kube-apiserver")},
 				operatorClient:   fakeOperatorClient,
 				podLabelSelector: labels.Set{"apiserver": "true"}.AsSelector(),
 				startupMonitorEnabledFn: func() (bool, error) {
@@ -157,7 +157,7 @@ func newPod(phase corev1.PodPhase, ready corev1.ConditionStatus, revision, name 
 		TypeMeta: metav1.TypeMeta{Kind: "Pod"},
 		ObjectMeta: metav1.ObjectMeta{
 			Name:        name,
-			Namespace:   "openshift-kube-apiserver",
+			Namespace:   "uccp-kube-apiserver",
 			Annotations: map[string]string{},
 			Labels: map[string]string{
 				"revision":  revision,

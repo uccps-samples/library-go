@@ -16,9 +16,9 @@ import (
 	"k8s.io/client-go/scale"
 	"k8s.io/klog/v2"
 
-	appsv1 "github.com/openshift/api/apps/v1"
-	unidlingapi "github.com/openshift/api/unidling/v1alpha1"
-	appsclient "github.com/openshift/client-go/apps/clientset/versioned/typed/apps/v1"
+	appsv1 "github.com/uccps-samples/api/apps/v1"
+	unidlingapi "github.com/uccps-samples/api/unidling/v1alpha1"
+	appsclient "github.com/uccps-samples/client-go/apps/clientset/versioned/typed/apps/v1"
 )
 
 const legacyGroupName = ""

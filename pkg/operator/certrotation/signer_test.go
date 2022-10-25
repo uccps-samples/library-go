@@ -15,7 +15,7 @@ import (
 	clienttesting "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 func TestEnsureSigningCertKeyPair(t *testing.T) {
@@ -83,8 +83,8 @@ func TestEnsureSigningCertKeyPair(t *testing.T) {
 			initialSecret: &corev1.Secret{
 				ObjectMeta: metav1.ObjectMeta{Namespace: "ns", Name: "signer",
 					Annotations: map[string]string{
-						"auth.openshift.io/certificate-not-after":  "2108-09-08T22:47:31-07:00",
-						"auth.openshift.io/certificate-not-before": "2108-09-08T20:47:31-07:00",
+						"auth.uccp.io/certificate-not-after":  "2108-09-08T22:47:31-07:00",
+						"auth.uccp.io/certificate-not-before": "2108-09-08T20:47:31-07:00",
 					}},
 			},
 			verifyActions: func(t *testing.T, client *kubefake.Clientset) {

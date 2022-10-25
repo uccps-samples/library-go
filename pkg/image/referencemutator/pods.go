@@ -14,8 +14,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 
-	appsv1 "github.com/openshift/api/apps/v1"
-	securityv1 "github.com/openshift/api/security/v1"
+	appsv1 "github.com/uccps-samples/api/apps/v1"
+	securityv1 "github.com/uccps-samples/api/security/v1"
 )
 
 type ContainerMutator interface {

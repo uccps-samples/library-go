@@ -10,7 +10,7 @@ import (
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	apiserverconfigv1 "k8s.io/apiserver/pkg/apis/config/v1"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
 )
 
 var (
@@ -65,7 +65,7 @@ func ToSecret(ns, name string, encryptionCfg *apiserverconfigv1.EncryptionConfig
 			Annotations: map[string]string{
 				state.KubernetesDescriptionKey: state.KubernetesDescriptionScaryValue,
 			},
-			Finalizers: []string{"encryption.apiserver.operator.openshift.io/deletion-protection"},
+			Finalizers: []string{"encryption.apiserver.operator.uccp.io/deletion-protection"},
 		},
 		Data: map[string][]byte{
 			EncryptionConfSecretName: rawEncryptionCfg,

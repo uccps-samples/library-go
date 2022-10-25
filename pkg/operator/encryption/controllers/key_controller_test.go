@@ -18,16 +18,16 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 	clientgotesting "k8s.io/client-go/testing"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
-	configv1clientfake "github.com/openshift/client-go/config/clientset/versioned/fake"
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	configv1clientfake "github.com/uccps-samples/client-go/config/clientset/versioned/fake"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	encryptiondeployer "github.com/openshift/library-go/pkg/operator/encryption/deployer"
-	encryptiontesting "github.com/openshift/library-go/pkg/operator/encryption/testing"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	encryptiondeployer "github.com/uccps-samples/library-go/pkg/operator/encryption/deployer"
+	encryptiontesting "github.com/uccps-samples/library-go/pkg/operator/encryption/testing"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 func TestKeyController(t *testing.T) {
@@ -62,7 +62,7 @@ func TestKeyController(t *testing.T) {
 			initialObjects:  []runtime.Object{},
 			validateFunc: func(ts *testing.T, actions []clientgotesting.Action, targetNamespace string, targetGRs []schema.GroupResource) {
 			},
-			expectedError:   fmt.Errorf(`apiservers.config.openshift.io "cluster" not found`),
+			expectedError:   fmt.Errorf(`apiservers.config.uccp.io "cluster" not found`),
 			expectedActions: []string{},
 		},
 
@@ -89,7 +89,7 @@ func TestKeyController(t *testing.T) {
 			apiServerObjects: []runtime.Object{&configv1.APIServer{ObjectMeta: metav1.ObjectMeta{Name: "cluster"}}},
 			validateFunc: func(ts *testing.T, actions []clientgotesting.Action, targetNamespace string, targetGRs []schema.GroupResource) {
 			},
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed"},
 		},
 
 		// Assumes a clean slate, that is, there are no previous resources in the system.
@@ -100,7 +100,7 @@ func TestKeyController(t *testing.T) {
 				{Group: "", Resource: "secrets"},
 			},
 			targetNamespace: "kms",
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "create:secrets:openshift-config-managed", "create:events:kms"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "create:secrets:uccp-config-managed", "create:events:kms"},
 			initialObjects: []runtime.Object{
 				encryptiontesting.CreateDummyKubeAPIPod("kube-apiserver-1", "kms", "node-1"),
 			},
@@ -119,7 +119,7 @@ func TestKeyController(t *testing.T) {
 						createAction := action.(clientgotesting.CreateAction)
 						actualSecret := createAction.GetObject().(*corev1.Secret)
 						expectedSecret := encryptiontesting.CreateEncryptionKeySecretWithKeyFromExistingSecret(targetNamespace, []schema.GroupResource{}, 1, actualSecret)
-						expectedSecret.Annotations["encryption.apiserver.operator.openshift.io/internal-reason"] = "secrets-key-does-not-exist" // TODO: Fix this
+						expectedSecret.Annotations["encryption.apiserver.operator.uccp.io/internal-reason"] = "secrets-key-does-not-exist" // TODO: Fix this
 						if !equality.Semantic.DeepEqual(actualSecret, expectedSecret) {
 							ts.Errorf(diff.ObjectDiff(expectedSecret, actualSecret))
 						}
@@ -147,7 +147,7 @@ func TestKeyController(t *testing.T) {
 			},
 			apiServerObjects: apiServerAesCBC,
 			targetNamespace:  "kms",
-			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed"},
+			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed"},
 		},
 
 		{
@@ -161,7 +161,7 @@ func TestKeyController(t *testing.T) {
 			},
 			apiServerObjects: apiServerAesCBC,
 			targetNamespace:  "kms",
-			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed"},
+			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed"},
 		},
 
 		{
@@ -175,7 +175,7 @@ func TestKeyController(t *testing.T) {
 			},
 			apiServerObjects: apiServerAesCBC,
 			targetNamespace:  "kms",
-			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "create:secrets:openshift-config-managed", "create:events:kms"},
+			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "create:secrets:uccp-config-managed", "create:events:kms"},
 		},
 
 		{
@@ -189,7 +189,7 @@ func TestKeyController(t *testing.T) {
 			},
 			apiServerObjects: apiServerAesCBC,
 			targetNamespace:  "kms",
-			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "create:secrets:openshift-config-managed", "create:events:kms"},
+			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "create:secrets:uccp-config-managed", "create:events:kms"},
 			validateFunc: func(ts *testing.T, actions []clientgotesting.Action, targetNamespace string, targetGRs []schema.GroupResource) {
 				wasSecretValidated := false
 				for _, action := range actions {
@@ -197,7 +197,7 @@ func TestKeyController(t *testing.T) {
 						createAction := action.(clientgotesting.CreateAction)
 						actualSecret := createAction.GetObject().(*corev1.Secret)
 						expectedSecret := encryptiontesting.CreateEncryptionKeySecretWithKeyFromExistingSecret(targetNamespace, []schema.GroupResource{}, 6, actualSecret)
-						expectedSecret.Annotations["encryption.apiserver.operator.openshift.io/internal-reason"] = "secrets-rotation-interval-has-passed"
+						expectedSecret.Annotations["encryption.apiserver.operator.uccp.io/internal-reason"] = "secrets-rotation-interval-has-passed"
 						if !equality.Semantic.DeepEqual(actualSecret, expectedSecret) {
 							ts.Errorf(diff.ObjectDiff(expectedSecret, actualSecret))
 						}
@@ -250,8 +250,8 @@ func TestKeyController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"create:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"create:secrets:uccp-config-managed",
 				"create:events:kms",
 			},
 		},
@@ -268,7 +268,7 @@ func TestKeyController(t *testing.T) {
 			},
 			apiServerObjects: apiServerAesCBC,
 			targetNamespace:  "kms",
-			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed"},
+			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed"},
 		},
 
 		{
@@ -282,7 +282,7 @@ func TestKeyController(t *testing.T) {
 			},
 			apiServerObjects: apiServerAesCBC,
 			targetNamespace:  "kms",
-			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "create:secrets:openshift-config-managed", "get:secrets:openshift-config-managed"},
+			expectedActions:  []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "create:secrets:uccp-config-managed", "get:secrets:uccp-config-managed"},
 			validateOperatorClientFunc: func(ts *testing.T, operatorClient v1helpers.OperatorClient) {
 				expectedCondition := operatorv1.OperatorCondition{
 					Type:    "EncryptionKeyControllerDegraded",
@@ -328,9 +328,9 @@ func TestKeyController(t *testing.T) {
 			eventRecorder := events.NewRecorder(fakeKubeClient.CoreV1().Events(scenario.targetNamespace), "test-encryptionKeyController", &corev1.ObjectReference{})
 			// pass informer for
 			// - target namespace: pods and secrets
-			// - openshift-config-managed: secrets
+			// - uccp-config-managed: secrets
 			// note that the informer factory is not used in the test - it's only needed to create the controller
-			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "openshift-config-managed", scenario.targetNamespace)
+			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "uccp-config-managed", scenario.targetNamespace)
 			fakeSecretClient := fakeKubeClient.CoreV1()
 			fakePodClient := fakeKubeClient.CoreV1()
 			fakeConfigClient := configv1clientfake.NewSimpleClientset(scenario.apiServerObjects...)

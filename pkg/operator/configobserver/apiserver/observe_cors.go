@@ -3,8 +3,8 @@ package apiserver
 import (
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -52,7 +52,7 @@ func innerObserveAdditionalCORSAllowedOrigins(genericListers configobserver.List
 	observedConfig := map[string]interface{}{}
 	apiServer, err := lister.APIServerLister().Get("cluster")
 	if errors.IsNotFound(err) {
-		klog.Warningf("apiserver.config.openshift.io/cluster: not found")
+		klog.Warningf("apiserver.config.uccp.io/cluster: not found")
 		return defaultConfig, errs
 	}
 	if err != nil {

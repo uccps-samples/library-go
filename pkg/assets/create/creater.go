@@ -21,8 +21,8 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/restmapper"
 
-	"github.com/openshift/library-go/pkg/assets"
-	"github.com/openshift/library-go/pkg/client/openshiftrestmapper"
+	"github.com/uccps-samples/library-go/pkg/assets"
+	"github.com/uccps-samples/library-go/pkg/client/openshiftrestmapper"
 )
 
 // CreateOptions allow to specify additional create options.

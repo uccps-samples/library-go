@@ -11,10 +11,10 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 
-	appsv1 "github.com/openshift/api/apps/v1"
-	templatev1 "github.com/openshift/api/template/v1"
-	"github.com/openshift/library-go/pkg/legacyapi/legacygroupification"
-	. "github.com/openshift/library-go/pkg/template/generator"
+	appsv1 "github.com/uccps-samples/api/apps/v1"
+	templatev1 "github.com/uccps-samples/api/template/v1"
+	"github.com/uccps-samples/library-go/pkg/legacyapi/legacygroupification"
+	. "github.com/uccps-samples/library-go/pkg/template/generator"
 )
 
 // match ${KEY}, KEY will be grouped

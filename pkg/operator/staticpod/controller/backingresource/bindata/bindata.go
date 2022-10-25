@@ -58,7 +58,7 @@ func (fi bindataFileInfo) Sys() interface{} {
 var _pkgOperatorStaticpodControllerBackingresourceManifestsInstallerClusterRolebindingYaml = []byte(`apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: system:openshift:operator:{{ .TargetNamespace }}-installer
+  name: system:uccp:operator:{{ .TargetNamespace }}-installer
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

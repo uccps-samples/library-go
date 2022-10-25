@@ -7,9 +7,9 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/klog/v2"
 
-	configlistersv1 "github.com/openshift/client-go/config/listers/config/v1"
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	configlistersv1 "github.com/uccps-samples/client-go/config/listers/config/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 // OAuthLister lists OAuth information
@@ -43,7 +43,7 @@ func ObserveAccessTokenMaxAgeSeconds(genericlisters configobserver.Listers, reco
 	if err != nil {
 		// Failed to read OAuth cluster config.
 		if errors.IsNotFound(err) {
-			klog.Warning("oauth.config.openshift.io/cluster: not found")
+			klog.Warning("oauth.config.uccp.io/cluster: not found")
 		}
 		// return whatever is present in existing config.
 		return existingConfig, append(errs, err)
@@ -89,7 +89,7 @@ func ObserveAccessTokenInactivityTimeout(genericlisters configobserver.Listers, 
 	if err != nil {
 		// Failed to read OAuth cluster config.
 		if errors.IsNotFound(err) {
-			klog.Warning("oauth.config.openshift.io/cluster: not found")
+			klog.Warning("oauth.config.uccp.io/cluster: not found")
 		}
 		// Return whatever is present in existing config
 		return existingConfig, append(errs, err)

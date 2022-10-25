@@ -13,11 +13,11 @@ import (
 
 // StartProfiler starts the golang profiler on a port if `web` is specified.  It uses the "standard" openshift env vars
 func StartProfiler() {
-	if env("OPENSHIFT_PROFILE", "") == "web" {
+	if env("UCCP_PROFILE", "") == "web" {
 		go func() {
 			runtime.SetBlockProfileRate(1)
-			profilePort := env("OPENSHIFT_PROFILE_PORT", "6060")
-			profileHost := env("OPENSHIFT_PROFILE_HOST", "127.0.0.1")
+			profilePort := env("UCCP_PROFILE_PORT", "6060")
+			profileHost := env("UCCP_PROFILE_HOST", "127.0.0.1")
 			klog.Infof(fmt.Sprintf("Starting profiling endpoint at http://%s:%s/debug/pprof/", profileHost, profilePort))
 			klog.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", profileHost, profilePort), nil))
 		}()

@@ -13,7 +13,7 @@ import (
 	"github.com/docker/distribution/registry/client"
 	"github.com/docker/distribution/registry/client/auth"
 	"github.com/opencontainers/go-digest"
-	"github.com/openshift/library-go/pkg/image/reference"
+	"github.com/uccps-samples/library-go/pkg/image/reference"
 	"k8s.io/klog/v2"
 
 	distributionreference "github.com/docker/distribution/reference"

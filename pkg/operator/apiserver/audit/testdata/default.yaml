@@ -24,9 +24,9 @@
     - level: RequestResponse
       verbs: ["create", "update", "patch", "delete"]
       resources:
-        - group: "user.openshift.io"
+        - group: "user.uccp.io"
           resources: ["identities"]
-        - group: "oauth.openshift.io"
+        - group: "oauth.uccp.io"
           resources: ["oauthaccesstokens", "oauthauthorizetokens"]
     # A catch-all rule to log all other requests at the Metadata level.
     - level: Metadata

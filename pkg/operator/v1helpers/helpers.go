@@ -18,8 +18,8 @@ import (
 
 	"github.com/ghodss/yaml"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 )
 
 // SetOperandVersion sets the new version and returns the previous value.
@@ -259,7 +259,7 @@ func RemoveFinalizer(client OperatorClientWithFinalizers, controllerName string)
 
 // getFinalizerName computes a nice finalizer name from controllerName and the operator name ($OPERATOR_NAME or os.Args[0]).
 func getFinalizerName(controllerName string) string {
-	return fmt.Sprintf("%s.operator.openshift.io/%s", getOperatorName(), controllerName)
+	return fmt.Sprintf("%s.operator.uccp.io/%s", getOperatorName(), controllerName)
 }
 
 func getOperatorName() string {

@@ -20,7 +20,7 @@ type metricsAuthorizer struct{}
 // IsResourceRequest() bool - checked
 // GetPath() string - checked
 func (metricsAuthorizer) Authorize(ctx context.Context, a authorizer.Attributes) (authorized authorizer.Decision, reason string, err error) {
-	if a.GetUser().GetName() != "system:serviceaccount:openshift-monitoring:prometheus-k8s" {
+	if a.GetUser().GetName() != "system:serviceaccount:uccp-monitoring:prometheus-k8s" {
 		return authorizer.DecisionNoOpinion, "", nil
 	}
 	if !a.IsResourceRequest() &&

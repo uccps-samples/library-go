@@ -7,7 +7,7 @@ import (
 	"strings"
 	"text/template"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 )
 
 type startupMonitorTemplate struct {
