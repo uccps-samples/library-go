@@ -17,17 +17,17 @@ func TestCredentialsRequestFailureMessages(t *testing.T) {
 		{
 			name: "no status",
 			credentialsRequest: `
-apiVersion: cloudcredential.openshift.io/v1
+apiVersion: cloudcredential.uccp.io/v1
 kind: CredentialsRequest
 metadata:
-  name: openshift-aws-ebs-csi-driver
-  namespace: openshift-cloud-credential-operator
+  name: uccp-aws-ebs-csi-driver
+  namespace: uccp-cloud-credential-operator
 spec:
   secretRef:
     name: aws-cloud-credentials
-    namespace: openshift-aws-ebs-csi-driver
+    namespace: uccp-aws-ebs-csi-driver
   providerSpec:
-    apiVersion: cloudcredential.openshift.io/v1
+    apiVersion: cloudcredential.uccp.io/v1
     kind: AWSProviderSpec
     statementEntries:
     - effect: Allow
@@ -54,17 +54,17 @@ spec:
 		{
 			name: "no conditions",
 			credentialsRequest: `
-apiVersion: cloudcredential.openshift.io/v1
+apiVersion: cloudcredential.uccp.io/v1
 kind: CredentialsRequest
 metadata:
-  name: openshift-aws-ebs-csi-driver
-  namespace: openshift-cloud-credential-operator
+  name: uccp-aws-ebs-csi-driver
+  namespace: uccp-cloud-credential-operator
 spec:
   secretRef:
     name: aws-cloud-credentials
-    namespace: openshift-aws-ebs-csi-driver
+    namespace: uccp-aws-ebs-csi-driver
   providerSpec:
-    apiVersion: cloudcredential.openshift.io/v1
+    apiVersion: cloudcredential.uccp.io/v1
     kind: AWSProviderSpec
     statementEntries:
     - effect: Allow
@@ -77,17 +77,17 @@ status:
 		{
 			name: "empty conditions",
 			credentialsRequest: `
-apiVersion: cloudcredential.openshift.io/v1
+apiVersion: cloudcredential.uccp.io/v1
 kind: CredentialsRequest
 metadata:
-  name: openshift-aws-ebs-csi-driver
-  namespace: openshift-cloud-credential-operator
+  name: uccp-aws-ebs-csi-driver
+  namespace: uccp-cloud-credential-operator
 spec:
   secretRef:
     name: aws-cloud-credentials
-    namespace: openshift-aws-ebs-csi-driver
+    namespace: uccp-aws-ebs-csi-driver
   providerSpec:
-    apiVersion: cloudcredential.openshift.io/v1
+    apiVersion: cloudcredential.uccp.io/v1
     kind: AWSProviderSpec
     statementEntries:
     - effect: Allow
@@ -101,17 +101,17 @@ status:
 		{
 			name: "one condition",
 			credentialsRequest: `
-apiVersion: cloudcredential.openshift.io/v1
+apiVersion: cloudcredential.uccp.io/v1
 kind: CredentialsRequest
 metadata:
-  name: openshift-aws-ebs-csi-driver
-  namespace: openshift-cloud-credential-operator
+  name: uccp-aws-ebs-csi-driver
+  namespace: uccp-cloud-credential-operator
 spec:
   secretRef:
     name: aws-cloud-credentials
-    namespace: openshift-aws-ebs-csi-driver
+    namespace: uccp-aws-ebs-csi-driver
   providerSpec:
-    apiVersion: cloudcredential.openshift.io/v1
+    apiVersion: cloudcredential.uccp.io/v1
     kind: AWSProviderSpec
     statementEntries:
     - effect: Allow
@@ -134,17 +134,17 @@ status:
 		{
 			name: "two conditions",
 			credentialsRequest: `
-apiVersion: cloudcredential.openshift.io/v1
+apiVersion: cloudcredential.uccp.io/v1
 kind: CredentialsRequest
 metadata:
-  name: openshift-aws-ebs-csi-driver
-  namespace: openshift-cloud-credential-operator
+  name: uccp-aws-ebs-csi-driver
+  namespace: uccp-cloud-credential-operator
 spec:
   secretRef:
     name: aws-cloud-credentials
-    namespace: openshift-aws-ebs-csi-driver
+    namespace: uccp-aws-ebs-csi-driver
   providerSpec:
-    apiVersion: cloudcredential.openshift.io/v1
+    apiVersion: cloudcredential.uccp.io/v1
     kind: AWSProviderSpec
     statementEntries:
     - effect: Allow

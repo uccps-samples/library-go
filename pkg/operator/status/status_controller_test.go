@@ -12,14 +12,14 @@ import (
 	"k8s.io/apimachinery/pkg/util/diff"
 	"k8s.io/client-go/tools/cache"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/client-go/config/clientset/versioned/fake"
-	configv1listers "github.com/openshift/client-go/config/listers/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/client-go/config/clientset/versioned/fake"
+	configv1listers "github.com/uccps-samples/client-go/config/listers/config/v1"
 
-	"github.com/openshift/library-go/pkg/config/clusteroperator/v1helpers"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/config/clusteroperator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 func TestDegraded(t *testing.T) {

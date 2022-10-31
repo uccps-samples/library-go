@@ -19,8 +19,8 @@ import (
 	"golang.org/x/crypto/openpgp"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/verify/store"
-	"github.com/openshift/library-go/pkg/verify/util"
+	"github.com/uccps-samples/library-go/pkg/verify/store"
+	"github.com/uccps-samples/library-go/pkg/verify/util"
 )
 
 // Interface performs verification of the provided content. The default implementation

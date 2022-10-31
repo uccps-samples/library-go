@@ -17,17 +17,17 @@ import (
 	"k8s.io/client-go/util/retry"
 	"k8s.io/klog/v2"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/encryption/controllers/migrators"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/controllers/migrators"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
@@ -39,18 +39,18 @@ const (
 // and annotated the write key secret afterwards with the migrated GRs. It
 //
 // * watches pods and secrets in <operand-target-namespace>
-// * watches secrets in openshift-config-manager
+// * watches secrets in uccp-config-manager
 // * computes a new, desired encryption config from encryption-config-<revision>
-//   and the existing keys in openshift-config-managed.
+//   and the existing keys in uccp-config-managed.
 // * compares desired with current target config and stops when they differ
 // * checks the write-key secret whether
-//   - encryption.apiserver.operator.openshift.io/migrated-timestamp annotation
+//   - encryption.apiserver.operator.uccp.io/migrated-timestamp annotation
 //     is missing or
 //   - a write-key for a resource does not show up in the
-//     encryption.apiserver.operator.openshift.io/migrated-resources And then
+//     encryption.apiserver.operator.uccp.io/migrated-resources And then
 //     starts a migration job (currently in-place synchronously, soon with the upstream migration tool)
-// * updates the encryption.apiserver.operator.openshift.io/migrated-timestamp and
-//   encryption.apiserver.operator.openshift.io/migrated-resources annotations on the
+// * updates the encryption.apiserver.operator.uccp.io/migrated-timestamp and
+//   encryption.apiserver.operator.uccp.io/migrated-resources annotations on the
 //   current write-key secrets.
 type migrationController struct {
 	component string
@@ -93,7 +93,7 @@ func NewMigrationController(
 	return factory.New().ResyncEvery(time.Second).WithSync(c.sync).WithInformers(
 		migrator,
 		operatorClient.Informer(),
-		kubeInformersForNamespaces.InformersFor("openshift-config-managed").Core().V1().Secrets().Informer(),
+		kubeInformersForNamespaces.InformersFor("uccp-config-managed").Core().V1().Secrets().Informer(),
 		deployer,
 	).ToController(c.name, eventRecorder.WithComponentSuffix("encryption-migration-controller"))
 }

@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/openshift/library-go/pkg/verify/store"
-	"github.com/openshift/library-go/pkg/verify/store/memory"
+	"github.com/uccps-samples/library-go/pkg/verify/store"
+	"github.com/uccps-samples/library-go/pkg/verify/store/memory"
 )
 
 // delay wraps a store and introduces a delay before each callback.

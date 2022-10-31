@@ -5,18 +5,18 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	appsv1 "github.com/openshift/api/apps/v1"
-	authorizationv1 "github.com/openshift/api/authorization/v1"
-	buildv1 "github.com/openshift/api/build/v1"
-	imagev1 "github.com/openshift/api/image/v1"
-	networkv1 "github.com/openshift/api/network/v1"
-	oauthv1 "github.com/openshift/api/oauth/v1"
-	projectv1 "github.com/openshift/api/project/v1"
-	quotav1 "github.com/openshift/api/quota/v1"
-	routev1 "github.com/openshift/api/route/v1"
-	securityv1 "github.com/openshift/api/security/v1"
-	templatev1 "github.com/openshift/api/template/v1"
-	userv1 "github.com/openshift/api/user/v1"
+	appsv1 "github.com/uccps-samples/api/apps/v1"
+	authorizationv1 "github.com/uccps-samples/api/authorization/v1"
+	buildv1 "github.com/uccps-samples/api/build/v1"
+	imagev1 "github.com/uccps-samples/api/image/v1"
+	networkv1 "github.com/uccps-samples/api/network/v1"
+	oauthv1 "github.com/uccps-samples/api/oauth/v1"
+	projectv1 "github.com/uccps-samples/api/project/v1"
+	quotav1 "github.com/uccps-samples/api/quota/v1"
+	routev1 "github.com/uccps-samples/api/route/v1"
+	securityv1 "github.com/uccps-samples/api/security/v1"
+	templatev1 "github.com/uccps-samples/api/template/v1"
+	userv1 "github.com/uccps-samples/api/user/v1"
 )
 
 // deprecated
@@ -148,52 +148,52 @@ func OAPIToGroupified(uncast runtime.Object, gvk *schema.GroupVersionKind) {
 }
 
 var oapiKindsToGroup = map[string]string{
-	"DeploymentConfigRollback": "apps.openshift.io",
-	"DeploymentConfig":         "apps.openshift.io", "DeploymentConfigList": "apps.openshift.io",
-	"DeploymentLog":      "apps.openshift.io",
-	"DeploymentRequest":  "apps.openshift.io",
-	"ClusterRoleBinding": "authorization.openshift.io", "ClusterRoleBindingList": "authorization.openshift.io",
-	"ClusterRole": "authorization.openshift.io", "ClusterRoleList": "authorization.openshift.io",
-	"RoleBindingRestriction": "authorization.openshift.io", "RoleBindingRestrictionList": "authorization.openshift.io",
-	"RoleBinding": "authorization.openshift.io", "RoleBindingList": "authorization.openshift.io",
-	"Role": "authorization.openshift.io", "RoleList": "authorization.openshift.io",
-	"SubjectRulesReview": "authorization.openshift.io", "SelfSubjectRulesReview": "authorization.openshift.io",
-	"ResourceAccessReview": "authorization.openshift.io", "LocalResourceAccessReview": "authorization.openshift.io",
-	"SubjectAccessReview": "authorization.openshift.io", "LocalSubjectAccessReview": "authorization.openshift.io",
-	"BuildConfig": "build.openshift.io", "BuildConfigList": "build.openshift.io",
-	"Build": "build.openshift.io", "BuildList": "build.openshift.io",
-	"BinaryBuildRequestOptions": "build.openshift.io",
-	"BuildLog":                  "build.openshift.io",
-	"BuildRequest":              "build.openshift.io",
-	"Image":                     "image.openshift.io", "ImageList": "image.openshift.io",
-	"ImageSignature":     "image.openshift.io",
-	"ImageStreamImage":   "image.openshift.io",
-	"ImageStreamImport":  "image.openshift.io",
-	"ImageStreamMapping": "image.openshift.io",
-	"ImageStream":        "image.openshift.io", "ImageStreamList": "image.openshift.io",
-	"ImageStreamTag": "image.openshift.io", "ImageStreamTagList": "image.openshift.io",
-	"ClusterNetwork": "network.openshift.io", "ClusterNetworkList": "network.openshift.io",
-	"EgressNetworkPolicy": "network.openshift.io", "EgressNetworkPolicyList": "network.openshift.io",
-	"HostSubnet": "network.openshift.io", "HostSubnetList": "network.openshift.io",
-	"NetNamespace": "network.openshift.io", "NetNamespaceList": "network.openshift.io",
-	"OAuthAccessToken": "oauth.openshift.io", "OAuthAccessTokenList": "oauth.openshift.io",
-	"OAuthAuthorizeToken": "oauth.openshift.io", "OAuthAuthorizeTokenList": "oauth.openshift.io",
-	"OAuthClientAuthorization": "oauth.openshift.io", "OAuthClientAuthorizationList": "oauth.openshift.io",
-	"OAuthClient": "oauth.openshift.io", "OAuthClientList": "oauth.openshift.io",
-	"Project": "project.openshift.io", "ProjectList": "project.openshift.io",
-	"ProjectRequest":       "project.openshift.io",
-	"ClusterResourceQuota": "quota.openshift.io", "ClusterResourceQuotaList": "quota.openshift.io",
-	"AppliedClusterResourceQuota": "quota.openshift.io", "AppliedClusterResourceQuotaList": "quota.openshift.io",
-	"Route": "route.openshift.io", "RouteList": "route.openshift.io",
-	"SecurityContextConstraints": "security.openshift.io", "SecurityContextConstraintsList": "security.openshift.io",
-	"PodSecurityPolicySubjectReview":     "security.openshift.io",
-	"PodSecurityPolicySelfSubjectReview": "security.openshift.io",
-	"PodSecurityPolicyReview":            "security.openshift.io",
-	"Template":                           "template.openshift.io", "TemplateList": "template.openshift.io",
-	"Group": "user.openshift.io", "GroupList": "user.openshift.io",
-	"Identity": "user.openshift.io", "IdentityList": "user.openshift.io",
-	"UserIdentityMapping": "user.openshift.io",
-	"User":                "user.openshift.io", "UserList": "user.openshift.io",
+	"DeploymentConfigRollback": "apps.uccp.io",
+	"DeploymentConfig":         "apps.uccp.io", "DeploymentConfigList": "apps.uccp.io",
+	"DeploymentLog":      "apps.uccp.io",
+	"DeploymentRequest":  "apps.uccp.io",
+	"ClusterRoleBinding": "authorization.uccp.io", "ClusterRoleBindingList": "authorization.uccp.io",
+	"ClusterRole": "authorization.uccp.io", "ClusterRoleList": "authorization.uccp.io",
+	"RoleBindingRestriction": "authorization.uccp.io", "RoleBindingRestrictionList": "authorization.uccp.io",
+	"RoleBinding": "authorization.uccp.io", "RoleBindingList": "authorization.uccp.io",
+	"Role": "authorization.uccp.io", "RoleList": "authorization.uccp.io",
+	"SubjectRulesReview": "authorization.uccp.io", "SelfSubjectRulesReview": "authorization.uccp.io",
+	"ResourceAccessReview": "authorization.uccp.io", "LocalResourceAccessReview": "authorization.uccp.io",
+	"SubjectAccessReview": "authorization.uccp.io", "LocalSubjectAccessReview": "authorization.uccp.io",
+	"BuildConfig": "build.uccp.io", "BuildConfigList": "build.uccp.io",
+	"Build": "build.uccp.io", "BuildList": "build.uccp.io",
+	"BinaryBuildRequestOptions": "build.uccp.io",
+	"BuildLog":                  "build.uccp.io",
+	"BuildRequest":              "build.uccp.io",
+	"Image":                     "image.uccp.io", "ImageList": "image.uccp.io",
+	"ImageSignature":     "image.uccp.io",
+	"ImageStreamImage":   "image.uccp.io",
+	"ImageStreamImport":  "image.uccp.io",
+	"ImageStreamMapping": "image.uccp.io",
+	"ImageStream":        "image.uccp.io", "ImageStreamList": "image.uccp.io",
+	"ImageStreamTag": "image.uccp.io", "ImageStreamTagList": "image.uccp.io",
+	"ClusterNetwork": "network.uccp.io", "ClusterNetworkList": "network.uccp.io",
+	"EgressNetworkPolicy": "network.uccp.io", "EgressNetworkPolicyList": "network.uccp.io",
+	"HostSubnet": "network.uccp.io", "HostSubnetList": "network.uccp.io",
+	"NetNamespace": "network.uccp.io", "NetNamespaceList": "network.uccp.io",
+	"OAuthAccessToken": "oauth.uccp.io", "OAuthAccessTokenList": "oauth.uccp.io",
+	"OAuthAuthorizeToken": "oauth.uccp.io", "OAuthAuthorizeTokenList": "oauth.uccp.io",
+	"OAuthClientAuthorization": "oauth.uccp.io", "OAuthClientAuthorizationList": "oauth.uccp.io",
+	"OAuthClient": "oauth.uccp.io", "OAuthClientList": "oauth.uccp.io",
+	"Project": "project.uccp.io", "ProjectList": "project.uccp.io",
+	"ProjectRequest":       "project.uccp.io",
+	"ClusterResourceQuota": "quota.uccp.io", "ClusterResourceQuotaList": "quota.uccp.io",
+	"AppliedClusterResourceQuota": "quota.uccp.io", "AppliedClusterResourceQuotaList": "quota.uccp.io",
+	"Route": "route.uccp.io", "RouteList": "route.uccp.io",
+	"SecurityContextConstraints": "security.uccp.io", "SecurityContextConstraintsList": "security.uccp.io",
+	"PodSecurityPolicySubjectReview":     "security.uccp.io",
+	"PodSecurityPolicySelfSubjectReview": "security.uccp.io",
+	"PodSecurityPolicyReview":            "security.uccp.io",
+	"Template":                           "template.uccp.io", "TemplateList": "template.uccp.io",
+	"Group": "user.uccp.io", "GroupList": "user.uccp.io",
+	"Identity": "user.uccp.io", "IdentityList": "user.uccp.io",
+	"UserIdentityMapping": "user.uccp.io",
+	"User":                "user.uccp.io", "UserList": "user.uccp.io",
 }
 
 func fixOAPIGroupKindInTopLevelUnstructured(obj map[string]interface{}) string {

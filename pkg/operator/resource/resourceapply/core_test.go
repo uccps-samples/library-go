@@ -16,7 +16,7 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 	clienttesting "k8s.io/client-go/testing"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 func TestApplyConfigMap(t *testing.T) {
@@ -79,14 +79,14 @@ func TestApplyConfigMap(t *testing.T) {
 			name: "don't mutate CA bundle if injected",
 			existing: []runtime.Object{
 				&corev1.ConfigMap{
-					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 					Data: map[string]string{
 						"ca-bundle.crt": "value",
 					},
 				},
 			},
 			input: &corev1.ConfigMap{
-				ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+				ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 			},
 
 			expectedModified: false,
@@ -103,7 +103,7 @@ func TestApplyConfigMap(t *testing.T) {
 			name: "keep CA bundle if injected, but prune other entries",
 			existing: []runtime.Object{
 				&corev1.ConfigMap{
-					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 					Data: map[string]string{
 						"ca-bundle.crt": "value",
 						"other":         "something",
@@ -111,7 +111,7 @@ func TestApplyConfigMap(t *testing.T) {
 				},
 			},
 			input: &corev1.ConfigMap{
-				ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+				ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 			},
 
 			expectedModified: true,
@@ -126,7 +126,7 @@ func TestApplyConfigMap(t *testing.T) {
 					t.Error(spew.Sdump(actions))
 				}
 				expected := &corev1.ConfigMap{
-					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 					Data: map[string]string{
 						"ca-bundle.crt": "value",
 					},
@@ -141,14 +141,14 @@ func TestApplyConfigMap(t *testing.T) {
 			name: "mutate CA bundle if injected, but ca-bundle.crt specified",
 			existing: []runtime.Object{
 				&corev1.ConfigMap{
-					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 					Data: map[string]string{
 						"ca-bundle.crt": "value",
 					},
 				},
 			},
 			input: &corev1.ConfigMap{
-				ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+				ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 				Data: map[string]string{
 					"ca-bundle.crt": "different",
 				},
@@ -166,7 +166,7 @@ func TestApplyConfigMap(t *testing.T) {
 					t.Error(spew.Sdump(actions))
 				}
 				expected := &corev1.ConfigMap{
-					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.openshift.io/inject-trusted-cabundle": "true"}},
+					ObjectMeta: metav1.ObjectMeta{Namespace: "one-ns", Name: "foo", Labels: map[string]string{"config.uccp.io/inject-trusted-cabundle": "true"}},
 					Data: map[string]string{
 						"ca-bundle.crt": "different",
 					},

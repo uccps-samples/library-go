@@ -8,8 +8,8 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 )
 
 // UnionCondition returns a single operator condition that is the union of multiple operator conditions.

@@ -14,7 +14,7 @@ import (
 	apiserverconfigv1 "k8s.io/apiserver/pkg/apis/config/v1"
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
 )
 
 // ToKeyState converts a key secret to a key state.
@@ -82,7 +82,7 @@ func FromKeyState(component string, ks state.KeyState) (*corev1.Secret, error) {
 	s := &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      fmt.Sprintf("encryption-key-%s-%s", component, ks.Key.Name),
-			Namespace: "openshift-config-managed",
+			Namespace: "uccp-config-managed",
 			Labels: map[string]string{
 				EncryptionKeySecretsLabel: component,
 			},
@@ -126,9 +126,9 @@ func (m *MigratedGroupResources) HasResource(resource schema.GroupResource) bool
 	return false
 }
 
-// ListKeySecrets returns the current key secrets from openshift-config-managed.
+// ListKeySecrets returns the current key secrets from uccp-config-managed.
 func ListKeySecrets(secretClient corev1client.SecretsGetter, encryptionSecretSelector metav1.ListOptions) ([]*corev1.Secret, error) {
-	encryptionSecretList, err := secretClient.Secrets("openshift-config-managed").List(context.TODO(), encryptionSecretSelector)
+	encryptionSecretList, err := secretClient.Secrets("uccp-config-managed").List(context.TODO(), encryptionSecretSelector)
 	if err != nil {
 		return nil, err
 	}

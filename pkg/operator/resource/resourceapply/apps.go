@@ -14,8 +14,8 @@ import (
 	"k8s.io/apimachinery/pkg/util/uuid"
 	appsclientv1 "k8s.io/client-go/kubernetes/typed/apps/v1"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcemerge"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcemerge"
 )
 
 // The Apply<type> methods in this file ensure that a resource is created or updated to match
@@ -33,7 +33,7 @@ import (
 // To ensure an update in response to state external to the resource spec, the caller should
 // set an annotation representing that external state e.g.
 //
-//   `myoperator.openshift.io/config-resource-version: <resourceVersion>`
+//   `myoperator.uccp.io/config-resource-version: <resourceVersion>`
 //
 // An update will be performed if:
 //
@@ -50,7 +50,7 @@ import (
 //   - The difference will be detected via metadata comparison since the hash of the
 //   resource's spec will be set as an annotation prior to comparison.
 
-const specHashAnnotation = "operator.openshift.io/spec-hash"
+const specHashAnnotation = "operator.uccp.io/spec-hash"
 
 // SetSpecHashAnnotation computes the hash of the provided spec and sets an annotation of the
 // hash on the provided ObjectMeta. This method is used internally by Apply<type> methods, and
@@ -84,7 +84,7 @@ func SetSpecHashAnnotation(objMeta *metav1.ObjectMeta, spec interface{}) error {
 // rollout in response to changes in resources external to the deployment, it will need to be
 // revised to set that external state as an annotation e.g.
 //
-//   myoperator.openshift.io/my-resource: <resourceVersion>
+//   myoperator.uccp.io/my-resource: <resourceVersion>
 //
 // - Update the call to use ApplyDeploymentWithForce. This is available as a temporary measure
 // but the method is deprecated and will be removed in 4.6.
@@ -113,7 +113,7 @@ func ApplyDeploymentWithForce(client appsclientv1.DeploymentsGetter, recorder ev
 	if _, ok := required.Annotations[specHashAnnotation]; !ok {
 		// If the spec hash annotation is not present, the caller expects the
 		// pull-spec annotation to be applied.
-		required.Annotations["operator.openshift.io/pull-spec"] = required.Spec.Template.Spec.Containers[0].Image
+		required.Annotations["operator.uccp.io/pull-spec"] = required.Spec.Template.Spec.Containers[0].Image
 	}
 	existing, err := client.Deployments(required.Namespace).Get(context.TODO(), required.Name, metav1.GetOptions{})
 	if apierrors.IsNotFound(err) {
@@ -146,8 +146,8 @@ func ApplyDeploymentWithForce(client appsclientv1.DeploymentsGetter, recorder ev
 		if toWrite.Spec.Template.Annotations == nil {
 			toWrite.Spec.Template.Annotations = map[string]string{}
 		}
-		toWrite.Annotations["operator.openshift.io/force"] = forceString
-		toWrite.Spec.Template.Annotations["operator.openshift.io/force"] = forceString
+		toWrite.Annotations["operator.uccp.io/force"] = forceString
+		toWrite.Spec.Template.Annotations["operator.uccp.io/force"] = forceString
 	}
 
 	if klog.V(4).Enabled() {
@@ -174,7 +174,7 @@ func ApplyDeploymentWithForce(client appsclientv1.DeploymentsGetter, recorder ev
 // rollout in response to changes in resources external to the daemonset, it will need to be
 // revised to set that external state as an annotation e.g.
 //
-//   myoperator.openshift.io/my-resource: <resourceVersion>
+//   myoperator.uccp.io/my-resource: <resourceVersion>
 //
 // - Update the call to use ApplyDaemonSetWithForce. This is available as a temporary measure
 // but the method is deprecated and will be removed in 4.6.
@@ -200,7 +200,7 @@ func ApplyDaemonSetWithForce(client appsclientv1.DaemonSetsGetter, recorder even
 	if _, ok := required.Annotations[specHashAnnotation]; !ok {
 		// If the spec hash annotation is not present, the caller expects the
 		// pull-spec annotation to be applied.
-		required.Annotations["operator.openshift.io/pull-spec"] = required.Spec.Template.Spec.Containers[0].Image
+		required.Annotations["operator.uccp.io/pull-spec"] = required.Spec.Template.Spec.Containers[0].Image
 	}
 	existing, err := client.DaemonSets(required.Namespace).Get(context.TODO(), required.Name, metav1.GetOptions{})
 	if apierrors.IsNotFound(err) {
@@ -233,8 +233,8 @@ func ApplyDaemonSetWithForce(client appsclientv1.DaemonSetsGetter, recorder even
 		if toWrite.Spec.Template.Annotations == nil {
 			toWrite.Spec.Template.Annotations = map[string]string{}
 		}
-		toWrite.Annotations["operator.openshift.io/force"] = forceString
-		toWrite.Spec.Template.Annotations["operator.openshift.io/force"] = forceString
+		toWrite.Annotations["operator.uccp.io/force"] = forceString
+		toWrite.Spec.Template.Annotations["operator.uccp.io/force"] = forceString
 	}
 
 	if klog.V(4).Enabled() {

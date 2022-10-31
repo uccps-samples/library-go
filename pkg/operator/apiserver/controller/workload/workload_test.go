@@ -9,8 +9,8 @@ import (
 	corev1listers "k8s.io/client-go/listers/core/v1"
 	"k8s.io/utils/pointer"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -102,7 +102,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 			workload: &appsv1.Deployment{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "apiserver",
-					Namespace: "openshift-apiserver",
+					Namespace: "uccp-apiserver",
 				},
 				Spec: appsv1.DeploymentSpec{
 					Template: corev1.PodTemplateSpec{ObjectMeta: metav1.ObjectMeta{Labels: map[string]string{"foo": "bar"}}},
@@ -114,7 +114,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 			},
 			pods: []*corev1.Pod{
 				{
-					ObjectMeta: metav1.ObjectMeta{Name: "apiserver", Namespace: "openshift-apiserver", Labels: map[string]string{"foo": "bar"}},
+					ObjectMeta: metav1.ObjectMeta{Name: "apiserver", Namespace: "uccp-apiserver", Labels: map[string]string{"foo": "bar"}},
 					Status: corev1.PodStatus{
 						Phase: corev1.PodPending,
 						ContainerStatuses: []corev1.ContainerStatus{
@@ -138,7 +138,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 						Type:    fmt.Sprintf("%sDeployment%s", defaultControllerName, operatorv1.OperatorStatusTypeAvailable),
 						Status:  operatorv1.ConditionFalse,
 						Reason:  "NoPod",
-						Message: "no apiserver.openshift-apiserver pods available on any node.",
+						Message: "no apiserver.uccp-apiserver pods available on any node.",
 					},
 					{
 						Type:   fmt.Sprintf("%sWorkloadDegraded", defaultControllerName),
@@ -148,7 +148,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 						Type:    fmt.Sprintf("%sDeploymentDegraded", defaultControllerName),
 						Status:  operatorv1.ConditionTrue,
 						Reason:  "UnavailablePod",
-						Message: "3 of 3 requested instances are unavailable for apiserver.openshift-apiserver (container is waiting in pending apiserver pod)",
+						Message: "3 of 3 requested instances are unavailable for apiserver.uccp-apiserver (container is waiting in pending apiserver pod)",
 					},
 					{
 						Type:    fmt.Sprintf("%sDeployment%s", defaultControllerName, operatorv1.OperatorStatusTypeProgressing),
@@ -165,7 +165,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 			workload: &appsv1.Deployment{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "apiserver",
-					Namespace: "openshift-apiserver",
+					Namespace: "uccp-apiserver",
 				},
 				Spec: appsv1.DeploymentSpec{
 					Template: corev1.PodTemplateSpec{ObjectMeta: metav1.ObjectMeta{Labels: map[string]string{"foo": "bar"}}},
@@ -177,7 +177,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 			},
 			pods: []*corev1.Pod{
 				{
-					ObjectMeta: metav1.ObjectMeta{Name: "apiserver", Namespace: "openshift-apiserver"},
+					ObjectMeta: metav1.ObjectMeta{Name: "apiserver", Namespace: "uccp-apiserver"},
 					Status: corev1.PodStatus{
 						Phase: corev1.PodSucceeded,
 						ContainerStatuses: []corev1.ContainerStatus{
@@ -211,7 +211,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 						Type:    fmt.Sprintf("%sDeploymentDegraded", defaultControllerName),
 						Status:  operatorv1.ConditionTrue,
 						Reason:  "UnavailablePod",
-						Message: "1 of 3 requested instances are unavailable for apiserver.openshift-apiserver ()",
+						Message: "1 of 3 requested instances are unavailable for apiserver.uccp-apiserver ()",
 					},
 					{
 						Type:    fmt.Sprintf("%sDeployment%s", defaultControllerName, operatorv1.OperatorStatusTypeProgressing),
@@ -228,7 +228,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 			workload: &appsv1.Deployment{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:      "apiserver",
-					Namespace: "openshift-apiserver",
+					Namespace: "uccp-apiserver",
 				},
 				Spec: appsv1.DeploymentSpec{
 					Replicas: pointer.Int32Ptr(3),
@@ -270,7 +270,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 			workload: &appsv1.Deployment{
 				ObjectMeta: metav1.ObjectMeta{
 					Name:       "apiserver",
-					Namespace:  "openshift-apiserver",
+					Namespace:  "uccp-apiserver",
 					Generation: 100,
 				},
 				Spec: appsv1.DeploymentSpec{
@@ -303,7 +303,7 @@ func TestUpdateOperatorStatus(t *testing.T) {
 						Type:    fmt.Sprintf("%sDeployment%s", defaultControllerName, operatorv1.OperatorStatusTypeProgressing),
 						Status:  operatorv1.ConditionTrue,
 						Reason:  "NewGeneration",
-						Message: "deployment/apiserver.openshift-apiserver: observed generation is 99, desired generation is 100.",
+						Message: "deployment/apiserver.uccp-apiserver: observed generation is 99, desired generation is 100.",
 					},
 				}
 				return areCondidtionsEqual(expectedConditions, actualStatus.Conditions)

@@ -5,10 +5,10 @@ import (
 
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 
-	"github.com/openshift/api"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/api"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
 	storagev1 "k8s.io/api/storage/v1"

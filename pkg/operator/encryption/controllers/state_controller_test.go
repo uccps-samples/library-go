@@ -18,15 +18,15 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 	clientgotesting "k8s.io/client-go/testing"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	encryptiondeployer "github.com/openshift/library-go/pkg/operator/encryption/deployer"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	encryptiontesting "github.com/openshift/library-go/pkg/operator/encryption/testing"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/events/eventstesting"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	encryptiondeployer "github.com/uccps-samples/library-go/pkg/operator/encryption/deployer"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	encryptiontesting "github.com/uccps-samples/library-go/pkg/operator/encryption/testing"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events/eventstesting"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 func TestStateController(t *testing.T) {
@@ -43,7 +43,7 @@ func TestStateController(t *testing.T) {
 		validateOperatorClientFunc func(ts *testing.T, operatorClient v1helpers.OperatorClient)
 		expectedError              error
 	}{
-		// scenario 1: validates if "encryption-config-kms" secret with EncryptionConfiguration in "openshift-config-managed" namespace
+		// scenario 1: validates if "encryption-config-kms" secret with EncryptionConfiguration in "uccp-config-managed" namespace
 		// was not created when no secrets with encryption keys are present in that namespace.
 		{
 			name:            "no secret with EncryptionConfig is created when there are no secrets with the encryption keys",
@@ -54,15 +54,15 @@ func TestStateController(t *testing.T) {
 			initialResources: []runtime.Object{
 				encryptiontesting.CreateDummyKubeAPIPod("kube-apiserver-1", "kms", "node-1"),
 			},
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed"},
 		},
 
-		// scenario 2: validates if "encryption-config-kms" secret with EncryptionConfiguration in "openshift-config-managed" namespace is created,
+		// scenario 2: validates if "encryption-config-kms" secret with EncryptionConfiguration in "uccp-config-managed" namespace is created,
 		// it also checks the content and the order of encryption providers, this test expects identity first and aescbc second
 		{
 			name:                     "secret with EncryptionConfig is created without a write key",
 			targetNamespace:          "kms",
-			encryptionSecretSelector: metav1.ListOptions{LabelSelector: "encryption.apiserver.operator.openshift.io/component=kms"},
+			encryptionSecretSelector: metav1.ListOptions{LabelSelector: "encryption.apiserver.operator.uccp.io/component=kms"},
 			targetGRs: []schema.GroupResource{
 				{Group: "", Resource: "secrets"},
 			},
@@ -70,7 +70,7 @@ func TestStateController(t *testing.T) {
 				encryptiontesting.CreateDummyKubeAPIPod("kube-apiserver-1", "kms", "node-1"),
 				encryptiontesting.CreateEncryptionKeySecretWithRawKey("kms", []schema.GroupResource{{Group: "", Resource: "secrets"}}, 1, []byte("61def964fb967f5d7c44a2af8dab6865")),
 			},
-			expectedActions:       []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "get:secrets:openshift-config-managed", "create:secrets:openshift-config-managed", "create:events:kms", "create:events:kms"},
+			expectedActions:       []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "get:secrets:uccp-config-managed", "create:secrets:uccp-config-managed", "create:events:kms", "create:events:kms"},
 			expectedEncryptionCfg: encryptiontesting.CreateEncryptionCfgNoWriteKey("1", "NjFkZWY5NjRmYjk2N2Y1ZDdjNDRhMmFmOGRhYjY4NjU=", "secrets"),
 			validateFunc: func(ts *testing.T, actions []clientgotesting.Action, destName string, expectedEncryptionCfg *apiserverconfigv1.EncryptionConfiguration) {
 				wasSecretValidated := false
@@ -124,9 +124,9 @@ func TestStateController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"create:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"create:secrets:uccp-config-managed",
 				"create:events:kms",
 				"create:events:kms",
 			},
@@ -185,12 +185,12 @@ func TestStateController(t *testing.T) {
 						},
 					}
 					ec := encryptiontesting.CreateEncryptionCfgWithWriteKey([]encryptiontesting.EncryptionKeysResourceTuple{keysRes})
-					ecs := createEncryptionCfgSecret(t, "openshift-config-managed", "1", ec)
+					ecs := createEncryptionCfgSecret(t, "uccp-config-managed", "1", ec)
 					ecs.Name = "encryption-config-kms"
 					return ecs
 				}(),
 			},
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "get:secrets:openshift-config-managed"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "get:secrets:uccp-config-managed"},
 		},
 
 		// scenario 5
@@ -222,7 +222,7 @@ func TestStateController(t *testing.T) {
 					ecs := createEncryptionCfgSecret(t, "kms", "1", ec)
 					return ecs
 				}(),
-				func() *corev1.Secret { // encryption config in openshift-config-managed
+				func() *corev1.Secret { // encryption config in uccp-config-managed
 					keysRes := encryptiontesting.EncryptionKeysResourceTuple{
 						Resource: "secrets",
 						Keys: []apiserverconfigv1.Key{
@@ -237,7 +237,7 @@ func TestStateController(t *testing.T) {
 						},
 					}
 					ec := encryptiontesting.CreateEncryptionCfgWithWriteKey([]encryptiontesting.EncryptionKeysResourceTuple{keysRes})
-					ecs := createEncryptionCfgSecret(t, "openshift-config-managed", "1", ec)
+					ecs := createEncryptionCfgSecret(t, "uccp-config-managed", "1", ec)
 					ecs.Name = "encryption-config-kms"
 					return ecs
 				}(),
@@ -262,9 +262,9 @@ func TestStateController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
 				"create:events:kms",
 				"create:events:kms",
 			},
@@ -327,7 +327,7 @@ func TestStateController(t *testing.T) {
 					ecs := createEncryptionCfgSecret(t, "kms", "1", ec)
 					return ecs
 				}(),
-				func() *corev1.Secret { // encryption config in openshift-config-managed namespace
+				func() *corev1.Secret { // encryption config in uccp-config-managed namespace
 					keysRes := encryptiontesting.EncryptionKeysResourceTuple{
 						Resource: "secrets",
 						Keys: []apiserverconfigv1.Key{
@@ -350,7 +350,7 @@ func TestStateController(t *testing.T) {
 						},
 					}
 					ec := encryptiontesting.CreateEncryptionCfgWithWriteKey([]encryptiontesting.EncryptionKeysResourceTuple{keysRes})
-					ecs := createEncryptionCfgSecret(t, "openshift-config-managed", "1", ec)
+					ecs := createEncryptionCfgSecret(t, "uccp-config-managed", "1", ec)
 					ecs.Name = "encryption-config-kms"
 					return ecs
 				}(),
@@ -372,7 +372,7 @@ func TestStateController(t *testing.T) {
 				ec := encryptiontesting.CreateEncryptionCfgWithWriteKey([]encryptiontesting.EncryptionKeysResourceTuple{keysRes})
 				return ec
 			}(),
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "get:secrets:openshift-config-managed", "update:secrets:openshift-config-managed", "create:events:kms", "create:events:kms"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "get:secrets:uccp-config-managed", "update:secrets:uccp-config-managed", "create:events:kms", "create:events:kms"},
 			validateFunc: func(ts *testing.T, actions []clientgotesting.Action, destName string, expectedEncryptionCfg *apiserverconfigv1.EncryptionConfiguration) {
 				wasSecretValidated := false
 				for _, action := range actions {
@@ -424,7 +424,7 @@ func TestStateController(t *testing.T) {
 					ecs := createEncryptionCfgSecret(t, "kms", "1", ec)
 					return ecs
 				}(),
-				func() *corev1.Secret { // encryption config in openshift-config-managed namespace
+				func() *corev1.Secret { // encryption config in uccp-config-managed namespace
 					keysRes := encryptiontesting.EncryptionKeysResourceTuple{
 						Resource: "secrets",
 						Keys: []apiserverconfigv1.Key{
@@ -439,7 +439,7 @@ func TestStateController(t *testing.T) {
 						},
 					}
 					ec := encryptiontesting.CreateEncryptionCfgWithWriteKey([]encryptiontesting.EncryptionKeysResourceTuple{keysRes})
-					ecs := createEncryptionCfgSecret(t, "openshift-config-managed", "1", ec)
+					ecs := createEncryptionCfgSecret(t, "uccp-config-managed", "1", ec)
 					ecs.Name = "encryption-config-kms"
 					return ecs
 				}(),
@@ -464,9 +464,9 @@ func TestStateController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"get:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"get:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
 				"create:events:kms",
 				"create:events:kms",
 			},
@@ -514,7 +514,7 @@ func TestStateController(t *testing.T) {
 						},
 					}
 					ec := encryptiontesting.CreateEncryptionCfgWithWriteKey([]encryptiontesting.EncryptionKeysResourceTuple{keysRes})
-					ecs := createEncryptionCfgSecret(t, "openshift-config-managed", "1", ec)
+					ecs := createEncryptionCfgSecret(t, "uccp-config-managed", "1", ec)
 					ecs.Name = "encryption-config-kms"
 					return ecs
 				}(),
@@ -553,7 +553,7 @@ func TestStateController(t *testing.T) {
 					}
 				*/
 			},
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "get:secrets:openshift-config-managed", "update:secrets:openshift-config-managed", "create:events:kms", "create:events:kms"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "get:secrets:uccp-config-managed", "update:secrets:uccp-config-managed", "create:events:kms", "create:events:kms"},
 		},
 
 		// scenario 9
@@ -593,7 +593,7 @@ func TestStateController(t *testing.T) {
 					ecs := createEncryptionCfgSecret(t, "kms", "1", ec)
 					return ecs
 				}(),
-				func() *corev1.Secret { // encryption config in openshift-config-managed namespace
+				func() *corev1.Secret { // encryption config in uccp-config-managed namespace
 					keysRes := []encryptiontesting.EncryptionKeysResourceTuple{
 						{
 							Resource: "configmaps",
@@ -615,12 +615,12 @@ func TestStateController(t *testing.T) {
 						},
 					}
 					ec := encryptiontesting.CreateEncryptionCfgWithWriteKey(keysRes)
-					ecs := createEncryptionCfgSecret(t, "openshift-config-managed", "1", ec)
+					ecs := createEncryptionCfgSecret(t, "uccp-config-managed", "1", ec)
 					ecs.Name = "encryption-config-kms"
 					return ecs
 				}(),
 			},
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "get:secrets:openshift-config-managed"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "get:secrets:uccp-config-managed"},
 		},
 
 		// scenario 10
@@ -706,9 +706,9 @@ func TestStateController(t *testing.T) {
 			fakeKubeClient := fake.NewSimpleClientset(scenario.initialResources...)
 			realEventRecorder := events.NewRecorder(fakeKubeClient.CoreV1().Events(scenario.targetNamespace), "test-encryptionKeyController", &corev1.ObjectReference{})
 			eventRecorder := eventstesting.NewEventRecorder(t, realEventRecorder)
-			// we pass "openshift-config-managed" and $targetNamespace ns because the controller creates an informer for secrets in that namespace.
+			// we pass "uccp-config-managed" and $targetNamespace ns because the controller creates an informer for secrets in that namespace.
 			// note that the informer factory is not used in the test - it's only needed to create the controller
-			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "openshift-config-managed", scenario.targetNamespace)
+			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "uccp-config-managed", scenario.targetNamespace)
 			fakeSecretClient := fakeKubeClient.CoreV1()
 			fakePodClient := fakeKubeClient.CoreV1()
 
@@ -773,11 +773,11 @@ func validateSecretWithEncryptionConfig(actualSecret *corev1.Secret, expectedEnc
 		},
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      expectedSecretName,
-			Namespace: "openshift-config-managed",
+			Namespace: "uccp-config-managed",
 			Annotations: map[string]string{
 				state.KubernetesDescriptionKey: state.KubernetesDescriptionScaryValue,
 			},
-			Finalizers: []string{"encryption.apiserver.operator.openshift.io/deletion-protection"},
+			Finalizers: []string{"encryption.apiserver.operator.uccp.io/deletion-protection"},
 		},
 		Data: actualSecret.Data,
 		Type: corev1.SecretTypeOpaque,

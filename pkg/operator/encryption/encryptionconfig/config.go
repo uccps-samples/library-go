@@ -9,9 +9,9 @@ import (
 	apiserverconfigv1 "k8s.io/apiserver/pkg/apis/config/v1"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/crypto"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/crypto"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
 )
 
 var (

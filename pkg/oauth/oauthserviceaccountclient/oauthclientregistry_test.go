@@ -17,9 +17,9 @@ import (
 	clientgotesting "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/record"
 
-	oauthv1 "github.com/openshift/api/oauth/v1"
-	routev1 "github.com/openshift/api/route/v1"
-	routev1fake "github.com/openshift/client-go/route/clientset/versioned/fake"
+	oauthv1 "github.com/uccps-samples/api/oauth/v1"
+	routev1 "github.com/uccps-samples/api/route/v1"
+	routev1fake "github.com/uccps-samples/client-go/route/clientset/versioned/fake"
 )
 
 var (
@@ -28,8 +28,8 @@ var (
 	serviceAccountsResource = schema.GroupVersionResource{Group: "", Version: "v1", Resource: "serviceaccounts"}
 	secretsResource         = schema.GroupVersionResource{Group: "", Version: "v1", Resource: "secrets"}
 	secretKind              = schema.GroupVersionKind{Group: "", Version: "v1", Kind: "Secret"}
-	routesResource          = schema.GroupVersionResource{Group: "route.openshift.io", Version: "v1", Resource: "routes"}
-	routeClientKind         = schema.GroupVersionKind{Group: "route.openshift.io", Version: "v1", Kind: "Route"}
+	routesResource          = schema.GroupVersionResource{Group: "route.uccp.io", Version: "v1", Resource: "routes"}
+	routeClientKind         = schema.GroupVersionKind{Group: "route.uccp.io", Version: "v1", Kind: "Route"}
 )
 
 func TestGetClient(t *testing.T) {
@@ -76,10 +76,10 @@ func TestGetClient(t *testing.T) {
 					},
 				}),
 			routeClient:      routev1fake.NewSimpleClientset(),
-			expectedErr:      `system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.openshift.io/oauth-redirecturi.<some-value>`,
-			expectedEventMsg: `Warning NoSAOAuthRedirectURIs system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.openshift.io/oauth-redirecturi.<some-value>=<redirect> or create a dynamic URI using serviceaccounts.openshift.io/oauth-redirectreference.<some-value>=<reference>`,
+			expectedErr:      `system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.uccp.io/oauth-redirecturi.<some-value>`,
+			expectedEventMsg: `Warning NoSAOAuthRedirectURIs system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.uccp.io/oauth-redirecturi.<some-value>=<redirect> or create a dynamic URI using serviceaccounts.uccp.io/oauth-redirectreference.<some-value>=<reference>`,
 
-			//expectedEventMsg:    `Warning NoSAOAuthRedirectURIs [parse ::: missing protocol scheme, system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.openshift.io/oauth-redirecturi.<some-value>=<redirect> or create a dynamic URI using serviceaccounts.openshift.io/oauth-redirectreference.<some-value>=<reference>]`,
+			//expectedEventMsg:    `Warning NoSAOAuthRedirectURIs [parse ::: missing protocol scheme, system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.uccp.io/oauth-redirecturi.<some-value>=<redirect> or create a dynamic URI using serviceaccounts.uccp.io/oauth-redirectreference.<some-value>=<reference>]`,
 			expectedKubeActions: []clientgotesting.Action{clientgotesting.NewGetAction(serviceAccountsResource, "ns-01", "default")},
 			expectedOSActions:   []clientgotesting.Action{},
 		},
@@ -95,8 +95,8 @@ func TestGetClient(t *testing.T) {
 					},
 				}),
 			routeClient:         routev1fake.NewSimpleClientset(),
-			expectedErr:         `system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.openshift.io/oauth-redirecturi.<some-value>`,
-			expectedEventMsg:    `Warning NoSAOAuthRedirectURIs [parse "::": missing protocol scheme, system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.openshift.io/oauth-redirecturi.<some-value>=<redirect> or create a dynamic URI using serviceaccounts.openshift.io/oauth-redirectreference.<some-value>=<reference>]`,
+			expectedErr:         `system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.uccp.io/oauth-redirecturi.<some-value>`,
+			expectedEventMsg:    `Warning NoSAOAuthRedirectURIs [parse "::": missing protocol scheme, system:serviceaccount:ns-01:default has no redirectURIs; set serviceaccounts.uccp.io/oauth-redirecturi.<some-value>=<redirect> or create a dynamic URI using serviceaccounts.uccp.io/oauth-redirectreference.<some-value>=<reference>]`,
 			expectedKubeActions: []clientgotesting.Action{clientgotesting.NewGetAction(serviceAccountsResource, "ns-01", "default")},
 			expectedOSActions:   []clientgotesting.Action{},
 		},
@@ -169,7 +169,7 @@ func TestGetClient(t *testing.T) {
 						UID:       types.UID("any"),
 						Annotations: map[string]string{
 							OAuthRedirectModelAnnotationURIPrefix + "one":     "http://anywhere",
-							OAuthRedirectModelAnnotationReferencePrefix + "1": buildRedirectObjectReferenceString(routeKind, "route1", "route.openshift.io"),
+							OAuthRedirectModelAnnotationReferencePrefix + "1": buildRedirectObjectReferenceString(routeKind, "route1", "route.uccp.io"),
 						},
 					},
 				},
@@ -230,7 +230,7 @@ func TestGetClient(t *testing.T) {
 						Annotations: map[string]string{
 							OAuthRedirectModelAnnotationURIPrefix + "one":     "http://anywhere",
 							OAuthRedirectModelAnnotationReferencePrefix + "1": buildRedirectObjectReferenceString(routeKind, "route1", "wronggroup"),
-							OAuthRedirectModelAnnotationReferencePrefix + "2": buildRedirectObjectReferenceString("wrongkind", "route1", "route.openshift.io"),
+							OAuthRedirectModelAnnotationReferencePrefix + "2": buildRedirectObjectReferenceString("wrongkind", "route1", "route.uccp.io"),
 						},
 					},
 				},
@@ -350,7 +350,7 @@ func TestGetClient(t *testing.T) {
 						UID:       types.UID("any"),
 						Annotations: map[string]string{
 							OAuthRedirectModelAnnotationURIPrefix + "one":     "http://anywhere",
-							OAuthRedirectModelAnnotationReferencePrefix + "1": buildRedirectObjectReferenceString(routeKind, "route1", "route.openshift.io"),
+							OAuthRedirectModelAnnotationReferencePrefix + "1": buildRedirectObjectReferenceString(routeKind, "route1", "route.uccp.io"),
 							OAuthRedirectModelAnnotationReferencePrefix + "2": buildRedirectObjectReferenceString(routeKind, "route2", ""),
 							OAuthRedirectModelAnnotationReferencePrefix + "3": buildRedirectObjectReferenceString(routeKind, "missingroute", ""),
 						},
@@ -437,7 +437,7 @@ func TestGetClient(t *testing.T) {
 						Annotations: map[string]string{
 							OAuthRedirectModelAnnotationReferencePrefix + "1": buildRedirectObjectReferenceString(routeKind, "route1", ""),
 							OAuthRedirectModelAnnotationURIPrefix + "1":       "//redhat.com",
-							OAuthRedirectModelAnnotationReferencePrefix + "2": buildRedirectObjectReferenceString(routeKind, "route2", "route.openshift.io"),
+							OAuthRedirectModelAnnotationReferencePrefix + "2": buildRedirectObjectReferenceString(routeKind, "route2", "route.uccp.io"),
 							OAuthRedirectModelAnnotationURIPrefix + "2":       "//google.com",
 						},
 					},
@@ -517,7 +517,7 @@ func TestGetClient(t *testing.T) {
 							OAuthRedirectModelAnnotationURIPrefix + "1":       "/awesomepath",
 							OAuthRedirectModelAnnotationReferencePrefix + "1": buildRedirectObjectReferenceString(routeKind, "route1", ""),
 							OAuthRedirectModelAnnotationURIPrefix + "2":       "//:8000",
-							OAuthRedirectModelAnnotationReferencePrefix + "2": buildRedirectObjectReferenceString(routeKind, "route1", "route.openshift.io"),
+							OAuthRedirectModelAnnotationReferencePrefix + "2": buildRedirectObjectReferenceString(routeKind, "route1", "route.uccp.io"),
 						},
 					},
 				},
@@ -834,7 +834,7 @@ func TestParseModelsMap(t *testing.T) {
 				OAuthRedirectModelAnnotationReferencePrefix + "one": buildRedirectObjectReferenceString(routeKind, "route1", ""),
 				OAuthRedirectModelAnnotationURIPrefix + "one":       "https://:8000/path1",
 
-				OAuthRedirectModelAnnotationReferencePrefix + "two": buildRedirectObjectReferenceString(routeKind, "route2", "route.openshift.io"),
+				OAuthRedirectModelAnnotationReferencePrefix + "two": buildRedirectObjectReferenceString(routeKind, "route2", "route.uccp.io"),
 				OAuthRedirectModelAnnotationURIPrefix + "two":       "http://:9000/path2",
 			},
 			expected: map[string]model{
@@ -850,7 +850,7 @@ func TestParseModelsMap(t *testing.T) {
 					scheme: "http",
 					port:   "9000",
 					path:   "/path2",
-					group:  "route.openshift.io",
+					group:  "route.uccp.io",
 					kind:   routeKind,
 					name:   "route2",
 				},

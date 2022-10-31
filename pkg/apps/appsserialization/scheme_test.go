@@ -8,7 +8,7 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	appsv1 "github.com/openshift/api/apps/v1"
+	appsv1 "github.com/uccps-samples/api/apps/v1"
 )
 
 const legacyDC = `{
@@ -33,7 +33,7 @@ func TestLegacyDecoding(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(string(groupfiedBytes), "apps.openshift.io/v1") {
+	if !strings.Contains(string(groupfiedBytes), "apps.uccp.io/v1") {
 		t.Fatal(string(groupfiedBytes))
 	}
 

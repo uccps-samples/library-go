@@ -7,14 +7,14 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 const (
-	EtcdEndpointNamespace = "openshift-etcd"
+	EtcdEndpointNamespace = "uccp-etcd"
 	etcdEndpointName      = "etcd-endpoints"
 
 	// EtcdEndpointName points to the old host-etcd-2 endpoint applicable for clusters prior to 4.5

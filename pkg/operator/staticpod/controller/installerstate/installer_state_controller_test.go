@@ -12,11 +12,11 @@ import (
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes/fake"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events/eventstesting"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events/eventstesting"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 func newInstallerPod(name string, mutateStatusFn func(*corev1.PodStatus)) *corev1.Pod {
@@ -45,10 +45,10 @@ func newInstallerPodNetworkEvent(mutateFn func(*corev1.Event)) *corev1.Event {
 		},
 		Reason: "FailedCreatePodSandBox",
 		Message: `'(combined from similar events): Failed create pod sandbox: rpc error:
-    code = Unknown desc = failed to create pod network sandbox k8s_installer-5-control-plane-1_openshift-kube-apiserver_900db7f3-d2ce-11e9-8fc8-005056be0641_0(121698f4862fd67157ca586cab18aefb048fe5d7b3bd87516098ac0e91a90a13):
-    Multus: Err adding pod to network "openshift-sdn": Multus: error in invoke Delegate
-    add - "openshift-sdn": failed to send CNI request: Post http://dummy/: dial unix
-    /var/run/openshift-sdn/cniserver/socket: connect: connection refused'`,
+    code = Unknown desc = failed to create pod network sandbox k8s_installer-5-control-plane-1_uccp-kube-apiserver_900db7f3-d2ce-11e9-8fc8-005056be0641_0(121698f4862fd67157ca586cab18aefb048fe5d7b3bd87516098ac0e91a90a13):
+    Multus: Err adding pod to network "uccp-sdn": Multus: error in invoke Delegate
+    add - "uccp-sdn": failed to send CNI request: Post http://dummy/: dial unix
+    /var/run/uccp-sdn/cniserver/socket: connect: connection refused'`,
 	}
 	if mutateFn != nil {
 		mutateFn(event)

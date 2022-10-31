@@ -1,7 +1,7 @@
 package apiserver
 
 import (
-	configlistersv1 "github.com/openshift/client-go/config/listers/config/v1"
+	configlistersv1 "github.com/uccps-samples/client-go/config/listers/config/v1"
 )
 
 type APIServerLister interface {

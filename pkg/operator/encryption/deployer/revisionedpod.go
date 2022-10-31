@@ -13,10 +13,10 @@ import (
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
-	"github.com/openshift/library-go/pkg/operator/resourcesynccontroller"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
+	"github.com/uccps-samples/library-go/pkg/operator/resourcesynccontroller"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // MasterNodeProvider provides master nodes.
@@ -53,7 +53,7 @@ var (
 // a label storing the deployed encryption config revision, like the pods created
 // by the staticpod controllers.
 //
-// It syns the encryption-config-<targetNamespace> from openshift-config-managed
+// It syns the encryption-config-<targetNamespace> from uccp-config-managed
 // namespace to the target namespace as encryption-config. From there it is
 // revisioned and deployed to the static pods. The last deployed encryption
 // config is read from encryption-config-<revision>.
@@ -71,7 +71,7 @@ func NewRevisionLabelPodDeployer(
 	if resourceSyncer != nil {
 		if err := resourceSyncer.SyncSecret(
 			resourcesynccontroller.ResourceLocation{Namespace: targetNamespace, Name: encryptionconfig.EncryptionConfSecretName},
-			resourcesynccontroller.ResourceLocation{Namespace: "openshift-config-managed", Name: fmt.Sprintf("%s-%s", encryptionconfig.EncryptionConfSecretName, targetNamespace)},
+			resourcesynccontroller.ResourceLocation{Namespace: "uccp-config-managed", Name: fmt.Sprintf("%s-%s", encryptionconfig.EncryptionConfSecretName, targetNamespace)},
 		); err != nil {
 			return nil, err
 		}

@@ -6,18 +6,18 @@ import (
 	"strings"
 	"time"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/encryption/encryptionconfig"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
-	"github.com/openshift/library-go/pkg/operator/events"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/encryptionconfig"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // conditionController maintains the Encrypted condition. It sets it to true iff there is a
@@ -51,7 +51,7 @@ func NewConditionController(
 	}
 
 	return factory.New().WithInformers(
-		kubeInformersForNamespaces.InformersFor("openshift-config-managed").Core().V1().Secrets().Informer(),
+		kubeInformersForNamespaces.InformersFor("uccp-config-managed").Core().V1().Secrets().Informer(),
 		operatorClient.Informer(),
 		deployer,
 	).ResyncEvery(time.Second).WithSync(c.sync).ToController("EncryptionConditionController", eventRecorder.WithComponentSuffix("encryption-condition-controller"))

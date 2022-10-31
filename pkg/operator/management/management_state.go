@@ -1,7 +1,7 @@
 package management
 
 import (
-	"github.com/openshift/api/operator/v1"
+	"github.com/uccps-samples/api/operator/v1"
 )
 
 var (

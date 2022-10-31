@@ -24,8 +24,8 @@ import (
 
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/verify/store"
-	"github.com/openshift/library-go/pkg/verify/util"
+	"github.com/uccps-samples/library-go/pkg/verify/store"
+	"github.com/uccps-samples/library-go/pkg/verify/util"
 )
 
 // maxSignatureSearch prevents unbounded recursion on malicious signature stores (if

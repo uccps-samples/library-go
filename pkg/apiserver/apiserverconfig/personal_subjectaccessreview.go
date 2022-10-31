@@ -12,7 +12,7 @@ import (
 	"k8s.io/apiserver/pkg/endpoints/request"
 	apirequest "k8s.io/apiserver/pkg/endpoints/request"
 
-	authorizationv1 "github.com/openshift/api/authorization/v1"
+	authorizationv1 "github.com/uccps-samples/api/authorization/v1"
 )
 
 type personalSARRequestInfoResolver struct {
@@ -37,7 +37,7 @@ func (a *personalSARRequestInfoResolver) NewRequestInfo(req *http.Request) (*req
 	case !requestInfo.IsResourceRequest:
 		return requestInfo, nil
 
-	case len(requestInfo.APIGroup) != 0 && requestInfo.APIGroup != "authorization.openshift.io":
+	case len(requestInfo.APIGroup) != 0 && requestInfo.APIGroup != "authorization.uccp.io":
 		return requestInfo, nil
 
 	case len(requestInfo.Subresource) != 0:

@@ -3,17 +3,17 @@ package connectivitycheckcontroller
 import (
 	"context"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/api/operatorcontrolplane/v1alpha1"
-	operatorcontrolplaneclient "github.com/openshift/client-go/operatorcontrolplane/clientset/versioned"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/api/operatorcontrolplane/v1alpha1"
+	operatorcontrolplaneclient "github.com/uccps-samples/client-go/operatorcontrolplane/clientset/versioned"
 	"k8s.io/apimachinery/pkg/api/equality"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcehelper"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcehelper"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 type ConnectivityCheckController interface {

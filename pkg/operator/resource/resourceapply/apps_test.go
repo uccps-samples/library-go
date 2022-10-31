@@ -11,8 +11,8 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 	"k8s.io/utils/pointer"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
 )
 
 func TestApplyDeployment(t *testing.T) {
@@ -66,7 +66,7 @@ func TestApplyDeployment(t *testing.T) {
 			actualDeployment: workloadWithDefaultSpecHash(),
 			expectedDeployment: func() *appsv1.Deployment {
 				w := workload()
-				w.Annotations["operator.openshift.io/spec-hash"] = "5322a9feed3671ec5e7bc72c86c9b7e2f628b00e9c7c8c4c93a48ee63e8db47a"
+				w.Annotations["operator.uccp.io/spec-hash"] = "5322a9feed3671ec5e7bc72c86c9b7e2f628b00e9c7c8c4c93a48ee63e8db47a"
 				w.Spec.Template.Finalizers = []string{"newFinalizer"}
 				return w
 			}(),
@@ -201,8 +201,8 @@ func TestApplyDeploymentWithForce(t *testing.T) {
 				t.Fatal("expected ApplyDeploymentWithForce to report updated=false")
 			}
 			if tt.forceRollout {
-				tt.expectedDeployment.Annotations["operator.openshift.io/force"] = updatedDeployment.Annotations["operator.openshift.io/force"]
-				tt.expectedDeployment.Spec.Template.Annotations["operator.openshift.io/force"] = updatedDeployment.Spec.Template.Annotations["operator.openshift.io/force"]
+				tt.expectedDeployment.Annotations["operator.uccp.io/force"] = updatedDeployment.Annotations["operator.uccp.io/force"]
+				tt.expectedDeployment.Spec.Template.Annotations["operator.uccp.io/force"] = updatedDeployment.Spec.Template.Annotations["operator.uccp.io/force"]
 			}
 			if tt.expectedUpdate && !equality.Semantic.DeepEqual(updatedDeployment, tt.expectedDeployment) {
 				t.Errorf("created Deployment is different from the expected one (file) : %s", diff.ObjectDiff(updatedDeployment, tt.expectedDeployment))
@@ -215,7 +215,7 @@ func workload() *appsv1.Deployment {
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:        "apiserver",
-			Namespace:   "openshift-apiserver",
+			Namespace:   "uccp-apiserver",
 			Labels:      map[string]string{},
 			Annotations: map[string]string{},
 		},
@@ -240,12 +240,12 @@ func workload() *appsv1.Deployment {
 
 func workloadWithDefaultSpecHash() *appsv1.Deployment {
 	w := workload()
-	w.Annotations["operator.openshift.io/spec-hash"] = "32a23216b08c6b04f6c367de919931543f2620ea68e1eee5f5ef203b533d99aa"
+	w.Annotations["operator.uccp.io/spec-hash"] = "32a23216b08c6b04f6c367de919931543f2620ea68e1eee5f5ef203b533d99aa"
 	return w
 }
 
 func workloadWithDefaultPullSpec() *appsv1.Deployment {
 	w := workload()
-	w.Annotations["operator.openshift.io/pull-spec"] = w.Spec.Template.Spec.Containers[0].Image
+	w.Annotations["operator.uccp.io/pull-spec"] = w.Spec.Template.Spec.Containers[0].Image
 	return w
 }

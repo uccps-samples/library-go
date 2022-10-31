@@ -68,7 +68,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: prometheus-k8s
-    namespace: openshift-monitoring`)
+    namespace: uccp-monitoring`)
 
 func pkgOperatorStaticpodControllerMonitoringManifestsPrometheusRoleBindingYamlBytes() ([]byte, error) {
 	return _pkgOperatorStaticpodControllerMonitoringManifestsPrometheusRoleBindingYaml, nil

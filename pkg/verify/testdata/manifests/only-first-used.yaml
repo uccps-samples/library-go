@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: release-verification
-  namespace: openshift-config-managed
+  namespace: uccp-config-managed
   annotations:
-    release.openshift.io/verification-config-map: ""
+    release.uccp.io/verification-config-map: ""
 data:
   verifier-public-key-redhat: |
     -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -42,9 +42,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: release-verification-2n
-  namespace: openshift-config-managed
+  namespace: uccp-config-managed
   annotations:
-    release.openshift.io/verification-config-map: ""
+    release.uccp.io/verification-config-map: ""
 data:
   verifier-public-key-redhat: |
     -----BEGIN PGP PUBLIC KEY BLOCK-----

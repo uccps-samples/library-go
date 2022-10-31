@@ -7,8 +7,8 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 // AuditPolicyPathGetterFunc allows the observer to be agnostic of the source of audit profile(s).
@@ -37,7 +37,7 @@ func NewAuditObserver(pathGetter AuditPolicyPathGetterFunc) configobserver.Obser
 		apiServer, err := listers.APIServerLister().Get("cluster")
 		if err != nil {
 			if k8serrors.IsNotFound(err) {
-				klog.Warningf("apiserver.config.openshift.io/cluster: not found")
+				klog.Warningf("apiserver.config.uccp.io/cluster: not found")
 
 				return existingConfig, errs
 			}

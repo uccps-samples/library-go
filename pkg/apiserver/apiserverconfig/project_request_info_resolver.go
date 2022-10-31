@@ -5,7 +5,7 @@ import (
 
 	apirequest "k8s.io/apiserver/pkg/endpoints/request"
 
-	projectv1 "github.com/openshift/api/project/v1"
+	projectv1 "github.com/uccps-samples/api/project/v1"
 )
 
 type projectRequestInfoResolver struct {

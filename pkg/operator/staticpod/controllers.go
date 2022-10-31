@@ -3,9 +3,9 @@ package staticpod
 import (
 	"fmt"
 
-	"github.com/openshift/library-go/pkg/controller/manager"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	"github.com/openshift/library-go/pkg/operator/staticresourcecontroller"
+	"github.com/uccps-samples/library-go/pkg/controller/manager"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/staticresourcecontroller"
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/errors"
@@ -13,20 +13,20 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/klog/v2"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/loglevel"
-	"github.com/openshift/library-go/pkg/operator/revisioncontroller"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/backingresource"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/installer"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/installerstate"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/monitoring"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/node"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/prune"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/staticpodstate"
-	"github.com/openshift/library-go/pkg/operator/status"
-	"github.com/openshift/library-go/pkg/operator/unsupportedconfigoverridescontroller"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/loglevel"
+	"github.com/uccps-samples/library-go/pkg/operator/revisioncontroller"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/backingresource"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/installer"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/installerstate"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/monitoring"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/node"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/prune"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/staticpodstate"
+	"github.com/uccps-samples/library-go/pkg/operator/status"
+	"github.com/uccps-samples/library-go/pkg/operator/unsupportedconfigoverridescontroller"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 type staticPodOperatorControllerBuilder struct {

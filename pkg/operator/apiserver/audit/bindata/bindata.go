@@ -77,7 +77,7 @@ data:
     # Don't log oauth tokens as metadata.name is the secret
     - level: None
       resources:
-      - group: "oauth.openshift.io"
+      - group: "oauth.uccp.io"
         resources: ["oauthaccesstokens", "oauthauthorizetokens"]
     # Don't log authenticated requests to certain non-resource URL paths.
     - level: None
@@ -92,7 +92,7 @@ data:
     - level: RequestResponse
       verbs: ["create", "update", "patch"]
       resources:
-        - group: "user.openshift.io"
+        - group: "user.uccp.io"
           resources: ["identities"]
     # A catch-all rule to log all other requests at the Metadata level.
     - level: Metadata
@@ -118,7 +118,7 @@ data:
     # Don't log oauth tokens as metadata.name is the secret
     - level: None
       resources:
-      - group: "oauth.openshift.io"
+      - group: "oauth.uccp.io"
         resources: ["oauthaccesstokens", "oauthauthorizetokens"]
     # Don't log authenticated requests to certain non-resource URL paths.
     - level: None
@@ -131,12 +131,12 @@ data:
     # exclude resources where the body is security-sensitive
     - level: Metadata
       resources:
-      - group: "route.openshift.io"
+      - group: "route.uccp.io"
         resources: ["routes"]
       - resources: ["secrets"]
     - level: Metadata
       resources:
-      - group: "oauth.openshift.io"
+      - group: "oauth.uccp.io"
         resources: ["oauthclients"]
     # log request and response payloads for all write requests
     - level: RequestResponse
@@ -170,7 +170,7 @@ data:
     # Don't log oauth tokens as metadata.name is the secret
     - level: None
       resources:
-      - group: "oauth.openshift.io"
+      - group: "oauth.uccp.io"
         resources: ["oauthaccesstokens", "oauthauthorizetokens"]
     # Don't log authenticated requests to certain non-resource URL paths.
     - level: None
@@ -183,12 +183,12 @@ data:
     # exclude resources where the body is security-sensitive
     - level: Metadata
       resources:
-      - group: "route.openshift.io"
+      - group: "route.uccp.io"
         resources: ["routes"]
       - resources: ["secrets"]
     - level: Metadata
       resources:
-      - group: "oauth.openshift.io"
+      - group: "oauth.uccp.io"
         resources: ["oauthclients"]
     # catch-all rule to log all other requests with request and response payloads
     - level: RequestResponse
@@ -220,9 +220,9 @@ data:
     - level: RequestResponse
       verbs: ["create", "update", "patch"]
       resources:
-        - group: "user.openshift.io"
+        - group: "user.uccp.io"
           resources: ["identities"]
-        - group: "oauth.openshift.io"
+        - group: "oauth.uccp.io"
           resources: ["oauthaccesstokens", "oauthauthorizetokens"]
     # A catch-all rule to log all other requests at the Metadata level.
     - level: Metadata
@@ -256,12 +256,12 @@ data:
     # exclude resources where the body is security-sensitive
     - level: Metadata
       resources:
-      - group: "route.openshift.io"
+      - group: "route.uccp.io"
         resources: ["routes"]
       - resources: ["secrets"]
     - level: Metadata
       resources:
-      - group: "oauth.openshift.io"
+      - group: "oauth.uccp.io"
         resources: ["oauthclients"]
     # log request and response payloads for all write requests
     - level: RequestResponse
@@ -303,12 +303,12 @@ data:
     # exclude resources where the body is security-sensitive
     - level: Metadata
       resources:
-      - group: "route.openshift.io"
+      - group: "route.uccp.io"
         resources: ["routes"]
       - resources: ["secrets"]
     - level: Metadata
       resources:
-      - group: "oauth.openshift.io"
+      - group: "oauth.uccp.io"
         resources: ["oauthclients"]
     # catch-all rule to log all other requests with request and response payloads
     - level: RequestResponse`)

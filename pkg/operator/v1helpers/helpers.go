@@ -14,8 +14,8 @@ import (
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/client-go/util/retry"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 )
 
 // SetOperandVersion sets the new version and returns the previous value.

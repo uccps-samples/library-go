@@ -18,19 +18,19 @@ import (
 	core "k8s.io/client-go/testing"
 
 	"github.com/google/go-cmp/cmp"
-	opv1 "github.com/openshift/api/operator/v1"
+	opv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
 	controllerName   = "TestCSIDriverControllerServiceController"
 	operandName      = "test-csi-driver"
-	operandNamespace = "openshift-test-csi-driver"
+	operandNamespace = "uccp-test-csi-driver"
 
 	csiDriverContainerName     = "csi-driver"
 	provisionerContainerName   = "csi-provisioner"
@@ -39,8 +39,8 @@ const (
 	snapshotterContainerName   = "csi-snapshotter"
 	livenessProbeContainerName = "csi-liveness-probe"
 
-	// From github.com/openshift/library-go/pkg/operator/resource/resourceapply/apps.go
-	specHashAnnotation = "operator.openshift.io/spec-hash"
+	// From github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply/apps.go
+	specHashAnnotation = "operator.uccp.io/spec-hash"
 )
 
 var (
@@ -664,7 +664,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: test-csi-driver-controller
-  namespace: openshift-test-csi-driver
+  namespace: uccp-test-csi-driver
 spec:
   selector:
     matchLabels:
@@ -696,7 +696,7 @@ spec:
         - name: csi-provisioner
           image: ${PROVISIONER_IMAGE}
           args:
-            - --provisioner=test.csi.openshift.io
+            - --provisioner=test.csi.uccp.io
             - --csi-address=$(ADDRESS)
             - --feature-gates=Topology=true
             - --v=${LOG_LEVEL}

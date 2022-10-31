@@ -16,13 +16,13 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 	clienttesting "k8s.io/client-go/testing"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/assets"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/staticpod/controller/monitoring/bindata"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/assets"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/staticpod/controller/monitoring/bindata"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 func mustAssetServiceMonitor(namespace string) runtime.Object {
@@ -125,7 +125,7 @@ func TestNewMonitoringResourcesController(t *testing.T) {
 
 			c := NewMonitoringResourceController(
 				"target-namespace",
-				"openshift-monitoring",
+				"uccp-monitoring",
 				tc.staticPodOperatorClient,
 				informers.NewSharedInformerFactoryWithOptions(kubeClient, 1*time.Minute, informers.WithNamespace("target-namespace")),
 				kubeClient,

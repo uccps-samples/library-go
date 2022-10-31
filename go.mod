@@ -1,4 +1,4 @@
-module github.com/openshift/library-go
+module github.com/uccps-samples/library-go
 
 go 1.13
 
@@ -33,9 +33,6 @@ require (
 	github.com/opencontainers/go-digest v1.0.0-rc1
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v0.0.0-20191031171055-b133feaeeb2e // indirect
-	github.com/openshift/api v0.0.0-20200827090112-c05698d102cf
-	github.com/openshift/build-machinery-go v0.0.0-20200819073603-48aa266c95f7
-	github.com/openshift/client-go v0.0.0-20200827190008-3062137373b5
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.3.0
 	github.com/prometheus/client_golang v1.7.1
@@ -44,6 +41,9 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.4.0
+	github.com/uccps-samples/api v0.0.0-20221031070633-8e1b1039022d
+	github.com/uccps-samples/build-machinery-go v0.0.0-20221024073655-3930cec85ae1
+	github.com/uccps-samples/client-go v0.0.0-20221031072447-f72e263d831d
 	github.com/vishvananda/netlink v1.0.0 // indirect
 	github.com/vishvananda/netns v0.0.0-20191106174202-0a2b9b5464df // indirect
 	github.com/xlab/handysort v0.0.0-20150421192137-fb3537ed64a1 // indirect

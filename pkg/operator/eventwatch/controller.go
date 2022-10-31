@@ -13,14 +13,14 @@ import (
 	corev1typed "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 const (
 	// eventAckAnnotationName is an annotation we place on event that was processed by this controller.
 	// This is used to not process same event multiple times.
-	eventAckAnnotationName = "eventwatch.openshift.io/last-seen-count"
+	eventAckAnnotationName = "eventwatch.uccp.io/last-seen-count"
 )
 
 // Controller observes the events in given informer namespaces and match them with configured event handlers.

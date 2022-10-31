@@ -15,10 +15,10 @@ import (
 
 	"golang.org/x/crypto/openpgp"
 
-	"github.com/openshift/library-go/pkg/verify/store"
-	"github.com/openshift/library-go/pkg/verify/store/memory"
-	"github.com/openshift/library-go/pkg/verify/store/serial"
-	"github.com/openshift/library-go/pkg/verify/store/sigstore"
+	"github.com/uccps-samples/library-go/pkg/verify/store"
+	"github.com/uccps-samples/library-go/pkg/verify/store/memory"
+	"github.com/uccps-samples/library-go/pkg/verify/store/serial"
+	"github.com/uccps-samples/library-go/pkg/verify/store/sigstore"
 )
 
 func Test_ReleaseVerifier_Verify(t *testing.T) {

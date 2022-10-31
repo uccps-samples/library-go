@@ -14,14 +14,14 @@ import (
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/klog/v2"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	"github.com/openshift/library-go/pkg/operator/encryption/statemachine"
-	"github.com/openshift/library-go/pkg/operator/events"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/statemachine"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
@@ -65,7 +65,7 @@ func NewPruneController(
 
 	return factory.New().ResyncEvery(time.Second).WithSync(c.sync).WithInformers(
 		operatorClient.Informer(),
-		kubeInformersForNamespaces.InformersFor("openshift-config-managed").Core().V1().Secrets().Informer(),
+		kubeInformersForNamespaces.InformersFor("uccp-config-managed").Core().V1().Secrets().Informer(),
 		deployer,
 	).ToController(c.name, eventRecorder.WithComponentSuffix("encryption-prune-controller"))
 }
@@ -109,7 +109,7 @@ func (c *pruneController) deleteOldMigratedSecrets(syncContext factory.SyncConte
 		allUsedKeys = append(allUsedKeys, grKeys.ReadKeys...)
 	}
 
-	allSecrets, err := c.secretClient.Secrets("openshift-config-managed").List(context.TODO(), c.encryptionSecretSelector)
+	allSecrets, err := c.secretClient.Secrets("uccp-config-managed").List(context.TODO(), c.encryptionSecretSelector)
 	if err != nil {
 		return err
 	}
@@ -155,7 +155,7 @@ NextEncryptionSecret:
 			delete(finalizers, secrets.EncryptionSecretFinalizer)
 			secret.Finalizers = finalizers.List()
 			var updateErr error
-			secret, updateErr = c.secretClient.Secrets("openshift-config-managed").Update(context.TODO(), secret, metav1.UpdateOptions{})
+			secret, updateErr = c.secretClient.Secrets("uccp-config-managed").Update(context.TODO(), secret, metav1.UpdateOptions{})
 			deleteErrs = append(deleteErrs, updateErr)
 			if updateErr != nil {
 				continue
@@ -163,7 +163,7 @@ NextEncryptionSecret:
 		}
 
 		// remove the actual secret
-		if err := c.secretClient.Secrets("openshift-config-managed").Delete(context.TODO(), secret.Name, metav1.DeleteOptions{}); err != nil {
+		if err := c.secretClient.Secrets("uccp-config-managed").Delete(context.TODO(), secret.Name, metav1.DeleteOptions{}); err != nil {
 			deleteErrs = append(deleteErrs, err)
 		} else {
 			deletedKeys++

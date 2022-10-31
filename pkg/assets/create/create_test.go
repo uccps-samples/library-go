@@ -21,7 +21,7 @@ import (
 	"k8s.io/client-go/restmapper"
 	ktesting "k8s.io/client-go/testing"
 
-	"github.com/openshift/library-go/pkg/assets"
+	"github.com/uccps-samples/library-go/pkg/assets"
 )
 
 func init() {
@@ -43,7 +43,7 @@ var (
 	resources = []*restmapper.APIGroupResources{
 		{
 			Group: metav1.APIGroup{
-				Name: "kubeapiserver.operator.openshift.io",
+				Name: "kubeapiserver.operator.uccp.io",
 				Versions: []metav1.GroupVersionForDiscovery{
 					{Version: "v1alpha1"},
 				},
@@ -147,11 +147,11 @@ func TestCreate(t *testing.T) {
 		Kind:    "ConfigMap",
 	})
 	testConfigMap.SetName("aggregator-client-ca")
-	testConfigMap.SetNamespace("openshift-kube-apiserver")
+	testConfigMap.SetNamespace("uccp-kube-apiserver")
 
 	testOperatorConfig := &unstructured.Unstructured{}
 	testOperatorConfig.SetGroupVersionKind(schema.GroupVersionKind{
-		Group:   "kubeapiserver.operator.openshift.io",
+		Group:   "kubeapiserver.operator.uccp.io",
 		Version: "v1alpha1",
 		Kind:    "KubeAPIServerOperatorConfig",
 	})
@@ -159,7 +159,7 @@ func TestCreate(t *testing.T) {
 
 	testOperatorConfigWithStatus := &unstructured.Unstructured{}
 	testOperatorConfigWithStatus.SetGroupVersionKind(schema.GroupVersionKind{
-		Group:   "kubeapiserver.operator.openshift.io",
+		Group:   "kubeapiserver.operator.uccp.io",
 		Version: "v1alpha1",
 		Kind:    "KubeAPIServerOperatorConfig",
 	})

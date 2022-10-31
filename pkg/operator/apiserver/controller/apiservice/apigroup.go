@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/openshift/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 	kubeinformers "k8s.io/client-go/informers"
 	"k8s.io/client-go/rest"
 	apiregistrationv1 "k8s.io/kube-aggregator/pkg/apis/apiregistration/v1"
@@ -71,7 +71,7 @@ func checkDiscoveryForByAPIServices(recorder events.Recorder, restclient rest.In
 		result := restclient.Get().AbsPath(url).Do(context.TODO()).StatusCode(&statusCode)
 		if statusCode != http.StatusOK {
 			groupVersionString := fmt.Sprintf("%s.%s", apiService.Spec.Group, apiService.Spec.Version)
-			recorder.Warningf("OpenShiftAPICheckFailed", fmt.Sprintf("%q failed with HTTP status code %d (%v)", groupVersionString, statusCode, result.Error()))
+			recorder.Warningf("UccpAPICheckFailed", fmt.Sprintf("%q failed with HTTP status code %d (%v)", groupVersionString, statusCode, result.Error()))
 			missingMessages = append(missingMessages, fmt.Sprintf("%q is not ready: %d (%v)", groupVersionString, statusCode, result.Error()))
 		}
 	}

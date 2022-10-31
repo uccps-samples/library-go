@@ -19,16 +19,16 @@ import (
 	"k8s.io/component-base/logs"
 	"k8s.io/klog/v2"
 
-	operatorv1alpha1 "github.com/openshift/api/operator/v1alpha1"
+	operatorv1alpha1 "github.com/uccps-samples/api/operator/v1alpha1"
 
-	"github.com/openshift/library-go/pkg/config/configdefaults"
-	"github.com/openshift/library-go/pkg/controller/fileobserver"
-	"github.com/openshift/library-go/pkg/crypto"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/serviceability"
+	"github.com/uccps-samples/library-go/pkg/config/configdefaults"
+	"github.com/uccps-samples/library-go/pkg/controller/fileobserver"
+	"github.com/uccps-samples/library-go/pkg/crypto"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/serviceability"
 
 	// for metrics
-	_ "github.com/openshift/library-go/pkg/controller/metrics"
+	_ "github.com/uccps-samples/library-go/pkg/controller/metrics"
 )
 
 // ControllerCommandConfig holds values required to construct a command to run.
@@ -89,8 +89,8 @@ func (c *ControllerCommandConfig) NewCommandWithContext(ctx context.Context) *co
 			}()
 
 			defer logs.FlushLogs()
-			defer serviceability.BehaviorOnPanic(os.Getenv("OPENSHIFT_ON_PANIC"), c.version)()
-			defer serviceability.Profile(os.Getenv("OPENSHIFT_PROFILE")).Stop()
+			defer serviceability.BehaviorOnPanic(os.Getenv("UCCP_ON_PANIC"), c.version)()
+			defer serviceability.Profile(os.Getenv("UCCP_PROFILE")).Stop()
 
 			serviceability.StartProfiler()
 

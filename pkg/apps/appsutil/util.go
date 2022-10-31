@@ -22,9 +22,9 @@ import (
 	"k8s.io/client-go/tools/cache"
 	watchtools "k8s.io/client-go/tools/watch"
 
-	appsv1 "github.com/openshift/api/apps/v1"
-	"github.com/openshift/library-go/pkg/apps/appsserialization"
-	"github.com/openshift/library-go/pkg/build/naming"
+	appsv1 "github.com/uccps-samples/api/apps/v1"
+	"github.com/uccps-samples/library-go/pkg/apps/appsserialization"
+	"github.com/uccps-samples/library-go/pkg/build/naming"
 )
 
 // DeployerPodNameForDeployment returns the name of a pod for a given deployment

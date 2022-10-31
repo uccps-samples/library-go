@@ -25,8 +25,8 @@ import (
 	"k8s.io/client-go/transport"
 	"k8s.io/klog/v2"
 
-	"github.com/openshift/api/image/docker10"
-	"github.com/openshift/library-go/pkg/image/reference"
+	"github.com/uccps-samples/api/image/docker10"
+	"github.com/uccps-samples/library-go/pkg/image/reference"
 )
 
 var (

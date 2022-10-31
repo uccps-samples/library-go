@@ -17,9 +17,9 @@ import (
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog/v2"
 
-	quotav1 "github.com/openshift/api/quota/v1"
-	quotainformer "github.com/openshift/client-go/quota/informers/externalversions/quota/v1"
-	quotalister "github.com/openshift/client-go/quota/listers/quota/v1"
+	quotav1 "github.com/uccps-samples/api/quota/v1"
+	quotainformer "github.com/uccps-samples/client-go/quota/informers/externalversions/quota/v1"
+	quotalister "github.com/uccps-samples/client-go/quota/listers/quota/v1"
 )
 
 // Look out, here there be dragons!

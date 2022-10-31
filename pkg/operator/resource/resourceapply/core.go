@@ -15,8 +15,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	coreclientv1 "k8s.io/client-go/kubernetes/typed/core/v1"
 
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourcemerge"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourcemerge"
 )
 
 // ApplyNamespace merges objectmeta, does not worry about anything else
@@ -174,7 +174,7 @@ func ApplyConfigMap(client coreclientv1.ConfigMapsGetter, recorder events.Record
 
 	resourcemerge.EnsureObjectMeta(modified, &existingCopy.ObjectMeta, required.ObjectMeta)
 
-	caBundleInjected := required.Labels["config.openshift.io/inject-trusted-cabundle"] == "true"
+	caBundleInjected := required.Labels["config.uccp.io/inject-trusted-cabundle"] == "true"
 	_, newCABundleRequired := required.Data["ca-bundle.crt"]
 
 	var modifiedKeys []string

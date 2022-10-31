@@ -6,22 +6,22 @@ import (
 
 	"k8s.io/klog/v2"
 
-	configv1 "github.com/openshift/api/config/v1"
-	operatorv1 "github.com/openshift/api/operator/v1"
-	configv1client "github.com/openshift/client-go/config/clientset/versioned/typed/config/v1"
-	configv1informers "github.com/openshift/client-go/config/informers/externalversions/config/v1"
-	configv1listers "github.com/openshift/client-go/config/listers/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	configv1client "github.com/uccps-samples/client-go/config/clientset/versioned/typed/config/v1"
+	configv1informers "github.com/uccps-samples/client-go/config/informers/externalversions/config/v1"
+	configv1listers "github.com/uccps-samples/client-go/config/listers/config/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 
-	configv1helpers "github.com/openshift/library-go/pkg/config/clusteroperator/v1helpers"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/management"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	operatorv1helpers "github.com/openshift/library-go/pkg/operator/v1helpers"
+	configv1helpers "github.com/uccps-samples/library-go/pkg/config/clusteroperator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/management"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	operatorv1helpers "github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 type VersionGetter interface {

@@ -18,7 +18,7 @@ type stopper struct{}
 
 func (stopper) Stop() {}
 
-// Profile returns an interface to defer for a profile: `defer serviceability.Profile(os.Getenv("OPENSHIFT_PROFILE")).Stop()` is common.
+// Profile returns an interface to defer for a profile: `defer serviceability.Profile(os.Getenv("UCCP_PROFILE")).Stop()` is common.
 // Suffixing the mode with `-tmp` will have the profiler write the run to a temporary directory with a unique name, which
 // is useful when running the same command multiple times.
 func Profile(mode string) Stop {

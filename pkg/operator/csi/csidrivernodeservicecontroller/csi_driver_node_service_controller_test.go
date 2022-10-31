@@ -18,26 +18,26 @@ import (
 	core "k8s.io/client-go/testing"
 
 	"github.com/google/go-cmp/cmp"
-	opv1 "github.com/openshift/api/operator/v1"
+	opv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/controller/factory"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 const (
 	controllerName   = "TestCSIDriverNodeServiceController"
 	operandName      = "test-csi-driver"
-	operandNamespace = "openshift-test-csi-driver"
+	operandNamespace = "uccp-test-csi-driver"
 
 	csiDriverContainerName           = "csi-driver"
 	nodeDriverRegistrarContainerName = "csi-node-driver-registrar"
 	livenessProbeContainerName       = "csi-liveness-probe"
 
-	// From github.com/openshift/library-go/pkg/operator/resource/resourceapply/apps.go
-	specHashAnnotation = "operator.openshift.io/spec-hash"
+	// From github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply/apps.go
+	specHashAnnotation = "operator.uccp.io/spec-hash"
 )
 
 var (
@@ -567,7 +567,7 @@ kind: DaemonSet
 apiVersion: apps/v1
 metadata:
   name: test-csi-driver-node
-  namespace: openshift-test-csi-driver
+  namespace: uccp-test-csi-driver
 spec:
   selector:
     matchLabels:
@@ -617,7 +617,7 @@ spec:
             - name: ADDRESS
               value: /csi/csi.sock
             - name: DRIVER_REG_SOCK_PATH
-              value: /var/lib/kubelet/plugins/test.csi.openshift.io/csi.sock
+              value: /var/lib/kubelet/plugins/test.csi.uccp.io/csi.sock
           volumeMounts:
             - name: plugin-dir
               mountPath: /csi
@@ -638,7 +638,7 @@ spec:
             type: Directory
         - name: plugin-dir
           hostPath:
-            path: /var/lib/kubelet/plugins/test.csi.openshift.io/
+            path: /var/lib/kubelet/plugins/test.csi.uccp.io/
             type: DirectoryOrCreate
         - name: registration-dir
           hostPath:

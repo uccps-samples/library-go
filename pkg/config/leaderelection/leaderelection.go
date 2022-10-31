@@ -19,7 +19,7 @@ import (
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	"k8s.io/client-go/tools/record"
 
-	configv1 "github.com/openshift/api/config/v1"
+	configv1 "github.com/uccps-samples/api/config/v1"
 )
 
 // ToConfigMapLeaderElection returns a leader election config that you just need to fill in the Callback for.  Don't forget the callbacks!

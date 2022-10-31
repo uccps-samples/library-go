@@ -5,9 +5,9 @@ import (
 
 	"k8s.io/klog/v2"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
 
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 // StaticPodLatestRevisionClient is an LatestRevisionClient implementation for StaticPodOperatorStatus.

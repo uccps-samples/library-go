@@ -17,14 +17,14 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 	clientgotesting "k8s.io/client-go/testing"
 
-	operatorv1 "github.com/openshift/api/operator/v1"
-	"github.com/openshift/library-go/pkg/controller/factory"
-	encryptiondeployer "github.com/openshift/library-go/pkg/operator/encryption/deployer"
-	"github.com/openshift/library-go/pkg/operator/encryption/secrets"
-	"github.com/openshift/library-go/pkg/operator/encryption/state"
-	encryptiontesting "github.com/openshift/library-go/pkg/operator/encryption/testing"
-	"github.com/openshift/library-go/pkg/operator/events"
-	"github.com/openshift/library-go/pkg/operator/v1helpers"
+	operatorv1 "github.com/uccps-samples/api/operator/v1"
+	"github.com/uccps-samples/library-go/pkg/controller/factory"
+	encryptiondeployer "github.com/uccps-samples/library-go/pkg/operator/encryption/deployer"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/secrets"
+	"github.com/uccps-samples/library-go/pkg/operator/encryption/state"
+	encryptiontesting "github.com/uccps-samples/library-go/pkg/operator/encryption/testing"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
+	"github.com/uccps-samples/library-go/pkg/operator/v1helpers"
 )
 
 func TestPruneController(t *testing.T) {
@@ -52,7 +52,7 @@ func TestPruneController(t *testing.T) {
 				all = append(all, encryptiontesting.CreateEncryptionKeySecretWithRawKey(ns, nil, 11, []byte("cfbbae883984944e48d25590abdfd300")))
 				return all
 			}(),
-			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:openshift-config-managed", "list:secrets:openshift-config-managed"},
+			expectedActions: []string{"list:pods:kms", "get:secrets:kms", "list:secrets:uccp-config-managed", "list:secrets:uccp-config-managed"},
 		},
 
 		{
@@ -65,14 +65,14 @@ func TestPruneController(t *testing.T) {
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"list:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
-				"delete:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
-				"delete:secrets:openshift-config-managed",
-				"update:secrets:openshift-config-managed",
-				"delete:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"list:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
+				"delete:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
+				"delete:secrets:uccp-config-managed",
+				"update:secrets:uccp-config-managed",
+				"delete:secrets:uccp-config-managed",
 				"create:events:kms",
 			},
 			validateFunc: func(ts *testing.T, actions []clientgotesting.Action, initialSecrets []*corev1.Secret) {
@@ -89,12 +89,12 @@ func TestPruneController(t *testing.T) {
 			initialSecrets: func() []*corev1.Secret {
 				return createMigratedEncryptionKeySecretsWithRndKey(t, 15, "not-kms", "secrets")
 			}(),
-			encryptionSecretSelector: metav1.ListOptions{LabelSelector: fmt.Sprintf("%s=%s", "encryption.apiserver.operator.openshift.io/component", "kms")},
+			encryptionSecretSelector: metav1.ListOptions{LabelSelector: fmt.Sprintf("%s=%s", "encryption.apiserver.operator.uccp.io/component", "kms")},
 			expectedActions: []string{
 				"list:pods:kms",
 				"get:secrets:kms",
-				"list:secrets:openshift-config-managed",
-				"list:secrets:openshift-config-managed",
+				"list:secrets:uccp-config-managed",
+				"list:secrets:uccp-config-managed",
 			},
 		},
 	}
@@ -168,9 +168,9 @@ func TestPruneController(t *testing.T) {
 			}()
 			fakeKubeClient := fake.NewSimpleClientset(append(rawSecrets, writeKeySecret, fakePod, encryptionConfig)...)
 			eventRecorder := events.NewRecorder(fakeKubeClient.CoreV1().Events(scenario.targetNamespace), "test-encryptionKeyController", &corev1.ObjectReference{})
-			// we pass "openshift-config-managed" and $targetNamespace ns because the controller creates an informer for secrets in that namespace.
+			// we pass "uccp-config-managed" and $targetNamespace ns because the controller creates an informer for secrets in that namespace.
 			// note that the informer factory is not used in the test - it's only needed to create the controller
-			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "openshift-config-managed", scenario.targetNamespace)
+			kubeInformers := v1helpers.NewKubeInformersForNamespaces(fakeKubeClient, "uccp-config-managed", scenario.targetNamespace)
 			fakeSecretClient := fakeKubeClient.CoreV1()
 
 			deployer, err := encryptiondeployer.NewRevisionLabelPodDeployer("revision", scenario.targetNamespace, kubeInformers, nil, fakeKubeClient.CoreV1(), fakeSecretClient, encryptiondeployer.StaticPodNodeProvider{OperatorClient: fakeOperatorClient})

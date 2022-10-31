@@ -9,10 +9,10 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	kyaml "k8s.io/apimachinery/pkg/util/yaml"
 
-	assets "github.com/openshift/library-go/pkg/operator/apiserver/audit/bindata"
-	libgoapiserver "github.com/openshift/library-go/pkg/operator/configobserver/apiserver"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceapply"
-	"github.com/openshift/library-go/pkg/operator/resource/resourceread"
+	assets "github.com/uccps-samples/library-go/pkg/operator/apiserver/audit/bindata"
+	libgoapiserver "github.com/uccps-samples/library-go/pkg/operator/configobserver/apiserver"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceapply"
+	"github.com/uccps-samples/library-go/pkg/operator/resource/resourceread"
 )
 
 const (
@@ -69,7 +69,7 @@ func getRawAuditPolicies(targetName, targetNamespace string) ([]byte, error) {
 
 // NewAuditPolicyPathGetter returns a path getter for audit policy file mounted into the given path of a Pod as a directory.
 //
-// openshift-apiserver and oauth-apiserver mounts the audit policy ConfigMap into
+// uccp-apiserver and oauth-apiserver mounts the audit policy ConfigMap into
 // the above path inside the Pod.
 func NewAuditPolicyPathGetter(path string) (libgoapiserver.AuditPolicyPathGetterFunc, error) {
 	return newAuditPolicyPathGetter(path)

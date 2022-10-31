@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/fsouza/go-dockerclient"
-	dockerv10 "github.com/openshift/api/image/docker10"
+	dockerv10 "github.com/uccps-samples/api/image/docker10"
 )
 
 // tests of running registries are done in the integration client test

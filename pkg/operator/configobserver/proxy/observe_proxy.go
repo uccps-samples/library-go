@@ -6,10 +6,10 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 
-	configv1 "github.com/openshift/api/config/v1"
-	configlistersv1 "github.com/openshift/client-go/config/listers/config/v1"
-	"github.com/openshift/library-go/pkg/operator/configobserver"
-	"github.com/openshift/library-go/pkg/operator/events"
+	configv1 "github.com/uccps-samples/api/config/v1"
+	configlistersv1 "github.com/uccps-samples/client-go/config/listers/config/v1"
+	"github.com/uccps-samples/library-go/pkg/operator/configobserver"
+	"github.com/uccps-samples/library-go/pkg/operator/events"
 )
 
 type ProxyLister interface {
@@ -26,7 +26,7 @@ type observeProxyFlags struct {
 	configPath []string
 }
 
-// ObserveProxyConfig observes the proxy.config.openshift.io/cluster object and writes
+// ObserveProxyConfig observes the proxy.config.uccp.io/cluster object and writes
 // its content to an unstructured object in a string map at the path from the constructor
 func (f *observeProxyFlags) ObserveProxyConfig(genericListers configobserver.Listers, recorder events.Recorder, existingConfig map[string]interface{}) (ret map[string]interface{}, _ []error) {
 	defer func() {
